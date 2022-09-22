@@ -20,10 +20,17 @@ using namespace std;
 
 static const size_t DIM = 16;
 static const float SCALE = 0.5;
+static const float STEP = 1;
+static const float SCALERATE = 0.1;
+static const float INITSCALE = 1;
+static const float PI = acos(-1);
+static const float ROTATESCALE = 204800 * 2;
 
 //----------------------------------------------------------------------------------------
 // Constructor
-A1::A1() : current_col(0), m(DIM) {
+A1::A1()
+    : current_col(0), m(DIM), scale(INITSCALE), rotate(0), persistent(true),
+      drag(false) {
   cell_colour[0] = 0.5f;
   cell_colour[1] = 0.5f;
   cell_colour[2] = 0.5f;
@@ -42,6 +49,32 @@ A1::A1() : current_col(0), m(DIM) {
 //----------------------------------------------------------------------------------------
 // Destructor
 A1::~A1() {}
+
+void A1::initState() {
+  cell_colour[0] = 0.5f;
+  cell_colour[1] = 0.5f;
+  cell_colour[2] = 0.5f;
+  floor_colour[0] = 0.2f;
+  floor_colour[1] = 0.2f;
+  floor_colour[2] = 0.2f;
+  avatar_colour[0] = 0.7f;
+  avatar_colour[1] = 0.7f;
+  avatar_colour[2] = 0.7f;
+
+  colour[0] = floor_colour[0];
+  colour[1] = floor_colour[1];
+  colour[2] = floor_colour[2];
+  current_col =0;
+  persistent = true;
+  drag = false;
+  scale = 1;
+  rotate = 0;
+  m.reset();
+  initGrid();
+  initCell();
+  initFloor();
+  initAvatar();
+}
 
 //----------------------------------------------------------------------------------------
 /*
@@ -94,35 +127,70 @@ void A1::init() {
       float(m_framebufferWidth) / float(m_framebufferHeight), 1.0f, 1000.0f);
 }
 
-void A1::updateAvatar(float x_amount, float y_amount, bool init = false) {
+void A1::updateMaze(int new_x, int new_y) {
+  m.setValue(new_x, new_y, 0);
+  GLfloat v[3 * 8 * 256];
+  glBindBuffer(GL_ARRAY_BUFFER, m_cell_vbo);
+  glGetBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(v), v);
+  int idx;
+  for (int i = 0; i < 3 * 8 * 256; i += 24) {
+    if (v[i] == new_x && v[i + 2] == new_y) {
+      idx = i;
+      break;
+    }
+  }
+
+  unsigned int indices[36 * 256];
+
+  glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_cell_ebo);
+  glGetBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(indices), indices);
+  for (int i = 0; i < 36; i++) {
+    indices[idx / 24 * 36 + i] = 0;
+  }
+
+  glBufferSubData(GL_ELEMENT_ARRAY_BUFFER, 0, sizeof(indices), indices);
+}
+
+void A1::updateAvatar(float x_amount, float y_amount, bool init = false,
+                      bool shift = false) {
+  float x = avatar.get_x();
+  float y = avatar.get_z();
+  float new_x = (x + x_amount);
+  float new_y = (y + y_amount);
+
   if (!init) {
-    float x = avatar.get_x();
-    float y = avatar.get_z();
-    float new_x = (x + x_amount);
-    float new_y = (y + y_amount);
-    printf("new_x: %d\n", (int(new_x + avatar.get_r())));
-    printf("float amount new_x %f\n",new_x + avatar.get_r());
-    printf("new_y: %d\n", int(new_y));
+    // printf("new_x: %d\n", (int(new_x + avatar.get_r())));
+    // printf("float amount new_x %f\n", new_x + avatar.get_r());
+    // printf("new_y: %d\n", int(new_y));
     if (x_amount > 0 &&
-        (m.getValue(int(new_x + avatar.get_r()), int(new_y)) == 1)) {
-      if (new_x + avatar.get_r() >= int(new_x + avatar.get_r())) {
-        x_amount = int(new_x+avatar.get_r())-x-avatar.get_r();
-        printf("x_amount, %f\n", x_amount);
+        (m.getValue(int(new_x + avatar.get_r()) - 1, int(new_y)) == 1)) {
+      if (shift) {
+        updateMaze(int(new_x), int(new_y));
       } else {
         return;
       }
     }
     if (x_amount < 0 &&
         (m.getValue(int(new_x - avatar.get_r()), int(new_y)) == 1)) {
-      return;
+      if (shift) {
+        updateMaze(int(new_x), int(new_y));
+      } else {
+        return;
+      }
     }
     if (y_amount > 0 &&
-        (m.getValue(int(new_x), int(new_y + avatar.get_r())) == 1)) {
-      return;
+        (m.getValue(int(new_x), int(new_y + avatar.get_r()) - 1) == 1)) {
+      if (shift) {
+        updateMaze(int(new_x), int(new_y));
+      } else
+        return;
     }
     if (y_amount < 0 &&
-        (m.getValue(int(new_x), int(new_y + avatar.get_r())) == 1)) {
-      return;
+        (m.getValue(int(new_x), int(new_y - avatar.get_r())) == 1)) {
+      if (shift) {
+        updateMaze(int(new_x), int(new_y));
+      } else
+        return;
     }
   }
 
@@ -383,8 +451,11 @@ void A1::appLogic() {
   m_shader.enable();
   glEnable(GL_DEPTH_TEST);
 
-  glBindVertexArray(m_cell_vao);
-  glDrawElements(GL_TRIANGLES, 36 * 256, GL_UNSIGNED_INT, 0);
+  // glBindVertexArray(m_cell_vao);
+  // glDrawElements(GL_TRIANGLES, 36 * 256, GL_UNSIGNED_INT, 0);
+  if (persistent) {
+    rotate += rotate_rate;
+  }
 
   // Draw the cubes
   // Highlight the active square.
@@ -411,6 +482,10 @@ void A1::guiLogic() {
                windowFlags);
   if (ImGui::Button("Quit Application")) {
     glfwSetWindowShouldClose(m_window, GL_TRUE);
+  }
+
+  if (ImGui::Button("Reset")) {
+    initState();
   }
 
   if (ImGui::Button("Dig")) {
@@ -491,6 +566,8 @@ void A1::guiLogic() {
 void A1::draw() {
   // Create a global transformation for the model (centre it).
   mat4 W;
+  W = glm::scale(W, vec3(scale));
+  W = glm::rotate(W, 2 * PI * rotate, vec3(0, 1, 0));
   W = glm::translate(W, vec3(-float(DIM) / 2.0f, 0, -float(DIM) / 2.0f));
 
   m_shader.enable();
@@ -574,6 +651,26 @@ bool A1::mouseMoveEvent(double xPos, double yPos) {
     // Probably need some instance variables to track the current
     // rotation amount, and maybe the previous X position (so
     // that you can rotate relative to the *change* in X.
+    if (ImGui::IsMouseDragging(0)) {
+      if (xPos > previous_x) {
+        if (xPos >= mouse_pos) {
+          rotate = prev_rotate +(xPos - mouse_pos) / ROTATESCALE * 100; //+=
+        } else {
+          rotate = prev_rotate +(xPos - mouse_pos) / ROTATESCALE * 100; //-=
+        }
+      } else {
+        if (xPos <= mouse_pos) {
+          rotate = prev_rotate + (xPos - mouse_pos) / ROTATESCALE * 100; //-=
+        } else {
+          rotate = prev_rotate + (xPos - mouse_pos) / ROTATESCALE * 100; //+=
+        }
+      }
+      rotate_rate = (xPos - mouse_pos) / ROTATESCALE;
+      // printf("rotate angle %f\n", rotate);
+      persistent = false;
+      drag = true;
+    }
+    previous_x = xPos;
   }
 
   return eventHandled;
@@ -589,6 +686,27 @@ bool A1::mouseButtonInputEvent(int button, int actions, int mods) {
   if (!ImGui::IsMouseHoveringAnyWindow()) {
     // The user clicked in the window.  If it's the left
     // mouse button, initiate a rotation.
+    double xpos, ypos;
+    if (actions == GLFW_PRESS && button == GLFW_MOUSE_BUTTON_LEFT) {
+      if (persistent) {
+        glfwGetCursorPos(m_window, &xpos, &ypos);
+        mouse_pos = xpos;
+        persistent = false;
+        rotate_rate = 0;
+        prev_rotate = rotate;
+        printf("Reach here\n");
+      }
+      persistent = false;
+    }
+    if (actions == GLFW_RELEASE) {
+      prev_rotate = rotate;
+      if (!persistent) {
+        persistent = true;
+      }
+      if (!drag) {
+        rotate_rate = 0;
+      }
+    }
   }
 
   return eventHandled;
@@ -602,6 +720,11 @@ bool A1::mouseScrollEvent(double xOffSet, double yOffSet) {
   bool eventHandled(false);
 
   // Zoom in or out.
+  if (yOffSet > 0) {
+    scale += SCALERATE;
+  } else {
+    scale -= SCALERATE;
+  }
 
   return eventHandled;
 }
@@ -624,12 +747,18 @@ bool A1::windowResizeEvent(int width, int height) {
  */
 bool A1::keyInputEvent(int key, int action, int mods) {
   bool eventHandled(false);
-
   // Fill in with event handling code...
+
   if (action == GLFW_PRESS) {
     // Respond to some key events.
     if (key == GLFW_KEY_Q) {
       glfwSetWindowShouldClose(m_window, GL_TRUE);
+    }
+    if (key == GLFW_KEY_D) {
+      digMaze();
+    }
+    if (key == GLFW_KEY_R){
+      initState();
     }
     if (key == GLFW_KEY_SPACE) {
       // increase wall
@@ -640,16 +769,28 @@ bool A1::keyInputEvent(int key, int action, int mods) {
       changeWallHeight(false);
     }
     if (key == GLFW_KEY_UP) {
-      updateAvatar(0, -0.2);
+      if (mods == GLFW_MOD_SHIFT) {
+        updateAvatar(0, -1 * STEP, false, true);
+      } else
+        updateAvatar(0, -1 * STEP);
     }
     if (key == GLFW_KEY_DOWN) {
-      updateAvatar(0, 0.2);
+      if (mods == GLFW_MOD_SHIFT) {
+        updateAvatar(0, STEP, false, true);
+      } else
+        updateAvatar(0, STEP);
     }
     if (key == GLFW_KEY_LEFT) {
-      updateAvatar(-0.2, 0);
+      if (mods == GLFW_MOD_SHIFT) {
+        updateAvatar(-1 * STEP, 0, false, true);
+      } else
+        updateAvatar(-1 * STEP, 0);
     }
     if (key == GLFW_KEY_RIGHT) {
-      updateAvatar(0.2, 0);
+      if (mods == GLFW_MOD_SHIFT) {
+        updateAvatar(STEP, 0, false, true);
+      } else
+        updateAvatar(STEP, 0);
     }
   }
 

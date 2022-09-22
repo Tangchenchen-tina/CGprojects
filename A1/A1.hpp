@@ -36,11 +36,13 @@ private:
   void initCell();
   void initFloor();
   void initAvatar();
+  void initState();
   void drawCell(float x, float y, float h, int offset);
   void drawFloor();
   void digMaze();
   void changeWallHeight(bool incH);
-  void updateAvatar(float x, float y, bool init);
+  void updateAvatar(float x, float y, bool init, bool shift);
+  void updateMaze(int x,int y);
 
   // Fields related to the shader and uniforms.
   ShaderProgram m_shader;
@@ -77,4 +79,13 @@ private:
   int current_col;
   Avatar avatar;
   Maze m;
+  float scale;
+  float rotate;
+  float prev_rotate;
+  double mouse_pos;
+  bool persistent;
+  float rotate_rate;
+  double previous_x;
+  bool pos_dir;
+  bool drag;
 };
