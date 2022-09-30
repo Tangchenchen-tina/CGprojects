@@ -1,0 +1,10 @@
+Compilation:
+- In A1 directory, run 'premake4 gmake'
+- In A1 directory, run 'make'
+- In A1 directory, run './A1'
+
+Manual:
+- Finish all feature. Add two files 'Avatar.cpp' and 'Avatar.hpp' for Avatar class.
+- Assume each time sphere will move 1 step with length 1.
+- For persistent, release after clicking and dragging the left button of mouse will let the maze keep rotating. 
+If click the mouse button again, it will stop rotating.
