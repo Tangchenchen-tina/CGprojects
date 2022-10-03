@@ -32,7 +32,8 @@ enum MODE{
   SCALE_MODEL = 2,
   ROTATE_VIEW = 3,
   TRANSLATE_VIEW = 4,
-  PERSPECTIVE = 5
+  PERSPECTIVE = 5,
+  VIEWPORT = 6
 };
 
 class A2 : public CS488Window {
@@ -70,16 +71,23 @@ protected:
   void initGnomonsWorld();
   void initGnomonsCube();
   void initCube();
+  void initView();
+  void initViewCoord();
+  void initProj();
 	void reset();
 	void normalize(std::vector<glm::vec4> &vec);
 	void normalizePoint(glm::vec4 &v);
+  bool clipPoints(glm::vec4 &v1, glm::vec4 &v2);
 
-	glm::mat4 rotateCubeOp(int direction);
-	glm::mat4 translateCubeOp(int direction);
-  glm::mat4 scaleCubeOp(int direction);
+  glm::mat4 rotateCubeOp(std::vector<int> idx, glm::mat4 lastRotate);
+	glm::mat4 translateCubeOp(std::vector<int> idx, glm::mat4 lastRotate);
+  glm::mat4 scaleCubeOp(std::vector<int> idx, glm::mat4 lastRotate);
 
-  glm::mat4 rotateViewOp(int direction);
-  glm::mat4 translateViewOp(int direction);
+  glm::mat4 rotateViewOp(std::vector<int> idx, glm::mat4 lastRotate);
+  glm::mat4 translateViewOp(std::vector<int> idx, glm::mat4 lastRotate);
+  glm::mat4 projection(std::vector<int> idx, glm::mat4 lastRotate);
+
+  void createNewView(float xPos, float yPos);
 
   ShaderProgram m_shader;
 
@@ -102,16 +110,24 @@ protected:
   // world coord
 	std::vector<glm::vec4> worldCoordV;
 
+  std::vector<glm::vec2> viewCoordV;
+
 	glm::mat4 TranslateCube;
 	glm::mat4 LastTranslateCube;
 	glm::mat4 RotateCube;
 	glm::mat4 LastRotateCube;
 	glm::mat4 ScaleCube;
   glm::mat4 LastScaleCube;
+
 	glm::mat4 TransCube;
+  glm::mat4 LastTransCube;
 
   glm::mat4 TransView;
   glm::mat4 LastTransView;
+
+  glm::mat4 Projection;
+  glm::mat4 LastProjection;
+  glm::mat4 view;
 
 	// mouse moving
   double init_mouse_pos;
@@ -123,6 +139,16 @@ protected:
 	float viewtop;
 	float viewbottom;
 
+  float near;
+  float prev_near;
+  float far;
+  float prev_far;
+  float fov;
+  float prev_fov;
+
 	int curr_button;
 	int mode = 0;
+
+  float prev_xpos;
+  float prev_ypos;
 };
