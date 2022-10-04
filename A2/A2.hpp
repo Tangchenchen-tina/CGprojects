@@ -78,6 +78,8 @@ protected:
 	void normalize(std::vector<glm::vec4> &vec);
 	void normalizePoint(glm::vec4 &v);
   bool clipPoints(glm::vec4 &v1, glm::vec4 &v2);
+  bool clipPoints3D(glm::vec4 &v1, glm::vec4 &v2);
+
 
   glm::mat4 rotateCubeOp(std::vector<int> idx, glm::mat4 lastRotate);
 	glm::mat4 translateCubeOp(std::vector<int> idx, glm::mat4 lastRotate);
@@ -85,7 +87,7 @@ protected:
 
   glm::mat4 rotateViewOp(std::vector<int> idx, glm::mat4 lastRotate);
   glm::mat4 translateViewOp(std::vector<int> idx, glm::mat4 lastRotate);
-  glm::mat4 projection(std::vector<int> idx, glm::mat4 lastRotate);
+  glm::mat4 projection(std::vector<int> idx);
 
   void createNewView(float xPos, float yPos);
 
@@ -151,4 +153,14 @@ protected:
 
   float prev_xpos;
   float prev_ypos;
+
+  float ratio_x;
+  float ratio_y;
+  float midx;
+  float midy;
+
+  float leftpos;
+  float rightpos;
+  float toppos;
+  float bottompos;
 };

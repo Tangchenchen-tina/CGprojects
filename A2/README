@@ -1,0 +1,9 @@
+Compilation:
+- In A2 directory, run 'premake4 gmake'
+- In A2 directory, run 'make'
+- In A2 directory, run './A2'
+
+Manual:
+- Finish all features.
+- The clip of near and far plane happens around 9 to 11 unit.
+- Code in A2.cpp and A2.hpp.
