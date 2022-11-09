@@ -1,0 +1,2274 @@
+==== Building A3 (debug) ====
+A3.cpp
+../A3.cpp: In member function ‘void A3::redo()’:
+../A3.cpp:159:15: error: no match for ‘operator*’ (operand type is ‘std::unordered_map<int, JointNodeInfo>’)
+     apply_map(*redo_map);
+               ^~~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:574:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec2<T, P> const & v1, T const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:574:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:582:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec2<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec2<T, P> const & v1, tvec1<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:582:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:590:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const T&, const glm::tvec2<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(T const & scalar, tvec2<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:590:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:598:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec2<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec1<T, P> const & v1, tvec2<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:598:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:606:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec2<T, P>&, const glm::tvec2<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec2<T, P> const & v1, tvec2<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:606:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:652:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v, T const & scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:652:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:661:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v, tvec1<T, P> const & scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:661:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:670:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const T&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(T const & scalar, tvec3<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:670:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:679:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec1<T, P> const & scalar, tvec3<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:679:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:688:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v1, tvec3<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:688:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec4.hpp:528:0,
+                 from ../../shared/include/glm/vec4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.inl:721:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, T)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tvec4<T, P> const & v, T scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.inl:721:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/vec4.hpp:35:0,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.hpp:393:28: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_DECL tvec4<T, P> operator*(tvec4<T, P> const & v, tvec1<T, P> const & scalar);
+                            ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.hpp:393:28: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec4.hpp:528:0,
+                 from ../../shared/include/glm/vec4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.inl:731:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(T, const glm::tvec4<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(T scalar, tvec4<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.inl:731:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/vec4.hpp:35:0,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.hpp:399:28: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec4<T, P>&)
+  GLM_FUNC_DECL tvec4<T, P> operator*(tvec1<T, P> const & scalar, tvec4<T, P> const & v);
+                            ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.hpp:399:28: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec4.hpp:528:0,
+                 from ../../shared/include/glm/vec4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.inl:741:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, const glm::tvec4<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tvec4<T, P> const & v1, tvec4<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.inl:741:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:428:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat2x2<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:428:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:436:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const T&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(T const & s, tmat2x2<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:436:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:444:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x2<T, P>::col_type glm::operator*(const glm::tmat2x2<T, P>&, const typename glm::tmat2x2<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat2x2<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:444:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:456:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x2<T, P>::row_type glm::operator*(const typename glm::tmat2x2<T, P>::col_type&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat2x2<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:456:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:468:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat2x2<T, P> const & m1, tmat2x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:468:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:478:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat2x2<T, P> const & m1, tmat3x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:478:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:490:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat2x2<T, P> const & m1, tmat4x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:490:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:382:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat2x3<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:382:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:390:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const T&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(T const & s, tmat2x3<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:390:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:398:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x3<T, P>::col_type glm::operator*(const glm::tmat2x3<T, P>&, const typename glm::tmat2x3<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat2x3<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:398:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:410:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x3<T, P>::row_type glm::operator*(const typename glm::tmat2x3<T, P>::col_type&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat2x3<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:410:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:421:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat2x3<T, P> const & m1, tmat2x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:421:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:433:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat2x3<T, P> const & m1, tmat3x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:433:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:463:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat2x3<T, P> const & m1, tmat4x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:463:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:383:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat2x4<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:383:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:391:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const T&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(T const & s, tmat2x4<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:391:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:399:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x4<T, P>::col_type glm::operator*(const glm::tmat2x4<T, P>&, const typename glm::tmat2x4<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat2x4<T, P>::col_type operator*(tmat2x4<T, P> const & m, typename tmat2x4<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:399:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:409:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x4<T, P>::row_type glm::operator*(const typename glm::tmat2x4<T, P>::col_type&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat2x4<T, P>::row_type operator*(typename tmat2x4<T, P>::col_type const & v, tmat2x4<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:409:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:417:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat2x4<T, P> const & m1, tmat4x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:417:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:458:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat2x4<T, P> const & m1, tmat2x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:458:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:472:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat2x4<T, P> const & m1, tmat3x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:472:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:427:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat3x2<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:427:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:436:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const T&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(T const & s, tmat3x2<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:436:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:445:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x2<T, P>::col_type glm::operator*(const glm::tmat3x2<T, P>&, const typename glm::tmat3x2<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat3x2<T, P>::col_type operator*(tmat3x2<T, P> const & m, typename tmat3x2<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:445:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:453:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x2<T, P>::row_type glm::operator*(const typename glm::tmat3x2<T, P>::col_type&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat3x2<T, P>::row_type operator*(typename tmat3x2<T, P>::col_type const & v, tmat3x2<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:453:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:462:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat3x2<T, P> const & m1, tmat2x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:462:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:487:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat3x2<T, P> const & m1, tmat3x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:487:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:499:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat3x2<T, P> const & m1, tmat4x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:499:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:483:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat3x3<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:483:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:492:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const T&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(T const & s, tmat3x3<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:492:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:501:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x3<T, P>::col_type glm::operator*(const glm::tmat3x3<T, P>&, const typename glm::tmat3x3<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat3x3<T, P>::col_type operator*(tmat3x3<T, P> const & m, typename tmat3x3<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:501:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:510:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x3<T, P>::row_type glm::operator*(const typename glm::tmat3x3<T, P>::col_type&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat3x3<T, P>::row_type operator*(typename tmat3x3<T, P>::col_type const & v, tmat3x3<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:510:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:519:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat3x3<T, P> const & m1, tmat3x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:519:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:555:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat3x3<T, P> const & m1, tmat2x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:555:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:567:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat3x3<T, P> const & m1, tmat4x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:567:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:427:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat3x4<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:427:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:436:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const T&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(T const & s, tmat3x4<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:436:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:445:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x4<T, P>::col_type glm::operator*(const glm::tmat3x4<T, P>&, const typename glm::tmat3x4<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat3x4<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:445:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:459:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x4<T, P>::row_type glm::operator*(const typename glm::tmat3x4<T, P>::col_type&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat3x4<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:459:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:472:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat3x4<T, P> const & m1, tmat4x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:472:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:521:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat3x4<T, P> const & m1, tmat2x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:521:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:535:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat3x4<T, P> const & m1, tmat3x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:535:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:464:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat4x2<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:464:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:474:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const T&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(T const & s, tmat4x2<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:474:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:484:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x2<T, P>::col_type glm::operator*(const glm::tmat4x2<T, P>&, const typename glm::tmat4x2<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat4x2<T, P>::col_type operator*(tmat4x2<T, P> const & m, typename tmat4x2<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:484:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:492:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x2<T, P>::row_type glm::operator*(const typename glm::tmat4x2<T, P>::col_type&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat4x2<T, P>::row_type operator*(typename tmat4x2<T, P>::col_type const & v, tmat4x2<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:492:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:531:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat4x2<T, P> const & m1, tmat3x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:531:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:543:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat4x2<T, P> const & m1, tmat4x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:543:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:509:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat4x3<T, P> const & m1, tmat2x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:509:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:502:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat4x2<T, P> const & m1, tmat2x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:502:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:464:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat4x3<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:464:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:474:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const T&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(T const & s, tmat4x3<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:474:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:484:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x3<T, P>::col_type glm::operator*(const glm::tmat4x3<T, P>&, const typename glm::tmat4x3<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat4x3<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:484:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:496:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x3<T, P>::row_type glm::operator*(const typename glm::tmat4x3<T, P>::col_type&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat4x3<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:496:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:521:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat4x3<T, P> const & m1, tmat3x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:521:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:563:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat4x3<T, P> const & m1, tmat4x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:563:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:590:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat4x4<T, P> const & m, T const  & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:590:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:600:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const T&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(T const & s, tmat4x4<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:600:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:610:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x4<T, P>::col_type glm::operator*(const glm::tmat4x4<T, P>&, const typename glm::tmat4x4<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat4x4<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:610:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:658:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x4<T, P>::row_type glm::operator*(const typename glm::tmat4x4<T, P>::col_type&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat4x4<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:658:54: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:672:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat4x4<T, P> const & m1, tmat2x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:672:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:686:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat4x4<T, P> const & m1, tmat3x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:686:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:704:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat4x4<T, P> const & m1, tmat4x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:704:35: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec1.hpp:315:0,
+                 from ../../shared/include/glm/detail/_vectorize.hpp:35,
+                 from ../../shared/include/glm/detail/func_trigonometric.inl:33,
+                 from ../../shared/include/glm/detail/func_trigonometric.hpp:205,
+                 from ../../shared/include/glm/trigonometric.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:110,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec1.inl:408:33: note: candidate: template<class T, glm::precision P> glm::tvec1<T, P> glm::operator*(const glm::tvec1<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tvec1<T, P> operator*(tvec1<T, P> const & v, T const & scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec1.inl:408:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec1.hpp:315:0,
+                 from ../../shared/include/glm/detail/_vectorize.hpp:35,
+                 from ../../shared/include/glm/detail/func_trigonometric.inl:33,
+                 from ../../shared/include/glm/detail/func_trigonometric.hpp:205,
+                 from ../../shared/include/glm/trigonometric.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:110,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec1.inl:415:33: note: candidate: template<class T, glm::precision P> glm::tvec1<T, P> glm::operator*(const T&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec1<T, P> operator*(T const & scalar, tvec1<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec1.inl:415:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec1.hpp:315:0,
+                 from ../../shared/include/glm/detail/_vectorize.hpp:35,
+                 from ../../shared/include/glm/detail/func_trigonometric.inl:33,
+                 from ../../shared/include/glm/detail/func_trigonometric.hpp:205,
+                 from ../../shared/include/glm/trigonometric.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:110,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec1.inl:422:33: note: candidate: template<class T, glm::precision P> glm::tvec1<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec1<T, P> operator*(tvec1<T, P> const & v1, tvec1<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec1.inl:422:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:314:33: note: candidate: template<class T, glm::precision P> glm::tquat<T, P> glm::operator*(const glm::tquat<T, P>&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tquat<T, P> operator*(tquat<T, P> const & q, tquat<T, P> const & p)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:314:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:320:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tquat<T, P>&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tquat<T, P> const & q, tvec3<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:320:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:330:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v, tquat<T, P> const & q)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:330:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:336:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tquat<T, P>&, const glm::tvec4<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tquat<T, P> const & q, tvec4<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:336:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:342:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tvec4<T, P> const & v, tquat<T, P> const & q)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:342:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:348:33: note: candidate: template<class T, glm::precision P> glm::tquat<T, P> glm::operator*(const glm::tquat<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tquat<T, P> operator*(tquat<T, P> const & q, T const & s)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:348:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*redo_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:355:33: note: candidate: template<class T, glm::precision P> glm::tquat<T, P> glm::operator*(const T&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tquat<T, P> operator*(T const & s, tquat<T, P> const & q)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:355:33: note:   template argument deduction/substitution failed:
+../A3.cpp:159:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*redo_map);
+                ^~~~~~~~
+../A3.cpp: In member function ‘void A3::undo()’:
+../A3.cpp:169:15: error: no match for ‘operator*’ (operand type is ‘std::unordered_map<int, JointNodeInfo>’)
+     apply_map(*curr_map);
+               ^~~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:574:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec2<T, P> const & v1, T const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:574:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:582:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec2<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec2<T, P> const & v1, tvec1<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:582:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:590:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const T&, const glm::tvec2<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(T const & scalar, tvec2<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:590:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:598:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec2<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec1<T, P> const & v1, tvec2<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:598:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec2.hpp:404:0,
+                 from ../../shared/include/glm/vec2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:97,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec2.inl:606:33: note: candidate: template<class T, glm::precision P> glm::tvec2<T, P> glm::operator*(const glm::tvec2<T, P>&, const glm::tvec2<T, P>&)
+  GLM_FUNC_QUALIFIER tvec2<T, P> operator*(tvec2<T, P> const & v1, tvec2<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec2.inl:606:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:652:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v, T const & scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:652:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:661:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v, tvec1<T, P> const & scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:661:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:670:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const T&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(T const & scalar, tvec3<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:670:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:679:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec1<T, P> const & scalar, tvec3<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:679:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec3.hpp:423:0,
+                 from ../../shared/include/glm/vec3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:98,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec3.inl:688:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v1, tvec3<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec3.inl:688:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec4.hpp:528:0,
+                 from ../../shared/include/glm/vec4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.inl:721:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, T)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tvec4<T, P> const & v, T scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.inl:721:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/vec4.hpp:35:0,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.hpp:393:28: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_DECL tvec4<T, P> operator*(tvec4<T, P> const & v, tvec1<T, P> const & scalar);
+                            ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.hpp:393:28: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec4.hpp:528:0,
+                 from ../../shared/include/glm/vec4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.inl:731:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(T, const glm::tvec4<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(T scalar, tvec4<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.inl:731:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/vec4.hpp:35:0,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.hpp:399:28: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec4<T, P>&)
+  GLM_FUNC_DECL tvec4<T, P> operator*(tvec1<T, P> const & scalar, tvec4<T, P> const & v);
+                            ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.hpp:399:28: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec4.hpp:528:0,
+                 from ../../shared/include/glm/vec4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:99,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec4.inl:741:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, const glm::tvec4<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tvec4<T, P> const & v1, tvec4<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec4.inl:741:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:428:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat2x2<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:428:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:436:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const T&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(T const & s, tmat2x2<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:436:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:444:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x2<T, P>::col_type glm::operator*(const glm::tmat2x2<T, P>&, const typename glm::tmat2x2<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat2x2<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:444:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:456:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x2<T, P>::row_type glm::operator*(const typename glm::tmat2x2<T, P>::col_type&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat2x2<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:456:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:468:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat2x2<T, P> const & m1, tmat2x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:468:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:478:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat2x2<T, P> const & m1, tmat3x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:478:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x2.hpp:228:0,
+                 from ../../shared/include/glm/mat2x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:100,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x2.inl:490:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat2x2<T, P>&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat2x2<T, P> const & m1, tmat4x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x2.inl:490:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:382:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat2x3<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:382:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:390:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const T&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(T const & s, tmat2x3<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:390:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:398:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x3<T, P>::col_type glm::operator*(const glm::tmat2x3<T, P>&, const typename glm::tmat2x3<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat2x3<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:398:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:410:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x3<T, P>::row_type glm::operator*(const typename glm::tmat2x3<T, P>::col_type&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat2x3<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:410:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:421:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat2x3<T, P> const & m1, tmat2x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:421:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:433:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat2x3<T, P> const & m1, tmat3x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:433:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x3.hpp:205:0,
+                 from ../../shared/include/glm/mat2x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:101,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x3.inl:463:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat2x3<T, P>&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat2x3<T, P> const & m1, tmat4x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x3.inl:463:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:383:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat2x4<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:383:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:391:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const T&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(T const & s, tmat2x4<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:391:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:399:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x4<T, P>::col_type glm::operator*(const glm::tmat2x4<T, P>&, const typename glm::tmat2x4<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat2x4<T, P>::col_type operator*(tmat2x4<T, P> const & m, typename tmat2x4<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:399:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:409:54: note: candidate: template<class T, glm::precision P> typename glm::tmat2x4<T, P>::row_type glm::operator*(const typename glm::tmat2x4<T, P>::col_type&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat2x4<T, P>::row_type operator*(typename tmat2x4<T, P>::col_type const & v, tmat2x4<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:409:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:417:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat2x4<T, P> const & m1, tmat4x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:417:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:458:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const glm::tmat2x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat2x4<T, P> const & m1, tmat2x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:458:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat2x4.hpp:207:0,
+                 from ../../shared/include/glm/mat2x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:102,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat2x4.inl:472:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat2x4<T, P>&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat2x4<T, P> const & m1, tmat3x2<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat2x4.inl:472:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat2x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:427:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat3x2<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:427:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:436:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const T&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(T const & s, tmat3x2<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:436:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:445:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x2<T, P>::col_type glm::operator*(const glm::tmat3x2<T, P>&, const typename glm::tmat3x2<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat3x2<T, P>::col_type operator*(tmat3x2<T, P> const & m, typename tmat3x2<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:445:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:453:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x2<T, P>::row_type glm::operator*(const typename glm::tmat3x2<T, P>::col_type&, const glm::tmat3x2<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat3x2<T, P>::row_type operator*(typename tmat3x2<T, P>::col_type const & v, tmat3x2<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:453:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:462:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat3x2<T, P> const & m1, tmat2x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:462:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:487:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat3x2<T, P> const & m1, tmat3x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:487:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x2.hpp:212:0,
+                 from ../../shared/include/glm/mat3x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:103,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x2.inl:499:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat3x2<T, P>&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat3x2<T, P> const & m1, tmat4x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x2.inl:499:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:483:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat3x3<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:483:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:492:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const T&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(T const & s, tmat3x3<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:492:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:501:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x3<T, P>::col_type glm::operator*(const glm::tmat3x3<T, P>&, const typename glm::tmat3x3<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat3x3<T, P>::col_type operator*(tmat3x3<T, P> const & m, typename tmat3x3<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:501:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:510:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x3<T, P>::row_type glm::operator*(const typename glm::tmat3x3<T, P>::col_type&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat3x3<T, P>::row_type operator*(typename tmat3x3<T, P>::col_type const & v, tmat3x3<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:510:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:519:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat3x3<T, P> const & m1, tmat3x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:519:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:555:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat3x3<T, P> const & m1, tmat2x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:555:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x3.hpp:235:0,
+                 from ../../shared/include/glm/mat3x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:104,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x3.inl:567:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat3x3<T, P>&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat3x3<T, P> const & m1, tmat4x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x3.inl:567:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:427:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat3x4<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:427:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:436:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const T&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(T const & s, tmat3x4<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:436:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:445:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x4<T, P>::col_type glm::operator*(const glm::tmat3x4<T, P>&, const typename glm::tmat3x4<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat3x4<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:445:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:459:54: note: candidate: template<class T, glm::precision P> typename glm::tmat3x4<T, P>::row_type glm::operator*(const typename glm::tmat3x4<T, P>::col_type&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat3x4<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:459:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:472:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat3x4<T, P> const & m1, tmat4x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:472:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:521:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const glm::tmat2x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat3x4<T, P> const & m1, tmat2x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:521:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat3x4.hpp:212:0,
+                 from ../../shared/include/glm/mat3x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:105,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat3x4.inl:535:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat3x4<T, P>&, const glm::tmat3x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat3x4<T, P> const & m1, tmat3x3<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat3x4.inl:535:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat3x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:464:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat4x2<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:464:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:474:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const T&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(T const & s, tmat4x2<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:474:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:484:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x2<T, P>::col_type glm::operator*(const glm::tmat4x2<T, P>&, const typename glm::tmat4x2<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat4x2<T, P>::col_type operator*(tmat4x2<T, P> const & m, typename tmat4x2<T, P>::row_type const & v)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:484:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:492:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x2<T, P>::row_type glm::operator*(const typename glm::tmat4x2<T, P>::col_type&, const glm::tmat4x2<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat4x2<T, P>::row_type operator*(typename tmat4x2<T, P>::col_type const & v, tmat4x2<T, P> const & m)
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:492:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:531:35: note: candidate: template<class T, glm::precision P> glm::tmat3x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x2<T, P> operator*(tmat4x2<T, P> const & m1, tmat3x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:531:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:543:35: note: candidate: template<class T, glm::precision P> glm::tmat4x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x2<T, P> operator*(tmat4x2<T, P> const & m1, tmat4x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:543:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:509:35: note: candidate: template<class T, glm::precision P> glm::tmat2x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x3<T, P> operator*(tmat4x3<T, P> const & m1, tmat2x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:509:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x2.hpp:217:0,
+                 from ../../shared/include/glm/mat4x2.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:106,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x2.inl:502:35: note: candidate: template<class T, glm::precision P> glm::tmat2x2<T, P> glm::operator*(const glm::tmat4x2<T, P>&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x2<T, P> operator*(tmat4x2<T, P> const & m1, tmat2x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x2.inl:502:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x2<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:464:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat4x3<T, P> const & m, T const & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:464:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:474:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const T&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(T const & s, tmat4x3<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:474:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:484:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x3<T, P>::col_type glm::operator*(const glm::tmat4x3<T, P>&, const typename glm::tmat4x3<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat4x3<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:484:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:496:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x3<T, P>::row_type glm::operator*(const typename glm::tmat4x3<T, P>::col_type&, const glm::tmat4x3<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat4x3<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:496:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:521:35: note: candidate: template<class T, glm::precision P> glm::tmat3x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x3<T, P> operator*(tmat4x3<T, P> const & m1, tmat3x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:521:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x3.hpp:217:0,
+                 from ../../shared/include/glm/mat4x3.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:107,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x3.inl:563:35: note: candidate: template<class T, glm::precision P> glm::tmat4x3<T, P> glm::operator*(const glm::tmat4x3<T, P>&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x3<T, P> operator*(tmat4x3<T, P> const & m1, tmat4x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x3.inl:563:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:590:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat4x4<T, P> const & m, T const  & s)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:590:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:600:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const T&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(T const & s, tmat4x4<T, P> const & m)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:600:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:610:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x4<T, P>::col_type glm::operator*(const glm::tmat4x4<T, P>&, const typename glm::tmat4x4<T, P>::row_type&)
+  GLM_FUNC_QUALIFIER typename tmat4x4<T, P>::col_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:610:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:658:54: note: candidate: template<class T, glm::precision P> typename glm::tmat4x4<T, P>::row_type glm::operator*(const typename glm::tmat4x4<T, P>::col_type&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER typename tmat4x4<T, P>::row_type operator*
+                                                      ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:658:54: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:672:35: note: candidate: template<class T, glm::precision P> glm::tmat2x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const glm::tmat2x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat2x4<T, P> operator*(tmat4x4<T, P> const & m1, tmat2x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:672:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:686:35: note: candidate: template<class T, glm::precision P> glm::tmat3x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const glm::tmat3x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat3x4<T, P> operator*(tmat4x4<T, P> const & m1, tmat3x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:686:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_mat4x4.hpp:240:0,
+                 from ../../shared/include/glm/mat4x4.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:108,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_mat4x4.inl:704:35: note: candidate: template<class T, glm::precision P> glm::tmat4x4<T, P> glm::operator*(const glm::tmat4x4<T, P>&, const glm::tmat4x4<T, P>&)
+  GLM_FUNC_QUALIFIER tmat4x4<T, P> operator*(tmat4x4<T, P> const & m1, tmat4x4<T, P> const & m2)
+                                   ^~~~~~~~
+../../shared/include/glm/detail/type_mat4x4.inl:704:35: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tmat4x4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec1.hpp:315:0,
+                 from ../../shared/include/glm/detail/_vectorize.hpp:35,
+                 from ../../shared/include/glm/detail/func_trigonometric.inl:33,
+                 from ../../shared/include/glm/detail/func_trigonometric.hpp:205,
+                 from ../../shared/include/glm/trigonometric.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:110,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec1.inl:408:33: note: candidate: template<class T, glm::precision P> glm::tvec1<T, P> glm::operator*(const glm::tvec1<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tvec1<T, P> operator*(tvec1<T, P> const & v, T const & scalar)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec1.inl:408:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec1.hpp:315:0,
+                 from ../../shared/include/glm/detail/_vectorize.hpp:35,
+                 from ../../shared/include/glm/detail/func_trigonometric.inl:33,
+                 from ../../shared/include/glm/detail/func_trigonometric.hpp:205,
+                 from ../../shared/include/glm/trigonometric.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:110,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec1.inl:415:33: note: candidate: template<class T, glm::precision P> glm::tvec1<T, P> glm::operator*(const T&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec1<T, P> operator*(T const & scalar, tvec1<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec1.inl:415:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/detail/type_vec1.hpp:315:0,
+                 from ../../shared/include/glm/detail/_vectorize.hpp:35,
+                 from ../../shared/include/glm/detail/func_trigonometric.inl:33,
+                 from ../../shared/include/glm/detail/func_trigonometric.hpp:205,
+                 from ../../shared/include/glm/trigonometric.hpp:35,
+                 from ../../shared/include/glm/glm.hpp:110,
+                 from ../../shared/cs488-framework/MeshConsolidator.hpp:5,
+                 from ../A3.hpp:8,
+                 from ../A3.cpp:3:
+../../shared/include/glm/detail/type_vec1.inl:422:33: note: candidate: template<class T, glm::precision P> glm::tvec1<T, P> glm::operator*(const glm::tvec1<T, P>&, const glm::tvec1<T, P>&)
+  GLM_FUNC_QUALIFIER tvec1<T, P> operator*(tvec1<T, P> const & v1, tvec1<T, P> const & v2)
+                                 ^~~~~~~~
+../../shared/include/glm/detail/type_vec1.inl:422:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec1<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:314:33: note: candidate: template<class T, glm::precision P> glm::tquat<T, P> glm::operator*(const glm::tquat<T, P>&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tquat<T, P> operator*(tquat<T, P> const & q, tquat<T, P> const & p)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:314:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:320:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tquat<T, P>&, const glm::tvec3<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tquat<T, P> const & q, tvec3<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:320:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:330:33: note: candidate: template<class T, glm::precision P> glm::tvec3<T, P> glm::operator*(const glm::tvec3<T, P>&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tvec3<T, P> operator*(tvec3<T, P> const & v, tquat<T, P> const & q)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:330:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec3<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:336:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tquat<T, P>&, const glm::tvec4<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tquat<T, P> const & q, tvec4<T, P> const & v)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:336:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:342:33: note: candidate: template<class T, glm::precision P> glm::tvec4<T, P> glm::operator*(const glm::tvec4<T, P>&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tvec4<T, P> operator*(tvec4<T, P> const & v, tquat<T, P> const & q)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:342:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tvec4<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:348:33: note: candidate: template<class T, glm::precision P> glm::tquat<T, P> glm::operator*(const glm::tquat<T, P>&, const T&)
+  GLM_FUNC_QUALIFIER tquat<T, P> operator*(tquat<T, P> const & q, T const & s)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:348:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   ‘std::unordered_map<int, JointNodeInfo>’ is not derived from ‘const glm::tquat<T, P>’
+     apply_map(*curr_map);
+                ^~~~~~~~
+In file included from ../../shared/include/glm/gtc/../gtc/quaternion.hpp:379:0,
+                 from ../../shared/include/glm/gtc/type_ptr.hpp:66,
+                 from ../A3.cpp:15:
+../../shared/include/glm/gtc/../gtc/quaternion.inl:355:33: note: candidate: template<class T, glm::precision P> glm::tquat<T, P> glm::operator*(const T&, const glm::tquat<T, P>&)
+  GLM_FUNC_QUALIFIER tquat<T, P> operator*(T const & s, tquat<T, P> const & q)
+                                 ^~~~~~~~
+../../shared/include/glm/gtc/../gtc/quaternion.inl:355:33: note:   template argument deduction/substitution failed:
+../A3.cpp:169:16: note:   candidate expects 2 arguments, 1 provided
+     apply_map(*curr_map);
+                ^~~~~~~~
+Makefile:134: recipe for target 'Debug/A3.o' failed
+make[1]: *** [Debug/A3.o] Error 1
+Makefile:16: recipe for target 'A3' failed
+make: *** [A3] Error 2

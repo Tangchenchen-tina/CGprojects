@@ -23,6 +23,7 @@ SceneNode::SceneNode(const std::string& name)
   : m_name(name),
 	m_nodeType(NodeType::SceneNode),
 	trans(mat4()),
+	transScale(mat4()),
 	isSelected(false),
 	m_nodeId(nodeInstanceCount++)
 {
@@ -35,6 +36,7 @@ SceneNode::SceneNode(const SceneNode & other)
 	: m_nodeType(other.m_nodeType),
 	  m_name(other.m_name),
 	  trans(other.trans),
+		transScale(other.transScale),
 	  invtrans(other.invtrans)
 {
 	for(SceneNode * child : other.children) {
@@ -98,7 +100,8 @@ void SceneNode::rotate(char axis, float angle) {
 
 //---------------------------------------------------------------------------------------
 void SceneNode::scale(const glm::vec3 & amount) {
-	trans = glm::scale(amount) * trans;
+	//trans = glm::scale(amount) * trans;
+	transScale = glm::scale(amount) * transScale;
 }
 
 //---------------------------------------------------------------------------------------

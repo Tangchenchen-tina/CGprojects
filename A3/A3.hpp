@@ -8,13 +8,30 @@
 #include "cs488-framework/MeshConsolidator.hpp"
 
 #include "SceneNode.hpp"
+#include "JointNode.hpp"
 
 #include <glm/glm.hpp>
 #include <memory>
+#include <set>
+#include <stack>
+#include <vector>
+#include <map>
+#include <unordered_map>
+
+using namespace glm;
+using namespace std;
 
 struct LightSource {
 	glm::vec3 position;
 	glm::vec3 rgbIntensity;
+};
+
+struct JointNodeInfo {
+	float angle_x;
+	float angle_y;
+	float angle_z;
+	mat4 transM;
+	bool isSelected;
 };
 
 
@@ -49,8 +66,30 @@ protected:
 
 	void initPerspectiveMatrix();
 	void uploadCommonSceneUniforms();
-	void renderSceneGraph(const SceneNode &node);
+	void renderSceneGraph(const SceneNode &node, mat4 modeltrans, mat4 modelScale);
 	void renderArcCircle();
+
+	void rotateTest(SceneNode &root);
+	void pickJoints();
+	void movePuppetXYZ(float x_amount, float y_amount, vector<int> idx);
+	void rotatePuppetXYZ(float curr_x, float curr_y);
+	void rotateJoints(float xpos, float ypos, bool rotateZ, bool pos_dirX, bool pos_dirY);
+	void rotateHead(float xpos, float ypos);
+
+	void initColorMap();
+
+	void pickingJoints();
+	void updateJointSet(int id);
+
+	void resetPos();
+	void resetOrin();
+	void resetJoints();
+	void redo();
+	void undo();
+	void updateUndoStack();
+	void updateRedoStack();
+	void apply_map(unordered_map<int, JointNodeInfo> map);
+
 
 	glm::mat4 m_perpsective;
 	glm::mat4 m_view;
@@ -79,4 +118,44 @@ protected:
 	std::string m_luaSceneFile;
 
 	std::shared_ptr<SceneNode> m_rootNode;
+
+	// new fields
+	bool Circle;
+	bool ZBuffer = true;
+	bool Backface_culling;
+	bool Frontface_culling;
+	int curr_mode;
+
+	float initX;
+	float initY;
+	float currX;
+	float currY;
+	float prevX;
+	float prevY;
+
+	mat4 transMatrix;
+	mat4 prev_transMatrix;
+
+	mat4 rotateMatrix;
+	mat4 prev_rotateMatrix;
+
+	mat4 rotateViewMatrix;
+
+	bool pick = false;
+	bool status_change;
+	bool redo_valid = false;
+	bool undo_valid = false;
+
+	JointNode * headJoint;
+
+	vec3 last_normP;
+
+
+	std::set<JointNode*> jointsSet;
+	std::map<float, int> colorMap;
+	// unordered_map<int, JointNodeInfo> undo_map;
+	// unordered_map<int, JointNodeInfo> redo_map;
+	vector<unordered_map<int, JointNodeInfo>> undo_stack;
+	vector<unordered_map<int, JointNodeInfo>> redo_stack;
+
 };

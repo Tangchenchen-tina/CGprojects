@@ -3,6 +3,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include "HitInfo.hpp"
 
 class Primitive {
 public:
@@ -11,12 +12,16 @@ public:
 
 class Sphere : public Primitive {
 public:
+  Sphere();
   virtual ~Sphere();
+  Primitive * nonh_sphere;
 };
 
 class Cube : public Primitive {
 public:
+  Cube();
   virtual ~Cube();
+  Primitive * nonh_box;
 };
 
 class NonhierSphere : public Primitive {
@@ -26,6 +31,7 @@ public:
   {
   }
   virtual ~NonhierSphere();
+  bool Hit(Ray ray, HitInfo hitInfo);
 
 private:
   glm::vec3 m_pos;
@@ -40,6 +46,8 @@ public:
   }
   
   virtual ~NonhierBox();
+  bool Hit(Ray ray, HitInfo hitInfo);
+
 
 private:
   glm::vec3 m_pos;
