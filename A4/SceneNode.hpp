@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Material.hpp"
+#include "HitInfo.hpp"
 
 #include <glm/glm.hpp>
 
@@ -23,7 +24,9 @@ public:
 	SceneNode(const SceneNode & other);
 
     virtual ~SceneNode();
-    
+
+    virtual bool Hit(Ray ray, HitInfo *hitInfo, glm::mat4 transMat);
+
 	int totalSceneNodes() const;
     
     const glm::mat4& get_transform() const;

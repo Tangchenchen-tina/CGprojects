@@ -12,6 +12,7 @@ public:
 		Material *mat = nullptr );
 
 	void setMaterial( Material *material );
+	bool Hit(Ray ray, HitInfo *hitInfo, glm::mat4 transMat);
 
 	Material *m_material;
 	Primitive *m_primitive;

@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 struct HitInfo{
+  float t;
   glm::vec3 hitPixel;
   glm::vec3 hitNormal;
   Material *material;

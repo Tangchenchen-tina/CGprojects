@@ -13,7 +13,7 @@
 // Use this #define to selectively compile your code to render the
 // bounding boxes around your mesh objects. Uncomment this option
 // to turn it on.
-//#define RENDER_BOUNDING_VOLUMES
+#define RENDER_BOUNDING_VOLUMES
 
 struct Triangle
 {
@@ -32,10 +32,27 @@ struct Triangle
 class Mesh : public Primitive {
 public:
   Mesh( const std::string& fname );
+	Mesh( std::vector<glm::vec3>& all_vertices, const std::vector<glm::vec3> &faces, bool bv);
+	virtual bool Hit(Ray ray, HitInfo * hitInfo) override;
+	 bool boundBoxHit(Ray ray, HitInfo * hitInfo);
+	#ifdef RENDER_BOUNDING_VOLUMES
+	bool boundVolume = true;
+#else
+  bool boundVolume = false;
+#endif
+
+
   
 private:
 	std::vector<glm::vec3> m_vertices;
 	std::vector<Triangle> m_faces;
+	glm::vec3 boundcenter;
+	double boundsize;
+	Primitive *nonh_box;
+	bool boundCreate = false;
+
+	
+
 
     friend std::ostream& operator<<(std::ostream& out, const Mesh& mesh);
 };

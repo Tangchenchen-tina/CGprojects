@@ -43,6 +43,10 @@ SceneNode::SceneNode(const SceneNode & other)
 	}
 }
 
+bool SceneNode::Hit(Ray ray, HitInfo *hitInfo,glm::mat4 transMat){
+
+}
+
 //---------------------------------------------------------------------------------------
 SceneNode::~SceneNode() {
 	for(SceneNode * child : children) {

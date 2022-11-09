@@ -8,6 +8,7 @@
 class Primitive {
 public:
   virtual ~Primitive();
+  virtual bool Hit(Ray ray, HitInfo * hitInfo);
 };
 
 class Sphere : public Primitive {
@@ -15,6 +16,8 @@ public:
   Sphere();
   virtual ~Sphere();
   Primitive * nonh_sphere;
+    virtual bool Hit(Ray ray, HitInfo * hitInfo) override;
+
 };
 
 class Cube : public Primitive {
@@ -22,6 +25,8 @@ public:
   Cube();
   virtual ~Cube();
   Primitive * nonh_box;
+    virtual bool Hit(Ray ray, HitInfo * hitInfo) override;
+
 };
 
 class NonhierSphere : public Primitive {
@@ -31,7 +36,7 @@ public:
   {
   }
   virtual ~NonhierSphere();
-  bool Hit(Ray ray, HitInfo hitInfo);
+  virtual bool Hit(Ray ray, HitInfo * hitInfo) override;
 
 private:
   glm::vec3 m_pos;
@@ -40,16 +45,14 @@ private:
 
 class NonhierBox : public Primitive {
 public:
-  NonhierBox(const glm::vec3& pos, double size)
-    : m_pos(pos), m_size(size)
-  {
-  }
+  NonhierBox(const glm::vec3& pos, double size);
   
   virtual ~NonhierBox();
-  bool Hit(Ray ray, HitInfo hitInfo);
+  virtual bool Hit(Ray ray, HitInfo * hitInfo) override;
 
 
 private:
   glm::vec3 m_pos;
   double m_size;
+  Primitive * meshBox;
 };

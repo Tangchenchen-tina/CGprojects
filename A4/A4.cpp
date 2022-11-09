@@ -8,6 +8,79 @@
 using namespace glm;
 using namespace std;
 
+const float EPSILON = 0.001;
+
+bool CheckHit(SceneNode *root, Ray ray, HitInfo *info, mat4 transMat) {
+  bool check = false;
+  if (root->m_nodeType == NodeType::GeometryNode) {
+    return root->Hit(ray, info, transMat);
+  } else {
+    for (SceneNode *node : root->children) {
+      mat4 trans = transMat * node->get_transform();
+      bool result = CheckHit(node, ray, info, trans);
+      if (!check) {
+        check = result;
+      }
+    }
+  }
+  return check;
+}
+
+vec3 RenderLight(Ray ray, HitInfo *info, const std::list<Light *> &lights,
+                 SceneNode *root, const vec3 &ambient, int reftimes) {
+  // TODO: ambient
+  PhongMaterial *phm = (PhongMaterial *)(info->material);
+  vec3 color = phm->getKD() * ambient;
+  for (Light *lgt : lights) {
+    Ray lightRay = Ray{info->hitPixel, lgt->position - info->hitPixel};
+    HitInfo lightInfo;
+    bool hit = CheckHit(root, lightRay, &lightInfo,root->get_transform());
+    if (!hit) {
+      vec3 n = normalize(info->hitNormal);
+      vec3 l = normalize(lightRay.dir);
+      vec3 r = normalize(-l + 2 * dot(l, n) * n);
+      vec3 v = normalize(ray.eye - info->hitPixel);
+      double rr = length(lightRay.dir);
+      float attenuation =
+          1.0f / (lgt->falloff[2] * rr * rr + lgt->falloff[1] * rr +
+                  (float)lgt->falloff[0]);
+      color += phm->getKD() * glm::max(0.0f, (float)dot(l, n)) * lgt->colour *
+               attenuation;
+      color += phm->getKS() *
+               pow(glm::max((float)dot(r, v), 0.0f), phm->getShine()) *
+               attenuation * lgt->colour;
+    }
+  }
+
+  if (reftimes > 0) {
+    vec3 l = -ray.dir;
+    vec3 reflectLight =
+        -l + 2 * dot(l, info->hitNormal) * info->hitNormal;
+    Ray refRay = Ray{info->hitPixel, reflectLight};
+    HitInfo refInfo;
+          refInfo.t = FLT_MAX;
+    if (CheckHit(root, refRay, &refInfo,root->get_transform())) {
+      cout << "SUCCESS hit object for " << reftimes << " time" << endl;
+
+        cout <<"Reflect Point = " << info->hitPixel.x << " " << info->hitPixel.y << " "
+             << info->hitPixel.z << endl;
+                cout <<"Reflect Light = " << reflectLight.x << " " << reflectLight.y << " "
+             << reflectLight.z << endl;
+        cout <<"Arrive Point = " << refInfo.hitPixel.x << " " << refInfo.hitPixel.y << " "
+             << refInfo.hitPixel.z << endl;
+
+      float refcoefficient = 0.5;
+      color = glm::mix(
+          color,
+          RenderLight(refRay, &refInfo, lights, root, ambient, reftimes - 1),
+          refcoefficient);
+    } else {
+      cout << "FAIL " << reftimes << " time" << endl;
+    }
+  }
+  return color;
+}
+
 void A4_Render(
     // What to render
     SceneNode *root,
@@ -49,7 +122,11 @@ void A4_Render(
 
   size_t h = image.height();
   size_t w = image.width();
-	size_t depth = (h/2)/tan(radians(fovy*0.5));
+
+  vec3 startColor = vec3(0.047, 0.482, 0.702);
+  vec3 endColor = vec3(0.949, 0.729, 0.91);
+
+  float depth = ((float)h / 2) / tan(radians(fovy * 0.5));
 
   // normallized: normal vector, view vector, light vector, reflection vector
   vec3 normView = normalize(view);
@@ -57,16 +134,38 @@ void A4_Render(
 
   for (uint y = 0; y < h; ++y) {
     for (uint x = 0; x < w; ++x) {
-			vec3 pixel = vec3{x-(w/2), y-(h/2), normView.z*depth* abs(y-(h/2))};
-			Ray ray = Ray{eye, pixel-eye}; // normalize?
+      const float xval = (float)(((float)w / 2) - (float)x) * -1;
+      const float yval = (float)(-(float)y + ((float)h / 2));
+      vec3 pixel = vec3(xval, yval, normView.z * depth);
 
+      Ray ray = Ray{eye, pixel - eye}; // normalize?
 
-      // Red:
-      image(x, y, 0) = (double)1.0;
+      HitInfo info;
+      info.t = FLT_MAX;
+      vec3 color = vec3(0.7, 0.7, 0.7); // += material->diffuse() * ambient;
+
+      if (CheckHit(root, ray, &info, root->get_transform())) {
+        cout << "HIT SUCCESS: " << info.t << endl;
+        cout << info.hitPixel.x << " " << info.hitPixel.y << " "
+             << info.hitPixel.z << endl;
+
+        color = RenderLight(ray, &info, lights, root, ambient, 1);
+        // PhongMaterial *phm = (PhongMaterial *)(info.material);
+        // color = phm->getKD();
+        // cout << endl;
+      }else{
+        // Paint background
+        float fraction = sqrt(x*x+y*y)/sqrt(w*w+y*y);
+        vec3 curr_color = startColor + fraction*(endColor-startColor);
+        color = curr_color;
+      }
+
+      // Red:g
+      image(x, y, 0) = (double)color.x;
       // Green:
-      image(x, y, 1) = (double)1.0;
+      image(x, y, 1) = (double)color.y;
       // Blue:
-      image(x, y, 2) = (double)1.0;
+      image(x, y, 2) = (double)color.z;
     }
   }
 }

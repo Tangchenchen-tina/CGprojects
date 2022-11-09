@@ -67,7 +67,7 @@ static MeshMap mesh_map;
 #  define GRLUA_DEBUG(x) do { std::cerr << x << std::endl; } while (0)
 #  define GRLUA_DEBUG_CALL do { std::cerr << __FUNCTION__ << std::endl; } while (0)
 #else
-#  define GRLUA_DEBUG(x) do { } while (0)
+#  define GRLUA_DEBUG(x) do { std::cout << "DEBUG: " << x << std::endl; } while (0)
 #  define GRLUA_DEBUG_CALL do { } while (0)
 #endif
 

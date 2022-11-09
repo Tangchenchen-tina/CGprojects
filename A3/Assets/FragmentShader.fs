@@ -37,20 +37,34 @@ vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
 
     float n_dot_l = max(dot(fragNormal, l), 0.0);
 
-	vec3 diffuse;
-	diffuse = material.kd * n_dot_l;
+    vec3 color;
+      if (n_dot_l > 0.95)
+       color = vec3(1.0, 1.0, 1.0); 
+      else if (n_dot_l > 0.5)
+       color = vec3(0.7, 0.7 ,0.7);
+      else if (n_dot_l > 0.25)
+       color = vec3(0.5, 0.5, 0.5);
+      else 
+       color = vec3(0.3, 0.3, 0.3);
 
-    vec3 specular = vec3(0.0);
+    vec3 result = ambientIntensity+material.kd* color *light.rgbIntensity;
+    return result;
 
-    if (n_dot_l > 0.0) {
-		// Halfway vector.
-		vec3 h = normalize(v + l);
-        float n_dot_h = max(dot(fragNormal, h), 0.0);
 
-        specular = material.ks * pow(n_dot_h, material.shininess);
-    }
+	// vec3 diffuse;
+	// diffuse = material.kd * n_dot_l;
 
-    return ambientIntensity + light.rgbIntensity * (diffuse + specular);
+    // vec3 specular = vec3(0.0);
+
+    // if (n_dot_l > 0.0) {
+	// 	// Halfway vector.
+	// 	vec3 h = normalize(v + l);
+    //     float n_dot_h = max(dot(fragNormal, h), 0.0);
+
+    //     specular = material.ks * pow(n_dot_h, material.shininess);
+    // }
+
+    // return ambientIntensity + light.rgbIntensity * (diffuse + specular);
 }
 
 void main() {
