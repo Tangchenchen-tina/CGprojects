@@ -7,6 +7,7 @@ GeometryNode::GeometryNode(const std::string &name, Primitive *prim,
                            Material *mat)
     : SceneNode(name), m_material(mat), m_primitive(prim) {
   m_nodeType = NodeType::GeometryNode;
+  m_primitive->bump = bump;
 }
 
 void GeometryNode::setMaterial(Material *mat) {
@@ -37,4 +38,9 @@ bool GeometryNode::Hit(Ray ray, HitInfo *hitInfo, glm::mat4 transMat) {
   } else {
     return false;
   }
+}
+
+void GeometryNode::set_bump(){
+  std::cout<<"SET BUMP"<<std::endl;
+    m_primitive->bump = true;
 }

@@ -9,6 +9,7 @@ class Primitive {
 public:
   virtual ~Primitive();
   virtual bool Hit(Ray ray, HitInfo * hitInfo);
+  bool bump = false;
 };
 
 class Sphere : public Primitive {

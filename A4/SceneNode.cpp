@@ -76,6 +76,16 @@ void SceneNode::add_child(SceneNode* child) {
 }
 
 //---------------------------------------------------------------------------------------
+void SceneNode::set_bump() {
+	bump = true;
+}
+
+	void SceneNode::set_mirror(){
+		mirror = true;
+	}
+
+
+//---------------------------------------------------------------------------------------
 void SceneNode::remove_child(SceneNode* child) {
 	children.remove(child);
 }

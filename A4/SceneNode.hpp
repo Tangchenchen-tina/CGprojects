@@ -42,6 +42,9 @@ public:
     void rotate(char axis, float angle);
     void scale(const glm::vec3& amount);
     void translate(const glm::vec3& amount);
+    void set_bump();
+    void set_mirror();
+
 
 
 	friend std::ostream & operator << (std::ostream & os, const SceneNode & node);
@@ -55,6 +58,8 @@ public:
 	NodeType m_nodeType;
 	std::string m_name;
 	unsigned int m_nodeId;
+    bool bump=false;
+    bool mirror = false;
 
 private:
 	// The number of SceneNode instances.

@@ -62,20 +62,21 @@ vec3 RenderLight(Ray ray, HitInfo *info, const std::list<Light *> &lights,
     if (CheckHit(root, refRay, &refInfo,root->get_transform())) {
       cout << "SUCCESS hit object for " << reftimes << " time" << endl;
 
-        cout <<"Reflect Point = " << info->hitPixel.x << " " << info->hitPixel.y << " "
-             << info->hitPixel.z << endl;
-                cout <<"Reflect Light = " << reflectLight.x << " " << reflectLight.y << " "
-             << reflectLight.z << endl;
-        cout <<"Arrive Point = " << refInfo.hitPixel.x << " " << refInfo.hitPixel.y << " "
-             << refInfo.hitPixel.z << endl;
+        // cout <<"Reflect Point = " << info->hitPixel.x << " " << info->hitPixel.y << " "
+        //      << info->hitPixel.z << endl;
+        //         cout <<"Reflect Light = " << reflectLight.x << " " << reflectLight.y << " "
+        //      << reflectLight.z << endl;
+        // cout <<"Arrive Point = " << refInfo.hitPixel.x << " " << refInfo.hitPixel.y << " "
+        //      << refInfo.hitPixel.z << endl;
 
-      float refcoefficient = 0.5;
+      float refcoefficient = 0;
+      if(root->mirror){
+        refcoefficient = 0.4;
+      }
       color = glm::mix(
           color,
           RenderLight(refRay, &refInfo, lights, root, ambient, reftimes - 1),
           refcoefficient);
-    } else {
-      cout << "FAIL " << reftimes << " time" << endl;
     }
   }
   return color;
@@ -138,16 +139,17 @@ void A4_Render(
       const float yval = (float)(-(float)y + ((float)h / 2));
       vec3 pixel = vec3(xval, yval, normView.z * depth);
 
-      Ray ray = Ray{eye, pixel - eye}; // normalize?
+      Ray ray = Ray{eye, pixel}; // normalize?
 
       HitInfo info;
       info.t = FLT_MAX;
       vec3 color = vec3(0.7, 0.7, 0.7); // += material->diffuse() * ambient;
+        // cout << "HIT here: "  << endl;
 
       if (CheckHit(root, ray, &info, root->get_transform())) {
-        cout << "HIT SUCCESS: " << info.t << endl;
-        cout << info.hitPixel.x << " " << info.hitPixel.y << " "
-             << info.hitPixel.z << endl;
+        // cout << "HIT SUCCESS: " << info.t << endl;
+        // cout << info.hitPixel.x << " " << info.hitPixel.y << " "
+        //      << info.hitPixel.z << endl;
 
         color = RenderLight(ray, &info, lights, root, ambient, 1);
         // PhongMaterial *phm = (PhongMaterial *)(info.material);
@@ -167,5 +169,6 @@ void A4_Render(
       // Blue:
       image(x, y, 2) = (double)color.z;
     }
+    std::cout<<"Percent Progress: " << 100*(float)y/h << "%" << std::endl;
   }
 }

@@ -1,0 +1,15 @@
+Compilation:
+- In A4 directory, run 'premake4 gmake'
+- In A4 directory, run 'make'
+To get nonhier, macho-cows, simple-cows image
+- In A4/Assets directory, run '../A4 nonhier.lua', or
+- In A4/Assets directory, run '../A4 macho-cows.lua', or
+- In A4/Assets directory, run '../A4 simple-cows.lua'
+To get sample image
+- In A4 directory, run './A4 sample.lua'
+
+Manual:
+- Finish all features.
+- The extra feature I added is 'Mirror reflections' and 'Bump Mapping'. To enable them, we could add SceneNode:set_mirror() or GeometryMode:set_bump() in .lua files.
+- The unique scene enable the mirro reflection and contains sphere, cube, mesh primitives. For stone and star mesh primitivs, I add bump mapping to them.
+- To use bounding volumn, should define RENDER_BOUNDING_VOLUMES in Mesh.hpp file and recompile.

@@ -2,11 +2,11 @@
 
 #include "Primitive.hpp"
 #include "HitInfo.hpp"
+#include "Mesh.hpp"
 #include <glm/ext.hpp>
 #include <glm/glm.hpp>
 #include <iosfwd>
 #include <iostream>
-#include "Mesh.hpp"
 #include <vector>
 
 using namespace glm;
@@ -55,7 +55,30 @@ bool NonhierSphere::Hit(Ray ray, HitInfo *hitInfo) {
       vec3 hitPixel = ray.eye + t * ray.dir;
       hitInfo->t = t;
       hitInfo->hitPixel = hitPixel;
-      hitInfo->hitNormal = normalize(hitPixel - m_pos);
+      float rand1 = 0;
+      float rand2 = 0;
+      float rand3 = 0;
+
+      if (bump) {
+        glm::vec3 pixel = ray.dir - ray.eye;
+
+        srand(int(33 *
+                  (pixel.x * pixel.y + pixel.x + pixel.y + pixel.x / pixel.y)));
+
+        rand1 = (float)(std::rand() % 100) / 100 *
+                (float)(pow(-1, std::rand() % 2));
+
+        srand(int(77 * (pixel.x * pixel.y)));
+
+        rand2 = (float)(std::rand() % 100) / 100 *
+                (float)(pow(-1, std::rand() % 2));
+
+        srand(int(100 * (pixel.x / pixel.y)));
+        rand3 = (float)(std::rand() % 100) / 100;
+      }
+      hitInfo->hitNormal =
+          normalize(hitPixel - m_pos) + vec3(rand1, rand2, rand3);
+
       return true;
     }
   }
@@ -64,36 +87,26 @@ bool NonhierSphere::Hit(Ray ray, HitInfo *hitInfo) {
 
 NonhierSphere::~NonhierSphere() {}
 
- NonhierBox::NonhierBox(const glm::vec3& pos, double size)
-    : m_pos(pos), m_size(size)
-  {
-    std::vector<glm::vec3> vertices;
-    vertices.push_back( m_pos+ glm::vec3(0.0, 0.0, 0.0));
-    vertices.push_back(m_pos + glm::vec3(m_size, 0.0, 0.0));
-    vertices.push_back( m_pos + glm::vec3(m_size, 0.0, m_size));
-    vertices.push_back( m_pos + glm::vec3(0.0, 0.0, m_size));
-    vertices.push_back( m_pos + glm::vec3(0.0, m_size, 0.0));
-    vertices.push_back( m_pos + glm::vec3(m_size, m_size, 0.0));
-    vertices.push_back( m_pos + glm::vec3(m_size, m_size, m_size));
-    vertices.push_back( m_pos + glm::vec3(0.0, m_size, m_size));
-    
-    std::vector<glm::vec3> triangle = {
-      glm::vec3(0, 1, 2),
-      glm::vec3(0, 2, 3),
-      glm::vec3(0, 7, 4),
-      glm::vec3(0, 3, 7),
-      glm::vec3(0, 4, 5),
-      glm::vec3(0, 5, 1),
-      glm::vec3(6, 2, 1),
-      glm::vec3(6, 1, 5),
-      glm::vec3(6, 5, 4),
-      glm::vec3(6, 4, 7),
-      glm::vec3(6, 7, 3),
-      glm::vec3(6, 3, 2)
-    };
+NonhierBox::NonhierBox(const glm::vec3 &pos, double size)
+    : m_pos(pos), m_size(size) {
+  std::vector<glm::vec3> vertices;
+  vertices.push_back(m_pos + glm::vec3(0.0, 0.0, 0.0));
+  vertices.push_back(m_pos + glm::vec3(m_size, 0.0, 0.0));
+  vertices.push_back(m_pos + glm::vec3(m_size, 0.0, m_size));
+  vertices.push_back(m_pos + glm::vec3(0.0, 0.0, m_size));
+  vertices.push_back(m_pos + glm::vec3(0.0, m_size, 0.0));
+  vertices.push_back(m_pos + glm::vec3(m_size, m_size, 0.0));
+  vertices.push_back(m_pos + glm::vec3(m_size, m_size, m_size));
+  vertices.push_back(m_pos + glm::vec3(0.0, m_size, m_size));
 
-    meshBox = new Mesh(vertices, triangle, false);
-  }
+  std::vector<glm::vec3> triangle = {
+      glm::vec3(0, 1, 2), glm::vec3(0, 2, 3), glm::vec3(0, 7, 4),
+      glm::vec3(0, 3, 7), glm::vec3(0, 4, 5), glm::vec3(0, 5, 1),
+      glm::vec3(6, 2, 1), glm::vec3(6, 1, 5), glm::vec3(6, 5, 4),
+      glm::vec3(6, 4, 7), glm::vec3(6, 7, 3), glm::vec3(6, 3, 2)};
+
+  meshBox = new Mesh(vertices, triangle, false);
+}
 
 bool NonhierBox::Hit(Ray ray, HitInfo *hitInfo) {
   // // check 6 faces
@@ -170,7 +183,6 @@ bool NonhierBox::Hit(Ray ray, HitInfo *hitInfo) {
   //   std::cout << glm::to_string(m_pos) << std::endl;
   //       std::cout << "ray "<< glm::to_string(ray.dir) << std::endl;
 
-
   //   if (hitPixel3.x >= m_pos.x && hitPixel3.x <= m_pos.x + m_size &&
   //       hitPixel3.z >= m_pos.z && hitPixel3.z <= m_pos.z + m_size) {
   //     hitInfo->hitNormal = downcenter - center;
@@ -204,9 +216,8 @@ bool NonhierBox::Hit(Ray ray, HitInfo *hitInfo) {
   //   }
   // }
   // return false;
+  meshBox->bump = bump;
   return meshBox->Hit(ray, hitInfo);
 }
 
-NonhierBox::~NonhierBox() {
-  delete meshBox;
-}
+NonhierBox::~NonhierBox() { delete meshBox; }
