@@ -1,6 +1,6 @@
 -- Create the top level root node named 'root'.
 rootNode = gr.node('root')
-rootNode:translate(0,0,-15)
+rootNode:translate(0,0,-0)
 
 bluegreen = gr.material({0.32, 0.87, 0.76}, {0.8, 0.8, 0.8}, 10.0)
 orange = gr.material({1, 0.647, 0}, {0.8, 0.8, 0.8}, 10.0)
@@ -10,19 +10,19 @@ back = gr.material({0.8, 0.647, 0}, {0.8, 0.8, 0.8}, 10.0)
 Upscale = 1.2
 Forescale = 5
 
-backNode = gr.mesh('sphere', 'back')
-backNode:scale(30, 30, 50)
+backNode = gr.mesh('spherecplx', 'back')
+backNode:scale(50, 50, 45)
 --backNode:rotate('y', 30)
 backNode:translate(0,-10,-50)
 backNode:set_material(back)
 rootNode:add_child(backNode)
 
-cube = gr.mesh('cube', 'back')
-cube:scale(1, 1, 1)
---backNode:rotate('y', 30)
-cube:translate(-6,0,1)
-cube:set_material(back)
-rootNode:add_child(cube)
+-- cube = gr.mesh('cube', 'back')
+-- cube:scale(1, 1, 1)
+-- --backNode:rotate('y', 30)
+-- cube:translate(-6,0,1)
+-- cube:set_material(back)
+-- rootNode:add_child(cube)
 
 ---------------- Torso ------------------
 TorsoNode = gr.node('torsenode')

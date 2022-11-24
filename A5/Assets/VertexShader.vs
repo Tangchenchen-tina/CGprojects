@@ -48,6 +48,8 @@ void main() {
 
 	TexCoords = mat2(0.0, -1.0, 1.0, 0.0)*aTexCoords;
 
+	fragPosLight /= fragPosLight.w;
+
 	mat4 biasMatrix = mat4(0.5, 0.0, 0.0, 0.0,0.0, 0.5, 0.0, 0.0,0.0, 0.0, 0.5, 0.0,0.5, 0.5, 0.5, 1.0);
 
 	ShadowCoord = biasMatrix *  fragPosLight;

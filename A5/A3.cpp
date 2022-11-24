@@ -43,6 +43,8 @@ const float TRANSSCALE = 300;
 const float ROTATESCALE = 100;
 const float TOLORANCE = 0.01;
 const float TOTALNODE = 50;
+const float PARTICLEMAX = 100;
+const float MAXLIFE = 25;
 
 //----------------------------------------------------------------------------------------
 // Constructor
@@ -89,14 +91,15 @@ void A3::init() {
   // MeshConsolidator class.
   unique_ptr<MeshConsolidator> meshConsolidator(new MeshConsolidator{
       getAssetFilePath("cube.obj"), getAssetFilePath("sphere.obj"),
-      getAssetFilePath("suzanne.obj"), getAssetFilePath("mouth.obj"),
-      getAssetFilePath("eyeslash.obj"), getAssetFilePath("nose.obj"),
-      getAssetFilePath("foot.obj"), getAssetFilePath("cylinder.obj"),
-      getAssetFilePath("innerSphere.obj"), getAssetFilePath("outerSphere.obj"),
-      getAssetFilePath("ship.obj"), getAssetFilePath("shipMidStripe.obj"),
-      getAssetFilePath("starbody.obj"), getAssetFilePath("starmouse.obj"),
-      getAssetFilePath("starpant.obj"), getAssetFilePath("plant1.obj"),
-      getAssetFilePath("plant2.obj"), getAssetFilePath("weapon.obj")});
+      getAssetFilePath("spherecplx.obj"), getAssetFilePath("suzanne.obj"),
+      getAssetFilePath("mouth.obj"), getAssetFilePath("eyeslash.obj"),
+      getAssetFilePath("nose.obj"), getAssetFilePath("foot.obj"),
+      getAssetFilePath("cylinder.obj"), getAssetFilePath("innerSphere.obj"),
+      getAssetFilePath("outerSphere.obj"), getAssetFilePath("ship.obj"),
+      getAssetFilePath("shipMidStripe.obj"), getAssetFilePath("starbody.obj"),
+      getAssetFilePath("starmouse.obj"), getAssetFilePath("starpant.obj"),
+      getAssetFilePath("plant1.obj"), getAssetFilePath("plant2.obj"),
+      getAssetFilePath("weapon.obj")});
 
   // Acquire the BatchInfoMap from the MeshConsolidator.
   meshConsolidator->getBatchInfoMap(m_batchInfoMap);
@@ -128,12 +131,81 @@ void A3::init() {
   initCubeMap();
   loadCubeMap();
 
-  // printf("colormapsize %d\n", colorMap.size());
+  initParticleSystem();
+  setupParticles();
+  cout << "setup particle SUCCESS" << endl;
+}
 
-  // Exiting the current scope calls delete automatically on meshConsolidator
-  // freeing all vertex data resources.  This is fine since we already copied
-  // this data to VBOs on the GPU.  We have no use for storing vertex data on
-  // the CPU side beyond this point.
+void A3::setupParticles() {
+  particleSys = ParticleSystem();
+  float life = rand() % 8 + 10;
+  particleSys.createParticle(0, 25, vec3(-11.2, 35.7, 55), vec3(0, -0.1, 0.1),
+                             0.1, life);
+  float life2 = rand() % 8 + 10;
+  particleSys.createParticle(0, 25, vec3(-9.5, 35.7, 55), vec3(0, -0.1, 0.1),
+                             0.1, life2);
+    float life3 = rand() % 8 + 10;
+  particleSys.createParticle(0, 25, vec3(11.2, 35.7, 55), vec3(0, -0.1, 0.1),
+                             0.1, life3); //set mode to 1
+  float life4 = rand() % 8 + 10;
+  particleSys.createParticle(0, 25, vec3(9.5, 35.7, 55), vec3(0, -0.1, 0.1),
+                             0.1, life4); //set mode to 1
+
+}
+
+void A3::initParticleSystem() {
+  vec3 cubeVertices[] = {// right
+                         vec3(1, 1, 1), vec3(1, 1, -1), vec3(1, -1, -1),
+                         vec3(1, -1, -1), vec3(1, -1, 1), vec3(1, 1, 1),
+                         // left
+                         vec3(-1, 1, 1), vec3(-1, -1, 1), vec3(-1, -1, -1),
+                         vec3(-1, -1, -1), vec3(-1, 1, -1), vec3(-1, 1, 1),
+
+                         // Up
+                         vec3(-1, 1, 1), vec3(-1, 1, -1), vec3(1, 1, -1),
+                         vec3(1, 1, -1), vec3(1, 1, 1), vec3(-1, 1, 1),
+                         // bottom
+                         vec3(-1, -1, 1), vec3(-1, -1, -1), vec3(1, -1, -1),
+                         vec3(1, -1, -1), vec3(1, -1, 1), vec3(-1, -1, 1),
+                         // front
+                         vec3(-1, 1, 1), vec3(1, 1, 1), vec3(1, -1, 1),
+                         vec3(1, -1, 1), vec3(-1, -1, 1), vec3(-1, 1, 1),
+                         // back
+                         vec3(-1, 1, -1), vec3(-1, -1, -1), vec3(1, -1, -1),
+                         vec3(1, -1, -1), vec3(1, 1, -1), vec3(-1, 1, -1)};
+
+  glGenVertexArrays(1, &m_vao_particle);
+  glBindVertexArray(m_vao_particle);
+
+  GLint poslocation = m_shader_particle.getAttribLocation("position");
+  glEnableVertexAttribArray(poslocation);
+  GLint offsetAttrib = m_shader_particle.getAttribLocation("offsetSize");
+  glEnableVertexAttribArray(offsetAttrib);
+  GLint colourAttrib = m_shader_particle.getAttribLocation("colour");
+  glEnableVertexAttribArray(colourAttrib);
+
+  glGenBuffers(1, &m_vbo_particle);
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo_particle);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(cubeVertices), cubeVertices,
+               GL_STATIC_DRAW);
+  glVertexAttribPointer(poslocation, 3, GL_FLOAT, GL_FALSE, 0, nullptr);
+
+  glGenBuffers(1, &m_vbo_particlepos);
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo_particlepos);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(GL_FLOAT) * particleSys.maxParticles * 4,
+               NULL, GL_STREAM_DRAW);
+  glVertexAttribPointer(offsetAttrib, 4, GL_FLOAT, GL_TRUE, 0, nullptr);
+
+  glGenBuffers(1, &m_vbo_particlecolour);
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo_particlecolour);
+  glBufferData(GL_ARRAY_BUFFER, sizeof(GL_FLOAT) * particleSys.maxParticles * 4,
+               NULL, GL_STREAM_DRAW);
+  glVertexAttribPointer(colourAttrib, 4, GL_FLOAT, GL_TRUE, 0, nullptr);
+
+  glBindVertexArray(0);
+  glBindBuffer(GL_ARRAY_BUFFER, 0);
+  // glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+  CHECK_GL_ERRORS;
 }
 
 void A3::initCubeMap() {
@@ -174,12 +246,24 @@ void A3::initCubeMap() {
 }
 
 void A3::loadCubeMap() {
-  vector<std::string> uwfaces = {"Assets/texture/underwater/uw_rt.jpg",
-                                 "Assets/texture/underwater/uw_lf.jpg",
-                                 "Assets/texture/underwater/uw_up.jpg",
-                                 "Assets/texture/underwater/uw_dn.jpg",
-                                 "Assets/texture/underwater/uw_ft.jpg",
-                                 "Assets/texture/underwater/uw_bk.jpg"};
+  // vector<std::string> uwfaces = {"Assets/texture/underwater/uw_rt.jpg",
+  //                                "Assets/texture/underwater/uw_lf.jpg",
+  //                                "Assets/texture/underwater/uw_up.jpg",
+  //                                "Assets/texture/underwater/uw_dn.jpg",
+  //                                "Assets/texture/underwater/uw_ft.jpg",
+  //                                "Assets/texture/underwater/uw_bk.jpg"};
+  // vector<std::string> uwfaces = {"Assets/texture/cartoon/right.jpg",
+  //                              "Assets/texture/cartoon/left.jpg",
+  //                              "Assets/texture/cartoon/top.jpg",
+  //                              "Assets/texture/cartoon/bottom.jpg",
+  //                              "Assets/texture/cartoon/front.jpg",
+  //                              "Assets/texture/cartoon/back.jpg"};
+  vector<std::string> uwfaces = {"Assets/texture/cartoon_nonclear/right.jpg",
+                                 "Assets/texture/cartoon_nonclear/left.jpg",
+                                 "Assets/texture/cartoon_nonclear/top.jpg",
+                                 "Assets/texture/cartoon_nonclear/bottom.jpg",
+                                 "Assets/texture/cartoon_nonclear/front.jpg",
+                                 "Assets/texture/cartoon_nonclear/back.jpg"};
 
   glGenTextures(1, &cubeTextureID);
   glBindTexture(GL_TEXTURE_CUBE_MAP, cubeTextureID);
@@ -345,7 +429,7 @@ void A3::initAnimationNodes() {
           rightUpperArmJoint = (JointNode *)node;
         } else if (node->m_name == "rightForeArmJoint") {
           rightForeArmJoint = (JointNode *)node;
-        } else if(node->m_name == "ship2Joint"){
+        } else if (node->m_name == "ship2Joint") {
           weaponNode = (JointNode *)node;
         }
       } else if (node->m_nodeType == NodeType::SceneNode) {
@@ -355,7 +439,7 @@ void A3::initAnimationNodes() {
           shipLNode = node;
         } else if (node->m_name == "shipNode2") {
           shipRNode = node;
-        } 
+        }
       }
       queue.emplace(node);
     }
@@ -623,6 +707,13 @@ void A3::createShaderProgram() {
       getAssetFilePath("CubeMapShader.fs").c_str());
   m_shader_cubemap.link();
 
+  m_shader_particle.generateProgramObject();
+  m_shader_particle.attachVertexShader(
+      getAssetFilePath("ParticleShader.vs").c_str());
+  m_shader_particle.attachFragmentShader(
+      getAssetFilePath("ParticleShader.fs").c_str());
+  m_shader_particle.link();
+
   m_shader_debug.generateProgramObject();
   m_shader_debug.attachVertexShader(getAssetFilePath("QuadShader.vs").c_str());
   m_shader_debug.attachFragmentShader(
@@ -759,23 +850,29 @@ void A3::mapVboDataToVertexShaderInputLocations() {
 void A3::initPerspectiveMatrix() {
   float aspect = ((float)m_windowWidth) / m_windowHeight;
   m_perpsective =
-      glm::perspective(degreesToRadians(60.0f), aspect, 0.1f, 100.0f);
+      glm::perspective(degreesToRadians(65.0f), aspect, 0.1f, 100.0f);
 }
 
 //----------------------------------------------------------------------------------------
 void A3::initViewMatrix() {
-  // m_view = glm::lookAt(vec3(0.0f, 0.0f, 15.0f), vec3(0.0f, 0.0f, -1.0f),
+  // ------------ Shadow test puppet mode
+  // m_view = glm::lookAt(vec3(0.0f, 0.0f, 14.0f), vec3(0.0f, 0.0f, -1.0f),
   //                      vec3(0.0f, 1.0f, 0.0f));
-
-  m_view = glm::lookAt(vec3(0.0f, 4.5f, 8.5f), vec3(0.0f, 6.0f, -1.0f),
+  //--------------J mode----------
+  // m_view = glm::lookAt(vec3(0.0f, 0.0f, 130.0f), vec3(0.0f, 0.0f, -1.0f),
+  //                      vec3(0.0f, 1.0f, 0.0f));
+  //--------------P mode
+  m_view = glm::lookAt(vec3(0.0f, 45.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
                        vec3(0.0f, 1.0f, 0.0f));
 }
 
 //----------------------------------------------------------------------------------------
 void A3::initLightSources() {
   // World-space position
-  m_light.position = vec3(2.0f, 10.0f, 10.0f);
-  // m_light.position = vec3(5.0f, 0.0f, 10.0f);
+  // -----------Normal mode--------------
+  m_light.position = vec3(3.0f, 2 * 30.0f, 2 * 30.0f);
+  //----------- Shadow test puppet mode-------------
+  //  m_light.position = vec3(0.0f, 0.0f, 15.0f);
   m_light.rgbIntensity = vec3(0.7f); // light
 }
 
@@ -814,13 +911,49 @@ void A3::uploadCommonSceneUniforms() {
   m_shader.disable();
 }
 
+void A3::updateParticles() {
+  particleSys.particlesCount = 0;
+  for (int i = 0; i < particleSys.maxParticles; i++) {
+    Particle &p = particleSys.particlesContainer[i];
+    if (p.life > 0.0f) {
+      p.life -= 1.0f;
+      if (p.life > 0.0f) {
+        p.pos += p.speed;
+        p.col.a = p.life / MAXLIFE + 0.4;
+        if (p.col.a >= 1) {
+          p.col.a = 1;
+        }
+
+        g_particule_position_size_data[4 * particleSys.particlesCount + 0] =
+            p.pos.x;
+        g_particule_position_size_data[4 * particleSys.particlesCount + 1] =
+            p.pos.y;
+        g_particule_position_size_data[4 * particleSys.particlesCount + 2] =
+            p.pos.z;
+        g_particule_position_size_data[4 * particleSys.particlesCount + 3] =
+            p.size;
+
+        g_particule_color_data[4 * particleSys.particlesCount + 0] = p.col.r;
+        g_particule_color_data[4 * particleSys.particlesCount + 1] = p.col.g;
+        g_particule_color_data[4 * particleSys.particlesCount + 2] = p.col.b;
+        g_particule_color_data[4 * particleSys.particlesCount + 3] = p.col.a;
+      } else {
+        if (p.mode == 0) {
+          p.reActive(vec3(0, LCurrZ, 0));
+        }
+      }
+      particleSys.particlesCount++;
+    }
+  }
+}
+
 //----------------------------------------------------------------------------------------
 /*
  * Called once per frame, before guiLogic().
  */
 void A3::appLogic() {
   // Place per frame, application logic here ...
-
+  updateParticles();
   uploadCommonSceneUniforms();
   draw();
   if (!pick) {
@@ -901,7 +1034,7 @@ void A3::guiLogic() {
   ImGui::PushID(0);
   if (ImGui::RadioButton("Race Mode (P)", &curr_mode, 0)) {
     pick = false;
-    m_view = glm::lookAt(vec3(0.0f, 4.5f, 8.5f), vec3(0.0f, 6.0f, -1.0f),
+    m_view = glm::lookAt(vec3(0.0f, 45.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
                          vec3(0.0f, 1.0f, 0.0f));
     uploadCommonSceneUniforms();
     draw();
@@ -909,7 +1042,7 @@ void A3::guiLogic() {
   ImGui::PopID();
   ImGui::PushID(1);
   if (ImGui::RadioButton("Travel Mode (J)", &curr_mode, 1)) {
-    m_view = glm::lookAt(vec3(0.0f, 0.0f, 15.0f), vec3(0.0f, 0.0f, -1.0f),
+    m_view = glm::lookAt(vec3(0.0f, 0.0f, 130.0f), vec3(0.0f, 0.0f, -1.0f),
                          vec3(0.0f, 1.0f, 0.0f));
   }
   ImGui::PopID();
@@ -938,7 +1071,8 @@ updateShaderUniforms(const ShaderProgram &shader, const GeometryNode &node,
                      const glm::mat4 &viewMatrix, const glm::mat4 &roottrans,
                      glm::mat4 &transM, glm::mat4 &transScale,
                      glm::mat4 &rotateViewMatrix, int curr_mode, bool pick,
-                     float farplane, mat4 lightProjection, GLuint shadowMap) {
+                     float farplane, mat4 lightProjection, GLuint shadowMap,
+                     bool shadowrender) {
 
   shader.enable();
   {
@@ -955,19 +1089,20 @@ updateShaderUniforms(const ShaderProgram &shader, const GeometryNode &node,
     // glUniform1i(location, shadowMap);
     CHECK_GL_ERRORS;
 
-    // location = shader.getUniformLocation("Model");
-    // mat4 model = roottrans * transM * node.trans * node.transScale *
-    // transScale; glUniformMatrix4fv(location, 1, GL_FALSE,
-    // value_ptr(model)); CHECK_GL_ERRORS;
+    location = shader.getUniformLocation("Model");
+    mat4 model = roottrans * transM * node.trans * node.transScale * transScale;
+    glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(model));
+    CHECK_GL_ERRORS;
 
-    // location = shader.getUniformLocation("lightProjection");
-    // mat4 proj = lightProjection;
-    // glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(proj));
-    // CHECK_GL_ERRORS;
+    location = shader.getUniformLocation("lightProjection");
+    mat4 proj = lightProjection;
+    glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(proj));
+    CHECK_GL_ERRORS;
 
-    // location = shader.getUniformLocation("far_plane");
-    // glUniform1f(location, farplane);
-    //  CHECK_GL_ERRORS;
+    location = shader.getUniformLocation("shadow");
+    int shadow = shadowrender;
+    glUniform1i(location, shadow);
+    CHECK_GL_ERRORS;
 
     if (!pick) {
       //-- Set NormMatrix:
@@ -1009,11 +1144,11 @@ void A3::updateSphereAnimation() {
 void A3::updateStarAnimation() {
   // shipRNode->rotate('x', -15);
   // shipRNode->rotate('x', -50);
-  if(near_to_mid){
-    if(curr_angle > mid_angle){
+  if (near_to_mid) {
+    if (curr_angle > far_angle) {
       shipRNode->rotate('x', -0.5);
       curr_angle -= 0.5;
-      if(curr_angle <= mid_angle){
+      if (curr_angle <= far_angle) {
         near_to_mid = false;
       }
     }
@@ -1069,9 +1204,9 @@ void A3::draw() {
     }
   }
 
-  updateSphereAnimation();
-  updateShipAnimation(0.005, 0.006);
-  updateStarAnimation();
+  // updateSphereAnimation();
+  // updateShipAnimation(0.005, 0.006);
+  // updateStarAnimation();
 
   mat4 modeltrans = mat4(1.0f);
   mat4 modeltransS = mat4(1.0f);
@@ -1081,28 +1216,39 @@ void A3::draw() {
   /*
   Shadow Map and Debug
   */
-  // glClear(GL_DEPTH_BUFFER_BIT);
-  // m_shader_shadow.enable();
-  // glEnable(GL_DEPTH_TEST);
-  // renderShadowScene(*m_rootNode, modeltrans, modeltransS);
-  // m_shader_shadow.disable();
-  // glViewport(0, 0, 1024, 768);
-  // glBindVertexArray(0);
-  // glBindTexture(GL_TEXTURE_2D, 0);
-  // glBindFramebuffer(GL_FRAMEBUFFER, 0);
-  // glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-  //-----------------------------------------
-  //--------------Debug shadow map-----------
-  //---------------------------------------
+  if (shadowMaprender) {
+    m_shader_shadow.enable();
+    glEnable(GL_DEPTH_TEST);
+    glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFBO);
+    glClear(GL_DEPTH_BUFFER_BIT);
+
+    renderShadowScene(*m_rootNode, modeltrans, modeltransS);
+    m_shader_shadow.disable();
+    glViewport(0, 0, 1024, 768);
+    glBindVertexArray(0);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+  }
+
+  // -----------------------------------------
+  // --------------Debug shadow map-----------
+  // ---------------------------------------
   // glDisable(GL_DEPTH_TEST);
   // glViewport(0, 0, 1024, 1024);
   // renderQuadScene(*m_rootNode, modeltrans, modeltransS);
   // glViewport(0, 0, 1024, 768);
 
-  glEnable(GL_DEPTH_TEST);
+  //-------------------------------------------
+  //------------ Normal render & CubeMap
+  //------------------------------------------
+  // glEnable(GL_DEPTH_TEST);
+
+  renderParticles();
 
   renderSceneGraph(*m_rootNode, modeltrans, modeltransS);
+
   renderCubeMap();
 
   glBindVertexArray(0);
@@ -1165,52 +1311,6 @@ void A3::renderQuadScene(const SceneNode &root, mat4 modeltrans,
   glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
   m_shader_debug.disable();
   glBindVertexArray(0);
-  // glEnable(GL_DEPTH_TEST);
-
-  // glViewport(0, 0, shadow_width, shadow_height);
-  // glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFBO);
-  // glClear(GL_DEPTH_BUFFER_BIT);
-
-  // glBindVertexArray(m_vao_meshData);
-  // mat4 transM = modeltrans * root.trans;
-  // mat4 transScale = modelScale * root.transScale;
-  // // mat4 transM = modeltrans *root.trans;
-  // for (const SceneNode *node : root.children) {
-  //   bool change_color = false;
-
-  //   mat4 rotateM = mat4(1.0f);
-
-  //   if (node->m_nodeType != NodeType::GeometryNode)
-  //     continue;
-
-  //   const GeometryNode *geometryNode = static_cast<const GeometryNode
-  //   *>(node);
-
-  //   // glm::mat4 root_trans =
-  //   //     transMatrix * m_view * rotateMatrix * inverse(m_view);
-  //   glm::mat4 root_trans = transMatrix * rotateMatrix;
-
-  //   m_shader_debug.enable();
-
-  //   glActiveTexture(GL_TEXTURE0);
-  //   glBindTexture(GL_TEXTURE_2D, shadowMap);
-  //   GLint location = m_shader_debug.getUniformLocation("shadowMap");
-  //   glUniform1i(location, shadowMap);
-  //   CHECK_GL_ERRORS;
-
-  //   // Get the BatchInfo corresponding to the GeometryNode's unique MeshId.
-  //   BatchInfo batchInfo = m_batchInfoMap[geometryNode->meshId];
-
-  //   //-- Now render the mesh:
-  //   glDrawArrays(GL_TRIANGLES, batchInfo.startIndex, batchInfo.numIndices);
-  //   m_shader_debug.disable();
-  // }
-
-  // for (const SceneNode *node : root.children) {
-  //   renderShadowScene(*node, transM, transScale); // recursion
-  // }
-  // // glBindFramebuffer(GL_FRAMEBUFFER, 0);
-  // CHECK_GL_ERRORS;
 }
 
 void A3::renderShadowScene(const SceneNode &root, mat4 modeltrans,
@@ -1218,14 +1318,12 @@ void A3::renderShadowScene(const SceneNode &root, mat4 modeltrans,
 
   glBindVertexArray(m_vao_meshData);
   glViewport(0, 0, shadow_width, shadow_height);
-  glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFBO);
+  // glBindFramebuffer(GL_FRAMEBUFFER, shadowMapFBO);
+  // glClear(GL_DEPTH_BUFFER_BIT);
   mat4 transM = modeltrans * root.trans;
   mat4 transScale = modelScale * root.transScale;
-  // mat4 transM = modeltrans *root.trans;
   for (const SceneNode *node : root.children) {
     bool change_color = false;
-
-    mat4 rotateM = mat4(1.0f);
 
     if (node->m_nodeType != NodeType::GeometryNode)
       continue;
@@ -1301,7 +1399,8 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
     glm::mat4 root_trans = transMatrix * rotateMatrix;
     updateShaderUniforms(m_shader, *geometryNode, m_view, root_trans, transM,
                          transScale, rotateViewMatrix, curr_mode, pick,
-                         far_plane, lightProjection, shadowMap);
+                         far_plane, lightProjection, shadowMap,
+                         shadowMaprender);
 
     // Get the BatchInfo corresponding to the GeometryNode's unique MeshId.
     BatchInfo batchInfo = m_batchInfoMap[geometryNode->meshId];
@@ -1315,6 +1414,50 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
   for (const SceneNode *node : root.children) {
     renderSceneGraph(*node, transM, transScale); // recursion
   }
+  CHECK_GL_ERRORS;
+}
+
+void A3::renderParticles() {
+  m_shader_particle.enable();
+  glEnable(GL_DEPTH_TEST);
+
+  GLint p_location = m_shader_particle.getUniformLocation("P");
+  GLint v_location = m_shader_particle.getUniformLocation("V");
+  GLint m_location = m_shader_particle.getUniformLocation("M");
+
+  glUniformMatrix4fv(p_location, 1, GL_FALSE, value_ptr(m_perpsective));
+  glUniformMatrix4fv(v_location, 1, GL_FALSE, value_ptr(m_view));
+  glUniformMatrix4fv(m_location, 1, GL_FALSE,
+                     value_ptr(transMatrix * rotateMatrix));
+  glBindVertexArray(m_vao_particle);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo_particlepos);
+  glBufferData(GL_ARRAY_BUFFER, particleSys.maxParticles * 4 * sizeof(GLfloat),
+               NULL, GL_STREAM_DRAW);
+  glBufferSubData(GL_ARRAY_BUFFER, 0,
+                  particleSys.particlesCount * 4 * sizeof(GLfloat),
+                  g_particule_position_size_data);
+
+  glBindBuffer(GL_ARRAY_BUFFER, m_vbo_particlecolour);
+  glBufferData(GL_ARRAY_BUFFER, particleSys.maxParticles * 4 * sizeof(GLfloat),
+               NULL, GL_STREAM_DRAW);
+  glBufferSubData(GL_ARRAY_BUFFER, 0,
+                  particleSys.particlesCount * 4 * sizeof(GLfloat),
+                  g_particule_color_data);
+
+  GLint posAttrib = m_shader_particle.getAttribLocation("position");
+  GLint offsetAttrib = m_shader_particle.getAttribLocation("offsetSize");
+  GLint colourAttrib = m_shader_particle.getAttribLocation("colour");
+
+  glVertexAttribDivisor(posAttrib, 0);
+  glVertexAttribDivisor(offsetAttrib, 1);
+  glVertexAttribDivisor(colourAttrib, 1);
+
+  glDrawArraysInstanced(GL_TRIANGLES, 0, 36, particleSys.particlesCount);
+
+  m_shader_particle.disable();
+
+  glBindVertexArray(0);
   CHECK_GL_ERRORS;
 }
 
@@ -1524,54 +1667,37 @@ bool A3::mouseMoveEvent(double xPos, double yPos) {
     midSelect = true;
   }
 
+  float x_amount = (xpos - initX) / TRANSSCALE;
+  float y_amount = -1 * (ypos - initY) / TRANSSCALE;
   if (curr_mode == 0) {
-    float x_amount = (xpos - initX) / TRANSSCALE;
-    float y_amount = -1 * (ypos - initY) / TRANSSCALE;
     movePuppetXYZ(x_amount, y_amount, idx);
-
-    float center_x = m_framebufferWidth / 2;
-    float center_y = m_framebufferHeight / 2;
-    float radius = std::min(center_x / 2, center_y / 2);
-    bool inCircle = false;
-    float xy_sqr = pow((xpos - center_x), 2) + pow((ypos - center_y), 2);
-    if (xy_sqr < radius * radius) {
-      inCircle = true;
-    }
-
-    float zval = sqrt(radius * radius - xy_sqr);
-    if (!inCircle) {
-      zval = 0;
-    }
-
-    vec3 P = vec3(xpos - center_x, -ypos + center_y, zval);
-    vec3 norm_P = P / radius;
-
-    float x_angle = 0;
-    float y_angle = 0;
-    float z_angle = 0;
-    if (rightSelect) {
-      Circle = true;
-      rotatePuppetXYZ(xpos, ypos);
-    }
-    last_normP = norm_P;
-  } else {
-    bool posdirX = (xpos > prevX) ? true : false;
-    bool posdirY = (ypos > prevY) ? true : false;
-    if (midSelect && leftSelect) {
-      rotateJoints(xpos, ypos, true, posdirX, posdirY);
-      status_change = true;
-    } else if (midSelect) {
-      rotateJoints(xpos, ypos, false, posdirX, posdirY);
-      status_change = true;
-    } else if (rightSelect) {
-      rotateHead(xpos, ypos);
-      status_change = true;
-      Circle = true;
-      rotatePuppetXYZ(xpos, ypos);
-    }
   }
-  prevX = xpos;
-  prevY = ypos;
+
+  float center_x = m_framebufferWidth / 2;
+  float center_y = m_framebufferHeight / 2;
+  float radius = std::min(center_x / 2, center_y / 2);
+  bool inCircle = false;
+  float xy_sqr = pow((xpos - center_x), 2) + pow((ypos - center_y), 2);
+  if (xy_sqr < radius * radius) {
+    inCircle = true;
+  }
+
+  float zval = sqrt(radius * radius - xy_sqr);
+  if (!inCircle) {
+    zval = 0;
+  }
+
+  vec3 P = vec3(xpos - center_x, -ypos + center_y, zval);
+  vec3 norm_P = P / radius;
+
+  float x_angle = 0;
+  float y_angle = 0;
+  float z_angle = 0;
+  if (rightSelect) {
+    Circle = true;
+    rotatePuppetXYZ(xpos, ypos);
+  }
+  last_normP = norm_P;
 
   return eventHandled;
 }
@@ -1694,12 +1820,12 @@ bool A3::keyInputEvent(int key, int action, int mods) {
     if (key == GLFW_KEY_P) {
       curr_mode = 0;
       pick = false;
-      m_view = glm::lookAt(vec3(0.0f, 4.5f, 8.5f), vec3(0.0f, 6.0f, -1.0f),
+      m_view = glm::lookAt(vec3(0.0f, 45.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
                            vec3(0.0f, 1.0f, 0.0f));
     }
     if (key == GLFW_KEY_J) {
       curr_mode = 1;
-      m_view = glm::lookAt(vec3(0.0f, 0.0f, 15.0f), vec3(0.0f, 0.0f, -1.0f),
+      m_view = glm::lookAt(vec3(0.0f, 0.0f, 130.0f), vec3(0.0f, 0.0f, -1.0f),
                            vec3(0.0f, 1.0f, 0.0f));
     }
     if (key == GLFW_KEY_T) {

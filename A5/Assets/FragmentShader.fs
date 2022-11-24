@@ -1,7 +1,7 @@
 #version 330
 
 uniform bool picking;
-uniform float far_plane;
+uniform int shadow;
 
 struct LightSource {
     vec3 position;
@@ -95,12 +95,14 @@ vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
    // ShadowCoord.z: 0.3-0.4
    // texture(shadowMap, ShadowCoord.xy).z < 0.1
    float visibility = 1.0;
-   float bias = 0.002;
-   vec4 ShadowC = ShadowCoord/ShadowCoord.w;
-   if(texture(shadowMap, ShadowC.xy).r < ShadowC.z-bias){
-      visibility = 0;
+   if(shadow == 1){
+      float bias = 0.01;
+      //vec3 ShadowC = ShadowCoord.xyz/ShadowCoord.w;
+      vec4 ShadowC = ShadowCoord;
+      if(texture(shadowMap, ShadowC.xy).r < ShadowC.z-bias){
+         visibility = 0;
+      }
    }
-   visibility = 1;
 
 
     vec3 result = ambientIntensity+ (visibility) * material.kd* color *light.rgbIntensity;
