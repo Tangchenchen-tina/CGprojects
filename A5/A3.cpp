@@ -32,11 +32,17 @@ using namespace std;
 #include <stack>
 #include <string.h>
 
+#include <AL/al.h>
+#include <AL/alc.h>
+
 // #include <IrrKlang/irrKlang.h>
 // using namespace irrklang;
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
+
+typedef uint32_t DWORD;
+typedef int8_t BYTE;
 
 using namespace glm;
 using namespace std;
@@ -69,7 +75,14 @@ A3::A3(const std::string &luaSceneFile)
 
 //----------------------------------------------------------------------------------------
 // Destructor
-A3::~A3() {}
+A3::~A3() {
+  alDeleteSources(1, &moveSource);
+
+  device = alcGetContextsDevice(context);
+  alcMakeContextCurrent(NULL);
+  alcDestroyContext(context);
+  alcCloseDevice(device);
+}
 
 //----------------------------------------------------------------------------------------
 /*
@@ -137,6 +150,8 @@ void A3::init() {
 
   initParticleSystem();
   setupParticles();
+
+  initMusicSound();
   cout << "setup particle SUCCESS" << endl;
 
   // irrklang::ISoundEngine * engine = irrklang::createIrrKlangDevice();
@@ -294,18 +309,6 @@ void A3::initCubeMap() {
 }
 
 void A3::loadCubeMap() {
-  // vector<std::string> uwfaces = {"Assets/texture/underwater/uw_rt.jpg",
-  //                                "Assets/texture/underwater/uw_lf.jpg",
-  //                                "Assets/texture/underwater/uw_up.jpg",
-  //                                "Assets/texture/underwater/uw_dn.jpg",
-  //                                "Assets/texture/underwater/uw_ft.jpg",
-  //                                "Assets/texture/underwater/uw_bk.jpg"};
-  // vector<std::string> uwfaces = {"Assets/texture/cartoon/right.jpg",
-  //                              "Assets/texture/cartoon/left.jpg",
-  //                              "Assets/texture/cartoon/top.jpg",
-  //                              "Assets/texture/cartoon/bottom.jpg",
-  //                              "Assets/texture/cartoon/front.jpg",
-  //                              "Assets/texture/cartoon/back.jpg"};
   vector<std::string> uwfaces = {"Assets/texture/cartoon_nonclear/right.jpg",
                                  "Assets/texture/cartoon_nonclear/left.jpg",
                                  "Assets/texture/cartoon_nonclear/top.jpg",
@@ -416,6 +419,96 @@ void A3::initLNodes() {
     }
     queue.pop();
   }
+}
+
+void A3::loadMusicWAVfile(const char * path, ALuint source, ALuint buffer){
+  FILE *fp = fopen(path, "rb");
+  char type[4];
+  DWORD size, chunkSize;
+  DWORD sampleRate, avgBytesPerSec;
+  DWORD dataSize;
+  short formatType, channels;
+  short bytesPerSample, bitsPerSample;
+
+  fread(type, sizeof(char), 4, fp);
+  if(type[0] != 'R' || type[1] != 'I' || type[2] != 'F' || type[3] != 'F')
+    cout << "Not RIFF"<<endl;
+
+  fread(&size, sizeof(DWORD), 1, fp);
+  fread(type, sizeof(char), 4, fp);
+  if(type[0] != 'W' || type[1] != 'A' || type[2] != 'V' || type[3] != 'E')
+    cout << "Not WAVE"<<endl;
+
+  fread(type, sizeof(char), 4, fp);
+  if(type[0] != 'f' || type[1] != 'm' || type[2] != 't' || type[3] != ' ')
+    cout << "Not fmt"<<endl;
+
+  fread(&chunkSize, sizeof(DWORD), 1, fp);
+  fread(&formatType, sizeof(short), 1, fp);
+  fread(&channels, sizeof(short), 1, fp);
+  fread(&sampleRate, sizeof(DWORD), 1, fp);
+  fread(&avgBytesPerSec, sizeof(DWORD), 1, fp);
+  fread(&bytesPerSample, sizeof(short), 1, fp);
+  fread(&bitsPerSample, sizeof(short), 1, fp);
+
+  fread(&type, sizeof(char), 4, fp);
+  if(type[0] != 'd' || type[1] != 'a' || type[2] != 't' || type[3] != 'a')
+    cout << "Not data"<<endl;
+
+  fread(&dataSize, sizeof(DWORD), 1, fp);
+
+  unsigned char * buf = new unsigned char[dataSize];
+  fread(buf, sizeof(BYTE), dataSize, fp);
+
+  ALuint frequency = sampleRate;
+  ALenum format = 0;
+  if(bitsPerSample == 8){
+    if(channels == 1){
+      format = AL_FORMAT_MONO8;
+      cout << "8" << endl;
+    }else if(channels == 2){
+      format = AL_FORMAT_STEREO8;
+      cout << "8" << endl;
+    }
+  }else if(bitsPerSample == 16){
+      if(channels == 1){
+      format = AL_FORMAT_MONO16;
+    }else if(channels == 2){
+      format = AL_FORMAT_STEREO16;
+    }
+  }
+
+  alBufferData(buffer, format, buf, dataSize, frequency/1.8);
+  alSourcei(source, AL_BUFFER, buffer);
+  fclose(fp);
+
+}
+
+
+void A3::initMusicSound(){
+  device = alcOpenDevice(NULL);
+  if(!device)
+    cout << "No device" << endl;
+  context = alcCreateContext(device, NULL);
+  if(!alcMakeContextCurrent(context))
+    cout<<"no context"<<endl;
+
+  ALfloat listenerOri[] = {0.0f,0.0f,1.0f,0.0f,1.0f, 1.0f};
+  alListener3f(AL_POSITION, 0, 0, 0);
+  alListener3f(AL_VELOCITY, 0, 0, 0);
+  alListenerfv(AL_ORIENTATION, listenerOri);
+
+  alGenSources((ALuint)1, &moveSource);
+  alSourcei(moveSource, AL_SOURCE_RELATIVE, AL_TRUE);
+  alSourcef(moveSource, AL_PITCH, 1);
+  alSourcef(moveSource, AL_GAIN, 0.4);
+  alSource3f(moveSource, AL_POSITION, 0,0,0);
+  alSource3f(moveSource, AL_VELOCITY, 0,0,0);
+  alSourcei(moveSource, AL_LOOPING, AL_FALSE);
+  alGenBuffers((ALuint)1, &moveBuffer);
+  
+  loadMusicWAVfile("Assets/sound/c3.wav", moveSource, moveBuffer);
+
 }
 
 void A3::generateChild(SceneNode *parent, LnodeInfo l) {
@@ -1450,7 +1543,7 @@ void A3::draw() {
     }
   }
 
-  // updateSphereAnimation();
+  updateSphereAnimation();
   // updateShipAnimation(0.005, 0.006);
   // updateStarAnimation();
   // if (Lmode == 0)
@@ -2120,6 +2213,8 @@ bool A3::keyInputEvent(int key, int action, int mods) {
       bulletout = true;
     }
     if (key == GLFW_KEY_UP) {
+      alSourcePlay(moveSource);
+      cout<<"sound effect"<<endl;
       moveup = true;
       Lmode = 2;
     }

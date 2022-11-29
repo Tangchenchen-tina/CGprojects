@@ -20,6 +20,9 @@
 #include <unordered_map>
 #include <vector>
 
+#include <AL/al.h>
+#include <AL/alc.h>
+
 using namespace glm;
 using namespace std;
 
@@ -302,7 +305,12 @@ protected:
   vec3 curr_bullet_loc;
 
   // Music
-  
+  void loadMusicWAVfile(const char *path, ALuint source, ALuint buffer);
+  void initMusicSound();
+  ALCdevice * device;
+  ALCcontext *context;
+  ALuint moveSource;
+  ALuint moveBuffer;
 
 
   // renderContral
