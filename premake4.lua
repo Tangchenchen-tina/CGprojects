@@ -4,7 +4,8 @@ includeDirList = {
     "shared",
     "shared/gl3w",
     "shared/imgui",
-    "shared/include"
+    "shared/include",
+    "shared/IrrKlang"
 }
 
 buildOptions = {"-std=c++14"}

@@ -3,6 +3,7 @@
 // Model-Space coordinates
 in vec3 position;
 in vec3 normal;
+in vec2 tileUV;
 
 struct LightSource {
     vec3 position;
@@ -29,6 +30,7 @@ out vec4 crntPos;
 out vec2 TexCoords;
 out vec4 fragPosLight;
 out vec4 ShadowCoord;
+out vec2 textCoords;
 
 layout (location=2) in vec2 aTexCoords;
 
@@ -47,6 +49,8 @@ void main() {
 	fragPosLight = lightProjection * crntPos;
 
 	TexCoords = mat2(0.0, -1.0, 1.0, 0.0)*aTexCoords;
+	
+	textCoords = tileUV;
 
 	fragPosLight /= fragPosLight.w;
 

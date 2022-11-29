@@ -21,6 +21,9 @@ void Particle::resetParticle(int mode, vec3 pos, vec3 speed, float size, float l
   //std::cout<<angle<<std::endl;
   this->speed = vec3(sin(angle)*cos(angle)/10, sin(angle)*sin(angle2)/10, (cos(angle)/10))+speed;
   this->speed.z = std::max((float)0.04, this->speed.z);
+  if(mode == 2){
+    this->speed = vec3(sin(angle)/5, sin(angle)*cos(angle2)/5, cos(angle)/5)+speed;
+  }
   //this->speed = speed;
   this->size = size;
   this->life = life;
@@ -29,7 +32,7 @@ void Particle::resetParticle(int mode, vec3 pos, vec3 speed, float size, float l
 }
 
 void Particle::reActive(vec3 move){
-  this->pos = this->initpos+move;
+  this->pos = move;
   float interval = std::max(13, std::rand()%int(initlife)+(int)initlife/2);
   this->life = interval;
 }

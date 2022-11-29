@@ -115,6 +115,10 @@ protected:
   void updateSphereAnimation();
   void updateShipAnimation(float Lspeed, float Rspeed);
   void updateStarAnimation();
+  void moveLboatAnimation(vec3 speed, int mode);
+  void hitAnimation(vec3 speed, int pos);
+  void hitBulletAnimation();
+  bool checkCollision();
 
   glm::mat4 m_perpsective;
   glm::mat4 m_view;
@@ -125,8 +129,10 @@ protected:
   GLuint m_vao_meshData;
   GLuint m_vbo_vertexPositions;
   GLuint m_vbo_vertexNormals;
+  GLuint m_vbo_vertexUVs;
   GLint m_positionAttribLocation;
   GLint m_normalAttribLocation;
+  GLint m_uvAttribLocation;
   ShaderProgram m_shader;
   GLsizei shadow_width = 1024;
   GLsizei shadow_height = 1024;
@@ -163,6 +169,10 @@ protected:
   std::string m_luaSceneFile;
 
   std::shared_ptr<SceneNode> m_rootNode;
+
+  // Texture Mapping
+  unsigned int sandTexture;
+  void initTextureMapping();
 
   // CubeMap
   GLuint m_vao_cubeMap;
@@ -239,7 +249,7 @@ protected:
   JointNode *rightUpperArmJoint;
   JointNode *rightForeArmJoint;
 
-  // Ship
+  // Left Ship
   SceneNode *shipLNode;
   SceneNode *shipRNode;
   JointNode *weaponNode;
@@ -248,22 +258,58 @@ protected:
   float LMinZ = -0.1;
   int Ldir = 0; // down
 
+  float leftbound = -9;
+  float origin = 0;
+  float rightbound = 7;
+  vec3 curr_L_loc = vec3(0,0,0);
+  float curr_L_uploc = 0;
+  float upbound = 7;
+  bool moveLeft = false;
+  bool moveRight = false;
+  bool moveup = false;
+  bool movedown = false;
+  int Lmode = 0;
+
+
+  // Right Ship
   float RMaxZ = 0.1;
   float RCurrZ = 0.04;
   float RMinZ = -0.1;
   int Rdir = 1; // up
 
-  bool near_to_mid;
-  bool mid_to_far;
-  bool near_to_far;
-  bool far_to_mid;
-  bool far_to_near;
-  bool mid_to_near;
+  bool near;
+  bool mid;
+  bool far;
   float mid_angle = -10;
-  float far_angle = -50;
+  float far_angle = -40;
+  float near_angle = 0;
   float curr_angle = 0;
+  int curr_loc = 0; // near = 0; mid = 1; far = 2;
+  vector<float> angleList = {near_angle, mid_angle, far_angle};
+  vector<vec3> curr_Lship_loc;
+  void updateCurrShipLoc(vec3 speed);
+
+  //Right Ship Weapon
+  float weapon_near_angle = 0;
+  float weapon_mid_angle = 40;
+  float weapon_far_angle = 70;
+  float weapon_curr_angle = 0;
+
+  // Right Ship Bullet
+  GeometryNode * bullet;
+  bool bulletout = false;
+  void initBullet(float angle);
+  vec3 curr_bullet_loc;
+
+  // Music
+  
+
 
   // renderContral
   bool cuberender = true;
   bool shadowMaprender = false;
+  bool particlerender = false;
+  bool texturerender = false;
+  bool toonrender = true;
+  bool cplxLSystemrender = false;
 };

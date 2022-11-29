@@ -15,6 +15,7 @@ pink = gr.material({1, 0.5, 0.5}, {0.4, 0.4, 0.4}, 10.0)
 darkpink = gr.material({1, 0.4, 0.4}, {0.4, 0.4, 0.4}, 10.0)
 red = gr.material({1, 0.1, 0.1}, {0.4, 0.4, 0.4}, 10.0)
 lightgreen = gr.material({0.651, 0.8392, 0.03}, {0.4, 0.4, 0.4}, 10.0)
+gray = gr.material({0.5, 0.5, 0.5}, {0.4, 0.4, 0.4}, 10.0)
 
 darkred = gr.material({0.698, 0.13, 0.13}, {0.4, 0.4, 0.4}, 10.0)
 darkorange = gr.material({0.93, 0.17, 0.17}, {0.4, 0.4, 0.4}, 10.0)
@@ -29,7 +30,23 @@ sphere_forward = 2
 --------------------------------------------------
 ------------------- Scene-------------------------
 --------------------------------------------------
+-- bullet = gr.mesh('sphere', 'bullet')
+-- bullet:scale(2, 2, 2)  -- d = 2 when scale = 1
+-- bullet:translate(-10.5, 37.5, 54)
+-- bullet:set_material(red)
+-- rootNode:add_child(bullet)
 
+-- bullet2 = gr.mesh('sphere', 'bullet')
+-- bullet2:scale(2, 2, 2)  -- d = 2 when scale = 1
+-- bullet2:translate(-10.5, 40, 51.5)
+-- bullet2:set_material(grass)
+-- rootNode:add_child(bullet2)
+
+-- bullet3 = gr.mesh('sphere', 'bullet')
+-- bullet3:scale(2, 2, 2)  -- d = 2 when scale = 1
+-- bullet3:translate(-10.5, 42, 55)
+-- bullet3:set_material(darkyellow)
+-- rootNode:add_child(bullet3)
 
 ---------------- OuterSphere & ------------------
 outerSphereNode = gr.node('outerSphereNode')
@@ -53,6 +70,20 @@ innerSphere:scale(1.0041*scale, 1.0041*scale, 1.0041*scale)
 innerSphere:translate(0, 0, 0)
 innerSphere:set_material(sand)
 innerSphereNode:add_child(innerSphere)
+
+
+--------------------------------------------------
+------------------- houses---------------------
+--------------------------------------------------
+
+house = gr.mesh('squirdhouse', 'house')
+house:scale(1.0041*4, 1.0041*4, 1.0041*4)
+house:rotate('y', -60)
+house:rotate('z', 25)
+house:rotate('x', 30)
+house:translate(-40, 55, 20)
+house:set_material(gray)
+innerSphereNode:add_child(house)
 
 --------------------------------------------------
 ------------------- Plants---------------------
@@ -239,7 +270,7 @@ shipNode2:rotate('x', 50)
 shipNode2:translate(-xtrans_ship, ytrans_ship-0.8, ztrans_ship2+0.18/0.22)
 rootNode:add_child(shipNode2)
 ship2Joint = gr.joint('ship2Joint',{0, 0, 0}, {-180, 0, 180}, {0, 0, 0})
-ship2Joint:rotate('y',-90)
+--ship2Joint:rotate('y',-90)
 shipNode2:add_child(ship2Joint)
 
 
@@ -257,6 +288,12 @@ ship2weapon:rotate('y', -90)
 ship2weapon:translate(0, 0.066*rootScale-2.5, 0)
 ship2weapon:set_material(darkpink)
 ship2Joint:add_child(ship2weapon)
+
+ship2weapon2 = gr.mesh('sphere', 'weapon2')
+ship2weapon2:scale(1,1,1)
+ship2weapon2:translate(0, 0.066*rootScale-2, 0)
+ship2weapon2:set_material(darkpink)
+ship2Joint:add_child(ship2weapon2)
 
 
 

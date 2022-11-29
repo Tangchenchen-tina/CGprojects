@@ -1,6 +1,9 @@
 #version 330
 
 uniform bool picking;
+uniform int shadowflag;
+uniform int textureflag;
+uniform bool toonrender;
 
 struct LightSource {
     vec3 position;
@@ -11,12 +14,14 @@ in VsOutFsIn {
 	vec3 position_ES; // Eye-space position
 	vec3 normal_ES;   // Eye-space normal
 	LightSource light;
-} fs_in;
+} vs_out;
+
+in vec4 crntPos;
+in vec4 fragPosLight;
+in vec4 ShadowCoord;
+in vec2 textCoords;
 
 out vec4 fragColour;
-in vec4 ShadowCoord;
-
-uniform sampler2D shadowMap;
 
 struct Material {
     vec3 kd;
@@ -27,10 +32,13 @@ uniform Material material;
 
 // Ambient light intensity for each RGB component.
 uniform vec3 ambientIntensity;
+uniform samplerCube depthMap;
+uniform sampler2D shadowMap;
+uniform sampler2D textureMap;
 
 
 vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
-	LightSource light = fs_in.light;
+	LightSource light = vs_out.light;
 
     // Direction from fragment to light source.
     vec3 l = normalize(light.position - fragPosition);
@@ -40,12 +48,20 @@ vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
 
     float n_dot_l = max(dot(fragNormal, l), 0.0);
 
-    float visibility = 1.0;
-   // if ( texture( shadowMap, ShadowCoord.xy ).z  <  ShadowCoord.z){
-   //    visibility = 0.5;
-   // }
-
     vec3 color;
+    vec3 result;
+
+   float visibility = 1.0;
+   if(shadowflag == 1){
+      float bias = 0.01;
+      //vec3 ShadowC = ShadowCoord.xyz/ShadowCoord.w;
+      vec4 ShadowC = ShadowCoord;
+      if(texture(shadowMap, ShadowC.xy).r < ShadowC.z-bias){
+         visibility = 0;
+      }
+   }
+   
+
     //   if (n_dot_l > 0.95)
     //    color = vec3(1.0, 1.0, 1.0); 
     //   else if (n_dot_l > 0.5)
@@ -54,7 +70,7 @@ vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
     //    color = vec3(0.5, 0.5, 0.5);
     //   else 
     //    color = vec3(0.3, 0.3, 0.3);
-
+if(toonrender){
     if (n_dot_l > 0.95)
        color = vec3(1.0, 1.0, 1.0); 
       else if (n_dot_l > 0.9)
@@ -76,31 +92,60 @@ vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
       else 
        color = vec3(0.1, 0.1, 0.1);
 
+   if(textureflag == 1){
+      color = texture(textureMap, textCoords).rgb;
+   }
+   //result = color;
+   result = ambientIntensity+ (visibility) * material.kd* color *light.rgbIntensity;
 
-    vec3 result = ambientIntensity+ visibility * material.kd* color *light.rgbIntensity;
+}else{
+	vec3 diffuse;
+	diffuse = material.kd * n_dot_l;
+
+    vec3 specular = vec3(0.0);
+
+    if (n_dot_l > 0.0) {
+		// Halfway vector.
+		vec3 h = normalize(v + l);
+        float n_dot_h = max(dot(fragNormal, h), 0.0);
+
+        specular = material.ks * pow(n_dot_h, material.shininess);
+    }
+
+    result = ambientIntensity + visibility * light.rgbIntensity * (diffuse + specular);
+}
+
+   // float shadow = shadowCalc();
+   // shadow = 1.0;
+
+   // ShadowCoord.z: 0.3-0.4
+   // texture(shadowMap, ShadowCoord.xy).z < 0.1
+
+
+
     return result;
 
 
 	// vec3 diffuse;
 	// diffuse = material.kd * n_dot_l;
 
-    // vec3 specular = vec3(0.0);
+   //  vec3 specular = vec3(0.0);
 
-    // if (n_dot_l > 0.0) {
+   //  if (n_dot_l > 0.0) {
 	// 	// Halfway vector.
 	// 	vec3 h = normalize(v + l);
-    //     float n_dot_h = max(dot(fragNormal, h), 0.0);
+   //      float n_dot_h = max(dot(fragNormal, h), 0.0);
 
-    //     specular = material.ks * pow(n_dot_h, material.shininess);
-    // }
+   //      specular = material.ks * pow(n_dot_h, material.shininess);
+   //  }
 
-    // return ambientIntensity + light.rgbIntensity * (diffuse + specular);
+   //  return ambientIntensity + visibility * light.rgbIntensity * (diffuse + specular);
 }
 
 void main() {
 	if( picking ) {
 		fragColour = vec4(material.kd, 1.0);
 	} else {
-		fragColour = vec4(phongModel(fs_in.position_ES, fs_in.normal_ES), 1.0);
+		fragColour = vec4(phongModel(vs_out.position_ES, vs_out.normal_ES), 1.0);
 	}
 }

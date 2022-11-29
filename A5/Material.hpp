@@ -12,6 +12,11 @@ struct Material {
 			  ks(glm::vec3(0.0f)),
 			  shininess(0.0f) { }
 
+		Material(glm::vec3 d, glm::vec3 s, float shine)
+			: kd(d),
+			  ks(s),
+			  shininess(shine) { }
+
 	// Diffuse reflection coefficient
 	glm::vec3 kd;
 
