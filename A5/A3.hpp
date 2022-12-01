@@ -19,6 +19,7 @@
 #include <stack>
 #include <unordered_map>
 #include <vector>
+#include <queue>
 
 #include <AL/al.h>
 #include <AL/alc.h>
@@ -266,7 +267,7 @@ protected:
   float rightbound = 7;
   vec3 curr_L_loc = vec3(0,0,0);
   float curr_L_uploc = 0;
-  float upbound = 7;
+  float upbound = 5;
   bool moveLeft = false;
   bool moveRight = false;
   bool moveup = false;
@@ -312,6 +313,13 @@ protected:
   ALuint moveSource;
   ALuint moveBuffer;
 
+  float framerate;
+  uint64_t startTime;
+  queue<vec2> timeQueue;
+  vec2 currTimeInterval;
+  uint64_t currTime;
+  void initTimeQueue(const char * path);
+
 
   // renderContral
   bool cuberender = true;
@@ -320,4 +328,5 @@ protected:
   bool texturerender = false;
   bool toonrender = true;
   bool cplxLSystemrender = false;
+  bool gameStart = false;
 };

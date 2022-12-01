@@ -13,6 +13,7 @@ using namespace std;
 
 #include <imgui/imgui.h>
 
+#include <fstream>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -32,11 +33,11 @@ using namespace std;
 #include <stack>
 #include <string.h>
 
+#include <chrono>
+#include <cstdint>
+
 #include <AL/al.h>
 #include <AL/alc.h>
-
-// #include <IrrKlang/irrKlang.h>
-// using namespace irrklang;
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -104,17 +105,27 @@ void A3::init() {
   // files to this list in order to support rendering additional mesh types. All
   // vertex positions, and normals will be extracted and stored within the
   // MeshConsolidator class.
-  unique_ptr<MeshConsolidator> meshConsolidator(new MeshConsolidator{
-      getAssetFilePath("cube.obj"), getAssetFilePath("sphere.obj"),
-      getAssetFilePath("spherecplx.obj"), getAssetFilePath("suzanne.obj"),
-      getAssetFilePath("mouth.obj"), getAssetFilePath("eyeslash.obj"),
-      getAssetFilePath("nose.obj"), getAssetFilePath("foot.obj"),
-      getAssetFilePath("cylinder.obj"), getAssetFilePath("innerSphere2.obj"),
-      getAssetFilePath("outerSphere.obj"), getAssetFilePath("ship.obj"),
-      getAssetFilePath("shipMidStripe.obj"), getAssetFilePath("starbody.obj"),
-      getAssetFilePath("starmouse.obj"), getAssetFilePath("starpant.obj"),
-      getAssetFilePath("plant1.obj"), getAssetFilePath("plant2.obj"),
-      getAssetFilePath("weapon.obj"), getAssetFilePath("squidhouse.obj")});
+  unique_ptr<MeshConsolidator> meshConsolidator(
+      new MeshConsolidator{getAssetFilePath("cube.obj"),
+                           getAssetFilePath("sphere.obj"),
+                           getAssetFilePath("spherecplx.obj"),
+                           getAssetFilePath("suzanne.obj"),
+                           getAssetFilePath("mouth.obj"),
+                           getAssetFilePath("eyeslash.obj"),
+                           getAssetFilePath("nose.obj"),
+                           getAssetFilePath("foot.obj"),
+                           getAssetFilePath("cylinder.obj"),
+                           getAssetFilePath("innerSphere2.obj"),
+                           getAssetFilePath("outerSphere.obj"),
+                           getAssetFilePath("ship.obj"),
+                           getAssetFilePath("shipMidStripe.obj"),
+                           getAssetFilePath("starbody.obj"),
+                           getAssetFilePath("starmouse.obj"),
+                           getAssetFilePath("starpant.obj"),
+                           getAssetFilePath("plant1.obj"),
+                           getAssetFilePath("plant2.obj"),
+                           getAssetFilePath("weapon.obj"),
+                           getAssetFilePath("squidhouse.obj")});
 
   // Acquire the BatchInfoMap from the MeshConsolidator.
   meshConsolidator->getBatchInfoMap(m_batchInfoMap);
@@ -152,10 +163,16 @@ void A3::init() {
   setupParticles();
 
   initMusicSound();
-  cout << "setup particle SUCCESS" << endl;
 
-  // irrklang::ISoundEngine * engine = irrklang::createIrrKlangDevice();
-  // engine->play2D("Assets/sound/coin-pickup.wav", true);
+  initTimeQueue("Assets/sound/timeslot.txt");
+  cout << "setup particle SUCCESS" << endl;
+  cout << glfwGetTime << endl;
+}
+
+uint64_t timeSinceEpochMillisec() {
+  using namespace std::chrono;
+  return duration_cast<milliseconds>(system_clock::now().time_since_epoch())
+      .count();
 }
 
 void A3::setupParticles() {
@@ -244,17 +261,17 @@ void A3::initParticleSystem() {
 
 void A3::initTextureMapping() {
   glGenTextures(1, &sandTexture);
-  //glActiveTexture(GL_TEXTURE1);
+  // glActiveTexture(GL_TEXTURE1);
   glBindTexture(GL_TEXTURE_2D, sandTexture);
 
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT );
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT );
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
                   GL_LINEAR_MIPMAP_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-  float borderColor[] = { 1.0f, 1.0f, 0.0f, 1.0f };
-  glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);  
+  float borderColor[] = {1.0f, 1.0f, 0.0f, 1.0f};
+  glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 
   int width, height, nrChannels;
   unsigned char *data =
@@ -359,9 +376,9 @@ void A3::initLNodes() {
 
             int scale = (int)7000 / layers;
 
-            float trans_x = (float)(std::rand() % 100) / scale *
+            float trans_x = (float)(std::rand() % 100) / scale * 10 *
                             (float)(pow(-1, std::rand() % 2));
-            float trans_z = (float)(std::rand() % 100) / scale *
+            float trans_z = (float)(std::rand() % 100) / scale * 10 *
                             (float)(pow(-1, std::rand() % 2));
             float rotate_x = (float)(std::rand() % angle) *
                              (float)(pow(-1, std::rand() % 2));
@@ -421,7 +438,7 @@ void A3::initLNodes() {
   }
 }
 
-void A3::loadMusicWAVfile(const char * path, ALuint source, ALuint buffer){
+void A3::loadMusicWAVfile(const char *path, ALuint source, ALuint buffer) {
   FILE *fp = fopen(path, "rb");
   char type[4];
   DWORD size, chunkSize;
@@ -431,17 +448,17 @@ void A3::loadMusicWAVfile(const char * path, ALuint source, ALuint buffer){
   short bytesPerSample, bitsPerSample;
 
   fread(type, sizeof(char), 4, fp);
-  if(type[0] != 'R' || type[1] != 'I' || type[2] != 'F' || type[3] != 'F')
-    cout << "Not RIFF"<<endl;
+  if (type[0] != 'R' || type[1] != 'I' || type[2] != 'F' || type[3] != 'F')
+    cout << "Not RIFF" << endl;
 
   fread(&size, sizeof(DWORD), 1, fp);
   fread(type, sizeof(char), 4, fp);
-  if(type[0] != 'W' || type[1] != 'A' || type[2] != 'V' || type[3] != 'E')
-    cout << "Not WAVE"<<endl;
+  if (type[0] != 'W' || type[1] != 'A' || type[2] != 'V' || type[3] != 'E')
+    cout << "Not WAVE" << endl;
 
   fread(type, sizeof(char), 4, fp);
-  if(type[0] != 'f' || type[1] != 'm' || type[2] != 't' || type[3] != ' ')
-    cout << "Not fmt"<<endl;
+  if (type[0] != 'f' || type[1] != 'm' || type[2] != 't' || type[3] != ' ')
+    cout << "Not fmt" << endl;
 
   fread(&chunkSize, sizeof(DWORD), 1, fp);
   fread(&formatType, sizeof(short), 1, fp);
@@ -452,48 +469,58 @@ void A3::loadMusicWAVfile(const char * path, ALuint source, ALuint buffer){
   fread(&bitsPerSample, sizeof(short), 1, fp);
 
   fread(&type, sizeof(char), 4, fp);
-  if(type[0] != 'd' || type[1] != 'a' || type[2] != 't' || type[3] != 'a')
-    cout << "Not data"<<endl;
+  if (type[0] != 'd' || type[1] != 'a' || type[2] != 't' || type[3] != 'a')
+    cout << "Not data" << endl;
 
   fread(&dataSize, sizeof(DWORD), 1, fp);
 
-  unsigned char * buf = new unsigned char[dataSize];
+  unsigned char *buf = new unsigned char[dataSize];
   fread(buf, sizeof(BYTE), dataSize, fp);
 
   ALuint frequency = sampleRate;
   ALenum format = 0;
-  if(bitsPerSample == 8){
-    if(channels == 1){
+  if (bitsPerSample == 8) {
+    if (channels == 1) {
       format = AL_FORMAT_MONO8;
       cout << "8" << endl;
-    }else if(channels == 2){
+    } else if (channels == 2) {
       format = AL_FORMAT_STEREO8;
       cout << "8" << endl;
     }
-  }else if(bitsPerSample == 16){
-      if(channels == 1){
+  } else if (bitsPerSample == 16) {
+    if (channels == 1) {
       format = AL_FORMAT_MONO16;
-    }else if(channels == 2){
+    } else if (channels == 2) {
       format = AL_FORMAT_STEREO16;
     }
   }
 
-  alBufferData(buffer, format, buf, dataSize, frequency/1.8);
+  alBufferData(buffer, format, buf, dataSize, frequency);
   alSourcei(source, AL_BUFFER, buffer);
   fclose(fp);
-
 }
 
+void A3::initTimeQueue(const char *path) {
+  ifstream newfile;
+  newfile.open(path, ios::in);
+  if (newfile.is_open()) {
+    int millsec;
+    while (newfile >> millsec) {
+      timeQueue.push(vec2(millsec - 100, millsec + 100));
+    }
+  }
+}
 
-void A3::initMusicSound(){
+void A3::initMusicSound() {
+  alSpeedOfSound(200);
   device = alcOpenDevice(NULL);
-  if(!device)
+  if (!device)
     cout << "No device" << endl;
   context = alcCreateContext(device, NULL);
-  if(!alcMakeContextCurrent(context))
-    cout<<"no context"<<endl;
+  if (!alcMakeContextCurrent(context))
+    cout << "no context" << endl;
 
-  ALfloat listenerOri[] = {0.0f,0.0f,1.0f,0.0f,1.0f, 1.0f};
+  ALfloat listenerOri[] = {0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f};
   alListener3f(AL_POSITION, 0, 0, 0);
   alListener3f(AL_VELOCITY, 0, 0, 0);
   alListenerfv(AL_ORIENTATION, listenerOri);
@@ -502,13 +529,12 @@ void A3::initMusicSound(){
   alSourcei(moveSource, AL_SOURCE_RELATIVE, AL_TRUE);
   alSourcef(moveSource, AL_PITCH, 1);
   alSourcef(moveSource, AL_GAIN, 0.4);
-  alSource3f(moveSource, AL_POSITION, 0,0,0);
-  alSource3f(moveSource, AL_VELOCITY, 0,0,0);
+  alSource3f(moveSource, AL_POSITION, 0, 0, 0);
+  alSource3f(moveSource, AL_VELOCITY, 0, 0, 0);
   alSourcei(moveSource, AL_LOOPING, AL_FALSE);
   alGenBuffers((ALuint)1, &moveBuffer);
-  
-  loadMusicWAVfile("Assets/sound/c3.wav", moveSource, moveBuffer);
 
+  loadMusicWAVfile("Assets/sound/funky-town.wav", moveSource, moveBuffer);
 }
 
 void A3::generateChild(SceneNode *parent, LnodeInfo l) {
@@ -587,9 +613,9 @@ void A3::initAnimationNodes() {
     queue.pop();
   }
 
-  // curr_Lship_loc.emplace_back(vec3(-10.5, 37.5, 54));
-  // curr_Lship_loc.emplace_back(vec3(-10.5, 40, 51.5));
-  // curr_Lship_loc.emplace_back(vec3(-10.5, 42, 55));
+  curr_Lship_loc.emplace_back(vec3(-10.5, 37.5, 54));
+  curr_Lship_loc.emplace_back(vec3(-10.5, 40, 51.5));
+  curr_Lship_loc.emplace_back(vec3(-10.5, 42, 55));
 }
 
 void A3::resetPos() {
@@ -811,9 +837,11 @@ void A3::processLuaSceneFile(const std::string &filename) {
 //----------------------------------------------------------------------------------------
 void A3::createShaderProgram() {
   m_shader.generateProgramObject();
-  m_shader.attachVertexShader(getAssetFilePath("shader/VertexShader.vs").c_str());
-  //m_shader.attachGeometryShader(getAssetFilePath("GeometryShader.gs").c_str());
-  m_shader.attachFragmentShader(getAssetFilePath("shader/FragmentShader.fs").c_str());
+  m_shader.attachVertexShader(
+      getAssetFilePath("shader/VertexShader.vs").c_str());
+  // m_shader.attachGeometryShader(getAssetFilePath("GeometryShader.gs").c_str());
+  m_shader.attachFragmentShader(
+      getAssetFilePath("shader/FragmentShader.fs").c_str());
   m_shader.link();
 
   m_shader_arcCircle.generateProgramObject();
@@ -829,7 +857,8 @@ void A3::createShaderProgram() {
   // m_shader_toon.link();
 
   m_shader_depth.generateProgramObject();
-  m_shader_depth.attachVertexShader(getAssetFilePath("shader/DepthShader.vs").c_str());
+  m_shader_depth.attachVertexShader(
+      getAssetFilePath("shader/DepthShader.vs").c_str());
   m_shader_depth.attachFragmentShader(
       getAssetFilePath("shader/DepthShader.fs").c_str());
   m_shader_depth.attachGeometryShader(
@@ -858,7 +887,8 @@ void A3::createShaderProgram() {
   m_shader_particle.link();
 
   m_shader_debug.generateProgramObject();
-  m_shader_debug.attachVertexShader(getAssetFilePath("shader/QuadShader.vs").c_str());
+  m_shader_debug.attachVertexShader(
+      getAssetFilePath("shader/QuadShader.vs").c_str());
   m_shader_debug.attachFragmentShader(
       getAssetFilePath("shader/QuadShader.fs").c_str());
   m_shader_debug.link();
@@ -931,7 +961,7 @@ void A3::uploadVertexDataToVbos(const MeshConsolidator &meshConsolidator) {
     CHECK_GL_ERRORS;
   }
 
-    // Generate VBO to store all UV data
+  // Generate VBO to store all UV data
   {
     glGenBuffers(1, &m_vbo_vertexUVs);
 
@@ -984,8 +1014,7 @@ void A3::mapVboDataToVertexShaderInputLocations() {
                         nullptr);
 
   glBindBuffer(GL_ARRAY_BUFFER, m_vbo_vertexUVs);
-  glVertexAttribPointer(m_uvAttribLocation, 2, GL_FLOAT, GL_FALSE, 0,
-                        nullptr);
+  glVertexAttribPointer(m_uvAttribLocation, 2, GL_FLOAT, GL_FALSE, 0, nullptr);
 
   //-- Unbind target, and restore default values:
   glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -1231,10 +1260,20 @@ void A3::guiLogic() {
 
   if (ImGui::Button("Start Game")) {
     // start the game
-    curr_mode = 0;
+    if (!gameStart) {
+      gameStart = true;
+      alSourcePlay(moveSource);
+      cout << "sound effect" << endl;
+      startTime = timeSinceEpochMillisec();
+      curr_mode = 0;
+    } else {
+      alSourceStop(moveSource);
+      gameStart = false;
+    }
   }
 
-  ImGui::Text("Framerate: %.1f FPS", ImGui::GetIO().Framerate);
+  framerate = ImGui::GetIO().Framerate;
+  ImGui::Text("Framerate: %.1f FPS", framerate);
 
   // ImGui::Text("Undo/Redo Warning: ");
   // ImGui::SameLine();
@@ -1253,13 +1292,12 @@ void A3::guiLogic() {
 
 //----------------------------------------------------------------------------------------
 // Update mesh specific shader uniforms:
-static void
-updateShaderUniforms(const ShaderProgram &shader, const GeometryNode &node,
-                     const glm::mat4 &viewMatrix, const glm::mat4 &roottrans,
-                     glm::mat4 &transM, glm::mat4 &transScale,
-                     glm::mat4 &rotateViewMatrix, int curr_mode, bool pick,
-                     float farplane, mat4 lightProjection, GLuint shadowMap,
-                     GLuint sandTexture, bool shadowrender, bool texturerender) {
+static void updateShaderUniforms(
+    const ShaderProgram &shader, const GeometryNode &node,
+    const glm::mat4 &viewMatrix, const glm::mat4 &roottrans, glm::mat4 &transM,
+    glm::mat4 &transScale, glm::mat4 &rotateViewMatrix, int curr_mode,
+    bool pick, float farplane, mat4 lightProjection, GLuint shadowMap,
+    GLuint sandTexture, bool shadowrender, bool texturerender) {
 
   shader.enable();
   {
@@ -1487,9 +1525,9 @@ void A3::moveLboatAnimation(vec3 L_speed, int mode) {
 
 bool A3::checkCollision() {
   for (auto locV : curr_Lship_loc) {
-    if (abs(locV.x - curr_bullet_loc.x) <= 2.5 &&
-        abs(locV.z - curr_bullet_loc.z) <= 2.5 &&
-        abs(locV.y - curr_bullet_loc.y) <= 2.5) {
+    if (abs(locV.x - curr_bullet_loc.x) <= 2 &&
+        abs(locV.z - curr_bullet_loc.z) <= 2 &&
+        abs(locV.y - curr_bullet_loc.y) <= 2) {
       return true;
     }
   }
@@ -1512,7 +1550,7 @@ void A3::hitAnimation(vec3 speed, int pos) {
 void A3::hitBulletAnimation() {
   vec3 speed;
   if (curr_loc == 0) {
-    speed = vec3(-0.5, 0, 0);
+    speed = vec3(-2, 0, 0);
   } else if (curr_loc == 1) {
     speed = vec3(-1.8, -0.8, 0.5);
   } else if (curr_loc == 2) {
@@ -1543,19 +1581,30 @@ void A3::draw() {
     }
   }
 
-  updateSphereAnimation();
+  if (gameStart) {
+    currTimeInterval = timeQueue.front();
+    currTime = timeSinceEpochMillisec() - startTime;
+    // cout<<to_string(currTimeInterval) << " "<<currTime<<endl;
+    if (currTime >= currTimeInterval.x && currTime <= currTimeInterval.y) {
+      initBullet(angleList[curr_loc]);
+      bulletout = true;
+      timeQueue.pop();
+    }
+  }
+
+  // updateSphereAnimation();
   // updateShipAnimation(0.005, 0.006);
   // updateStarAnimation();
-  // if (Lmode == 0)
-  //   moveLboatAnimation(vec3(0.5, 0, 0), 0);
-  // else if (Lmode == 1)
-  //   moveLboatAnimation(vec3(0.5, 0, 0), 1);
-  // else if (Lmode == 2) {
-  //   moveLboatAnimation(vec3(0, 0.5, 0.5), 2);
-  // }
+  if (Lmode == 0)
+    moveLboatAnimation(vec3(0.5, 0, 0), 0);
+  else if (Lmode == 1)
+    moveLboatAnimation(vec3(0.5, 0, 0), 1);
+  else if (Lmode == 2) {
+    moveLboatAnimation(vec3(0, 0.5, 0.5), 2);
+  }
 
-  // if (bulletout)
-  //   hitBulletAnimation();
+  if (bulletout)
+    hitBulletAnimation();
 
   mat4 modeltrans = mat4(1.0f);
   mat4 modeltransS = mat4(1.0f);
@@ -1749,7 +1798,7 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
     updateShaderUniforms(m_shader, *geometryNode, m_view, root_trans, transM,
                          transScale, rotateViewMatrix, curr_mode, pick,
                          far_plane, lightProjection, shadowMap, sandTexture,
-                         shadowMaprender,texturerender);
+                         shadowMaprender, texturerender);
 
     // Get the BatchInfo corresponding to the GeometryNode's unique MeshId.
     BatchInfo batchInfo = m_batchInfoMap[geometryNode->meshId];
@@ -2213,8 +2262,6 @@ bool A3::keyInputEvent(int key, int action, int mods) {
       bulletout = true;
     }
     if (key == GLFW_KEY_UP) {
-      alSourcePlay(moveSource);
-      cout<<"sound effect"<<endl;
       moveup = true;
       Lmode = 2;
     }
