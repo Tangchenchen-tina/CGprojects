@@ -164,7 +164,7 @@ void A3::init() {
 
   initMusicSound();
 
-  initTimeQueue("Assets/sound/timeslot.txt");
+  initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
   cout << "setup particle SUCCESS" << endl;
   cout << glfwGetTime << endl;
 }
@@ -500,13 +500,25 @@ void A3::loadMusicWAVfile(const char *path, ALuint source, ALuint buffer) {
   fclose(fp);
 }
 
-void A3::initTimeQueue(const char *path) {
+void A3::initTimeQueue(const char *path, const char * movepath) {
+  timeQueue = queue<vec2>();
   ifstream newfile;
   newfile.open(path, ios::in);
   if (newfile.is_open()) {
     int millsec;
     while (newfile >> millsec) {
-      timeQueue.push(vec2(millsec - 100, millsec + 100));
+      timeQueue.push(vec2(millsec - 50, millsec + 50));
+    }
+  }
+
+  timeMoveQueue = queue<vec3>();
+  ifstream newfile2;
+  newfile2.open(movepath, ios::in);
+  if(newfile2.is_open()){
+    int millsec, idx;
+    while(newfile2 >> millsec &&  newfile2 >> idx){
+      cout<< millsec << " "<<idx;
+      timeMoveQueue.push(vec3(millsec-100, millsec+100, idx));
     }
   }
 }
@@ -1267,6 +1279,7 @@ void A3::guiLogic() {
       startTime = timeSinceEpochMillisec();
       curr_mode = 0;
     } else {
+  initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
       alSourceStop(moveSource);
       gameStart = false;
     }
@@ -1376,7 +1389,7 @@ static void updateShaderUniforms(
 
 void A3::updateSphereAnimation() {
   if (curr_mode == 0) {
-    outerSphere->rotate('x', 0.5);
+    outerSphere->rotate('x', 0.3);
   }
 }
 
@@ -1550,9 +1563,10 @@ void A3::hitAnimation(vec3 speed, int pos) {
 void A3::hitBulletAnimation() {
   vec3 speed;
   if (curr_loc == 0) {
-    speed = vec3(-2, 0, 0);
+    speed = vec3(-0.3, 0, 0);
   } else if (curr_loc == 1) {
-    speed = vec3(-1.8, -0.8, 0.5);
+    float scale = 0.2;
+    speed = vec3(-1.8*scale, -0.8*scale, 0.5*scale);
   } else if (curr_loc == 2) {
     if (curr_bullet_loc.x >= 0)
       speed = vec3(-0.4, -0.3, 0.7);
@@ -1560,6 +1574,29 @@ void A3::hitBulletAnimation() {
       speed = vec3(-0.4, -0.7, 0.7);
   }
   hitAnimation(speed, 0);
+}
+
+void A3::updateTimeAnimation(){
+    currTimeInterval = timeQueue.front();
+    currTimeMoveInterval = timeMoveQueue.front();
+    currTime = timeSinceEpochMillisec() - startTime;
+    // cout<<to_string(currTimeInterval) << " "<<currTime<<endl;
+    if (currTime >= currTimeInterval.x && currTime <= currTimeInterval.y) {
+      initBullet(angleList[curr_loc]);
+      bulletout = true;
+      timeQueue.pop();
+    }
+    if(currTime >= currTimeMoveInterval.x && currTime <= currTimeMoveInterval.y){
+      near = false;
+      far = false;
+      mid = false;
+      if(currTimeMoveInterval.z == 0)
+        near = true;
+      else if(currTimeMoveInterval.z == 1)
+        mid = true;
+      else if(currTimeMoveInterval.z == 2)
+        far = true;
+    }
 }
 
 //----------------------------------------------------------------------------------------
@@ -1581,26 +1618,18 @@ void A3::draw() {
     }
   }
 
-  if (gameStart) {
-    currTimeInterval = timeQueue.front();
-    currTime = timeSinceEpochMillisec() - startTime;
-    // cout<<to_string(currTimeInterval) << " "<<currTime<<endl;
-    if (currTime >= currTimeInterval.x && currTime <= currTimeInterval.y) {
-      initBullet(angleList[curr_loc]);
-      bulletout = true;
-      timeQueue.pop();
-    }
-  }
+  if (gameStart) 
+    updateTimeAnimation();
 
-  // updateSphereAnimation();
+  updateSphereAnimation();
   // updateShipAnimation(0.005, 0.006);
-  // updateStarAnimation();
+  updateStarAnimation();
   if (Lmode == 0)
     moveLboatAnimation(vec3(0.5, 0, 0), 0);
   else if (Lmode == 1)
     moveLboatAnimation(vec3(0.5, 0, 0), 1);
   else if (Lmode == 2) {
-    moveLboatAnimation(vec3(0, 0.5, 0.5), 2);
+    moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
   }
 
   if (bulletout)

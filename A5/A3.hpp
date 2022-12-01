@@ -267,7 +267,7 @@ protected:
   float rightbound = 7;
   vec3 curr_L_loc = vec3(0,0,0);
   float curr_L_uploc = 0;
-  float upbound = 5;
+  float upbound = 7;
   bool moveLeft = false;
   bool moveRight = false;
   bool moveup = false;
@@ -317,8 +317,11 @@ protected:
   uint64_t startTime;
   queue<vec2> timeQueue;
   vec2 currTimeInterval;
+  queue<vec3> timeMoveQueue;
+  vec3 currTimeMoveInterval;
   uint64_t currTime;
-  void initTimeQueue(const char * path);
+  void initTimeQueue(const char * path, const char * pathmove);
+  void updateTimeAnimation();
 
 
   // renderContral
