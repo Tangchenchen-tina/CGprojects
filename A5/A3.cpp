@@ -178,16 +178,16 @@ uint64_t timeSinceEpochMillisec() {
 void A3::setupParticles() {
   particleSys = ParticleSystem();
   float life = rand() % 8 + 10;
-  particleSys.createParticle(0, 5, vec3(-11.2, 35.7, 55), vec3(0, -0.1, 0.1),
+  particleSys.createParticle(0, 15, vec3(-11.2, 35.7, 55), vec3(0, -0.1, 0.1),
                              0.1, life);
   float life2 = rand() % 8 + 10;
-  particleSys.createParticle(0, 5, vec3(-9.5, 35.7, 55), vec3(0, -0.1, 0.1),
+  particleSys.createParticle(0, 15, vec3(-9.5, 35.7, 55), vec3(0, -0.1, 0.1),
                              0.1, life2);
   float life3 = rand() % 8 + 10;
-  particleSys.createParticle(1, 5, vec3(11.2, 35.7, 55), vec3(0, -0.1, 0.1),
+  particleSys.createParticle(1, 15, vec3(11.2, 35.7, 55), vec3(0, -0.1, 0.1),
                              0.1, life3 / 5); // set mode to 1
   float life4 = rand() % 8 + 10;
-  particleSys.createParticle(1, 5, vec3(9.5, 35.7, 55), vec3(0, -0.1, 0.1), 0.1,
+  particleSys.createParticle(1, 15, vec3(9.5, 35.7, 55), vec3(0, -0.1, 0.1), 0.1,
                              life4 / 5); // set mode to 1
 }
 
@@ -201,6 +201,7 @@ void A3::initBullet(float angle) {
   bulletnode->translate(vec3(10.5, 38, 55));
   bulletnode->rotate('x', angle);
   bullet = bulletnode;
+  curr_bullet_loc = vec3(bullet->trans * vec4(0, 0, 0, 1));
   m_rootNode.get()->add_child(bullet);
 }
 
@@ -524,7 +525,6 @@ void A3::initTimeQueue(const char *path, const char * movepath) {
 }
 
 void A3::initMusicSound() {
-  alSpeedOfSound(200);
   device = alcOpenDevice(NULL);
   if (!device)
     cout << "No device" << endl;
@@ -546,7 +546,30 @@ void A3::initMusicSound() {
   alSourcei(moveSource, AL_LOOPING, AL_FALSE);
   alGenBuffers((ALuint)1, &moveBuffer);
 
-  loadMusicWAVfile("Assets/sound/funky-town.wav", moveSource, moveBuffer);
+  loadMusicWAVfile("Assets/sound/blip.wav", moveSource, moveBuffer); //good
+
+  alGenSources((ALuint)1, &hitSource);
+  alSourcei(hitSource, AL_SOURCE_RELATIVE, AL_TRUE);
+  alSourcef(hitSource, AL_PITCH, 1);
+  alSourcef(hitSource, AL_GAIN, 0.4);
+  alSource3f(hitSource, AL_POSITION, 0, 0, 0);
+  alSource3f(hitSource, AL_VELOCITY, 0, 0, 0);
+  alSourcei(hitSource, AL_LOOPING, AL_FALSE);
+  alGenBuffers((ALuint)1, &hitBuffer);
+
+  loadMusicWAVfile("Assets/sound/blurp_x.wav", hitSource, hitBuffer); //hit-blurp_x
+
+
+    alGenSources((ALuint)1, &backgroundSource);
+  alSourcei(backgroundSource, AL_SOURCE_RELATIVE, AL_TRUE);
+  alSourcef(backgroundSource, AL_PITCH, 1);
+  alSourcef(backgroundSource, AL_GAIN, 0.4);
+  alSource3f(backgroundSource, AL_POSITION, 0, 0, 0);
+  alSource3f(backgroundSource, AL_VELOCITY, 0, 0, 0);
+  alSourcei(backgroundSource, AL_LOOPING, AL_FALSE);
+  alGenBuffers((ALuint)1, &backgroundBuffer);
+
+  loadMusicWAVfile("Assets/sound/funky-town.wav", backgroundSource, backgroundBuffer);
 }
 
 void A3::generateChild(SceneNode *parent, LnodeInfo l) {
@@ -1127,7 +1150,7 @@ void A3::updateParticles() {
       p.life -= 1.0f;
       if (p.life > 0.0f) {
         p.pos += p.speed;
-        p.col.a = p.life / MAXLIFE + 0.4;
+        p.col.a = p.life / MAXLIFE + 0.2;
         if (p.col.a >= 1) {
           p.col.a = 1;
         }
@@ -1248,25 +1271,48 @@ void A3::guiLogic() {
     ImGui::Checkbox("Shadow (S)", &shadowMaprender);
     ImGui::Checkbox("Complex L-System (L)", &cplxLSystemrender);
     ImGui::Checkbox("Particle System (P)", &particlerender);
-    ImGui::Checkbox("Texture Mapping (M)", &texturerender);
     ImGui::EndMenu();
   }
 
   // Create Button, and check if it was clicked:
   ImGui::Text("Mode Selection:");
-  ImGui::PushID(0);
-  if (ImGui::RadioButton("Game Mode (G)", &curr_mode, 0)) {
-    pick = false;
-    m_view = glm::lookAt(vec3(0.0f, 45.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
-                         vec3(0.0f, 1.0f, 0.0f));
-    uploadCommonSceneUniforms();
-    draw();
-  }
-  ImGui::PopID();
-  ImGui::PushID(1);
+    ImGui::PushID(1);
   if (ImGui::RadioButton("Travel Mode (J)", &curr_mode, 1)) {
     m_view = glm::lookAt(vec3(0.0f, 0.0f, 130.0f), vec3(0.0f, 0.0f, -1.0f),
                          vec3(0.0f, 1.0f, 0.0f));
+  }
+  ImGui::PopID();
+
+  ImGui::PushID(0);
+  if (ImGui::RadioButton("Game Mode (G)", &curr_mode, 0)) {
+    pick = false;
+    m_view = glm::lookAt(vec3(0.0f, 70.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
+                         vec3(0.0f, 1.0f, 0.0f));
+    uploadCommonSceneUniforms();
+    draw();
+  } 
+  ImGui::PopID();
+
+  ImGui::Text("Game View Selection:");
+    ImGui::SameLine();
+    ImGui::PushID(1);
+  if (ImGui::RadioButton("Left", &curr_veiw_mode, 1)) {
+    m_view = glm::lookAt(vec3(-20.0f, 45.0f, 75.0f), vec3(0.0f, 45.0f, 45.0f),
+                         vec3(0.0f, 1.0f, 0.3f));
+  }
+  ImGui::PopID();
+  ImGui::SameLine();
+  ImGui::PushID(0);
+  if (ImGui::RadioButton("Mid", &curr_veiw_mode, 0)) {
+    m_view = glm::lookAt(vec3(0.0f, 45.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
+                         vec3(0.0f, 1.0f, 0.0f));
+  }
+  ImGui::PopID();
+  ImGui::SameLine();
+  ImGui::PushID(2);
+  if (ImGui::RadioButton("Right", &curr_veiw_mode, 2)) {
+    m_view = glm::lookAt(vec3(20.0f, 45.0f, 75.0f), vec3(0.0f, 45.0f, 45.0f),
+                         vec3(0.0f, 1.0f, 0.3f));
   }
   ImGui::PopID();
 
@@ -1274,15 +1320,23 @@ void A3::guiLogic() {
     // start the game
     if (!gameStart) {
       gameStart = true;
-      alSourcePlay(moveSource);
-      cout << "sound effect" << endl;
+      alSourcePlay(backgroundSource);
       startTime = timeSinceEpochMillisec();
       curr_mode = 0;
-    } else {
-  initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
-      alSourceStop(moveSource);
-      gameStart = false;
+      near = true;
+      mid = false;
+      far = false;
     }
+  }
+    ImGui::SameLine();
+  if (ImGui::Button("End Game")) {
+      initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
+      alSourceStop(backgroundSource);
+      gameStart = false;
+      curr_mode = 0;
+      near = true;
+      mid = false;
+      far = false;
   }
 
   framerate = ImGui::GetIO().Framerate;
@@ -1399,7 +1453,7 @@ void A3::updateStarAnimation() {
   if (mid && curr_loc != 1) {
     if (curr_angle > mid_angle) {
       shipRNode->rotate('x', -0.5);
-      weaponNode->rotate('y', 1);
+      weaponNode->rotate('y', 0.8);
       curr_angle -= 0.5;
       if (curr_angle <= mid_angle) {
         mid = false;
@@ -1407,7 +1461,7 @@ void A3::updateStarAnimation() {
       }
     } else {
       shipRNode->rotate('x', 0.5);
-      weaponNode->rotate('y', -1);
+      weaponNode->rotate('y', -0.8);
 
       curr_angle += 0.5;
       if (curr_angle >= mid_angle) {
@@ -1418,7 +1472,7 @@ void A3::updateStarAnimation() {
   } else if (far && curr_loc != 2) {
     if (curr_angle > far_angle) {
       shipRNode->rotate('x', -0.5);
-      weaponNode->rotate('y', 1);
+      weaponNode->rotate('y', 0.8);
       curr_angle -= 0.5;
       if (curr_angle <= far_angle) {
         far = false;
@@ -1428,7 +1482,7 @@ void A3::updateStarAnimation() {
   } else if (near && curr_loc != 0) {
     if (curr_angle < near_angle) {
       shipRNode->rotate('x', 0.5);
-      weaponNode->rotate('y', -1);
+      weaponNode->rotate('y', -0.8);
 
       curr_angle += 0.5;
       if (curr_angle >= near_angle) {
@@ -1553,6 +1607,7 @@ void A3::hitAnimation(vec3 speed, int pos) {
     curr_bullet_loc = vec3(bullet->trans * vec4(0, 0, 0, 1));
     bool collide = checkCollision();
     if (collide) {
+      alSourcePlay(hitSource);
       particleSys.createParticle(2, 10, curr_bullet_loc, vec3(0, 0.2, 0), 0.1,
                                  10); // set mode to 1
       m_rootNode.get()->remove_child(bullet);
@@ -1563,15 +1618,28 @@ void A3::hitAnimation(vec3 speed, int pos) {
 void A3::hitBulletAnimation() {
   vec3 speed;
   if (curr_loc == 0) {
-    speed = vec3(-0.3, 0, 0);
+    speed = vec3(-0.33, 0, 0);
   } else if (curr_loc == 1) {
-    float scale = 0.2;
-    speed = vec3(-1.8*scale, -0.8*scale, 0.5*scale);
+    vec3 normal = vec3(2*curr_bullet_loc.x, 2*curr_bullet_loc.y, 2*curr_bullet_loc.z);
+    float scale = 1.05;
+    float x_speed = -0.3*scale;
+    float z_speed = 0.15*scale;
+    float y_speed = -1*(normal.x*x_speed + normal.z*z_speed)/normal.y;
+    speed = vec3(x_speed, y_speed, z_speed);
   } else if (curr_loc == 2) {
-    if (curr_bullet_loc.x >= 0)
-      speed = vec3(-0.4, -0.3, 0.7);
-    else
-      speed = vec3(-0.4, -0.7, 0.7);
+   // cout<<to_string(curr_bullet_loc)<<endl;
+   vec3 normal = vec3(2*curr_bullet_loc.x, 2*curr_bullet_loc.y, 2*curr_bullet_loc.z);
+    float scale = 0.85;
+    float x_speed = -0.27 *scale;
+    float z_speed = 0.42*scale;
+    float y_speed = -1*(normal.x*x_speed + normal.z*z_speed)/normal.y;
+    speed = vec3(x_speed, y_speed, z_speed);
+    // cout<<to_string(speed)<<endl;
+
+    // if (curr_bullet_loc.x >= 0)
+    //   speed = vec3(-0.4, -0.3, 0.7);
+    // else
+    //   speed = vec3(-0.4, -0.7, 0.7);
   }
   hitAnimation(speed, 0);
 }
@@ -1596,6 +1664,7 @@ void A3::updateTimeAnimation(){
         mid = true;
       else if(currTimeMoveInterval.z == 2)
         far = true;
+      timeMoveQueue.pop();
     }
 }
 
@@ -1622,14 +1691,18 @@ void A3::draw() {
     updateTimeAnimation();
 
   updateSphereAnimation();
-  // updateShipAnimation(0.005, 0.006);
+  updateShipAnimation(0.01, 0.015);
   updateStarAnimation();
   if (Lmode == 0)
     moveLboatAnimation(vec3(0.5, 0, 0), 0);
   else if (Lmode == 1)
     moveLboatAnimation(vec3(0.5, 0, 0), 1);
   else if (Lmode == 2) {
-    moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
+    if(curr_loc == 0)
+    moveLboatAnimation(vec3(0, 0.37, 0.37), 2);
+    else
+      moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
+  
   }
 
   if (bulletout)
@@ -2225,18 +2298,11 @@ bool A3::keyInputEvent(int key, int action, int mods) {
     // if (key == GLFW_KEY_S) {
     //   resetJoints();
     // }
-    if (key == GLFW_KEY_A) {
+    if (key == GLFW_KEY_R) {
       resetPos();
       resetOrin();
-      resetJoints();
       curr_mode = 0;
     }
-    // if (key == GLFW_KEY_U) {
-    //   undo();
-    // }
-    // if (key == GLFW_KEY_R) {
-    //   redo();
-    // }
     if (key == GLFW_KEY_C) {
       Circle = (Circle) ? false : true;
     }
@@ -2260,6 +2326,20 @@ bool A3::keyInputEvent(int key, int action, int mods) {
       m_view = glm::lookAt(vec3(0.0f, 0.0f, 130.0f), vec3(0.0f, 0.0f, -1.0f),
                            vec3(0.0f, 1.0f, 0.0f));
     }
+
+    if(key == GLFW_KEY_T){
+        toonrender = (toonrender) ? false : true;
+    }
+    if(key == GLFW_KEY_S){
+        shadowMaprender = (shadowMaprender) ? false : true;
+    }
+    if(key == GLFW_KEY_L){
+        cplxLSystemrender = (cplxLSystemrender) ? false : true;
+    }
+    if(key == GLFW_KEY_P){
+        particlerender = (particlerender) ? false : true;
+    }
+
     if (key == GLFW_KEY_1) {
       near = true;
       mid = false;
@@ -2279,18 +2359,21 @@ bool A3::keyInputEvent(int key, int action, int mods) {
       // rotateHeadAuto();
     }
     if (key == GLFW_KEY_LEFT) {
+      alSourcePlay(moveSource);
       moveLeft = true;
       Lmode = 0;
     }
     if (key == GLFW_KEY_RIGHT) {
+      alSourcePlay(moveSource);
       moveRight = true;
       Lmode = 1;
     }
-    if (key == GLFW_KEY_DOWN) {
+    if (key == GLFW_KEY_W) {
       initBullet(angleList[curr_loc]);
       bulletout = true;
     }
     if (key == GLFW_KEY_UP) {
+      alSourcePlay(moveSource);
       moveup = true;
       Lmode = 2;
     }

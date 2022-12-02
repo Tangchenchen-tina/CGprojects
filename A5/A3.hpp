@@ -257,9 +257,9 @@ protected:
   SceneNode *shipLNode;
   SceneNode *shipRNode;
   JointNode *weaponNode;
-  float LMaxZ = 0.1;
+  float LMaxZ = 0.5;
   float LCurrZ = 0;
-  float LMinZ = -0.1;
+  float LMinZ = -0.5;
   int Ldir = 0; // down
 
   float leftbound = -9;
@@ -267,7 +267,7 @@ protected:
   float rightbound = 7;
   vec3 curr_L_loc = vec3(0,0,0);
   float curr_L_uploc = 0;
-  float upbound = 7;
+  float upbound = 6.5;
   bool moveLeft = false;
   bool moveRight = false;
   bool moveup = false;
@@ -276,15 +276,15 @@ protected:
 
 
   // Right Ship
-  float RMaxZ = 0.1;
-  float RCurrZ = 0.04;
-  float RMinZ = -0.1;
+  float RMaxZ = 0.5;
+  float RCurrZ = 0.1;
+  float RMinZ = -0.5;
   int Rdir = 1; // up
 
   bool near;
   bool mid;
   bool far;
-  float mid_angle = -10;
+  float mid_angle = -15;
   float far_angle = -40;
   float near_angle = 0;
   float curr_angle = 0;
@@ -312,6 +312,10 @@ protected:
   ALCcontext *context;
   ALuint moveSource;
   ALuint moveBuffer;
+  ALuint hitSource;
+  ALuint hitBuffer;
+  ALuint backgroundSource;
+  ALuint backgroundBuffer;
 
   float framerate;
   uint64_t startTime;
@@ -332,4 +336,7 @@ protected:
   bool toonrender = true;
   bool cplxLSystemrender = false;
   bool gameStart = false;
+
+  //ViewMode
+  int curr_veiw_mode = 0;
 };
