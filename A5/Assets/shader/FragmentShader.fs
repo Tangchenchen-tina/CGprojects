@@ -31,10 +31,12 @@ struct Material {
 uniform Material material;
 
 // Ambient light intensity for each RGB component.
+uniform int textureID;
 uniform vec3 ambientIntensity;
 uniform samplerCube depthMap;
 uniform sampler2D shadowMap;
 uniform sampler2D textureMap;
+uniform sampler2D charactertextureMap;
 
 
 vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
@@ -71,32 +73,38 @@ vec3 phongModel(vec3 fragPosition, vec3 fragNormal) {
     //   else 
     //    color = vec3(0.3, 0.3, 0.3);
 if(toonrender){
-    if (n_dot_l > 0.95)
-       color = vec3(1.0, 1.0, 1.0); 
-      else if (n_dot_l > 0.9)
-       color = vec3(0.9, 0.9 ,0.9);
-      else if (n_dot_l > 0.8)
+   if (n_dot_l > 0.9)
+       color = vec3(1, 1 ,1);
+   else if (n_dot_l > 0.8)
        color = vec3(0.8, 0.8, 0.8);
-      else if (n_dot_l > 0.7)
+   else if (n_dot_l > 0.7)
        color = vec3(0.7, 0.7, 0.7);
-    else if (n_dot_l > 0.6)
+   else if (n_dot_l > 0.6)
        color = vec3(0.6, 0.6, 0.6);
-    else if (n_dot_l > 0.5)
+   else if (n_dot_l > 0.5)
        color = vec3(0.5, 0.5, 0.5);
-    else if (n_dot_l > 0.4)
+   else if (n_dot_l > 0.4)
        color = vec3(0.4, 0.4, 0.4);
-    else if (n_dot_l > 0.3)
+   else if (n_dot_l > 0.3)
        color = vec3(0.3, 0.3, 0.3);
-    else if (n_dot_l > 0.2)
-       color = vec3(0.2, 0.2, 0.2);
-      else 
+   else if (n_dot_l > 0.2)
        color = vec3(0.1, 0.1, 0.1);
+   else 
+       color = vec3(0.05, 0.05, 0.05);
 
    if(textureflag == 1){
-      color = texture(textureMap, textCoords).rgb;
+      if(textureID == 0){
+         color = texture(textureMap, textCoords).rgb;
+      }
+      else if(textureID == 1){
+         color = texture(charactertextureMap, textCoords).rgb;
+      }
    }
-   //result = color;
-   result = ambientIntensity+ (visibility) * material.kd* color *light.rgbIntensity;
+   if(textureID != -1){
+      result = color;
+   }else{
+      result = ambientIntensity+ (visibility) * material.kd* color *light.rgbIntensity;
+   }
 
 }else{
 	vec3 diffuse;
@@ -113,16 +121,16 @@ if(toonrender){
     }
 
     result = ambientIntensity + visibility * light.rgbIntensity * (diffuse + specular);
-}
+   if(textureflag == 1 && textureID != -1){
+      if(textureID == 0){
+         result = texture(textureMap, textCoords).rgb;
+      }
+      else if(textureID == 1){
+         result = texture(charactertextureMap, textCoords).rgb;
+      }
+   }
 
-   // float shadow = shadowCalc();
-   // shadow = 1.0;
-
-   // ShadowCoord.z: 0.3-0.4
-   // texture(shadowMap, ShadowCoord.xy).z < 0.1
-
-
-
+   }
     return result;
 
 

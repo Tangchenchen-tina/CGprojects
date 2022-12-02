@@ -84,6 +84,12 @@ void SceneNode::set_lnode(int layers, int base_num, int type_h, int angle, float
 }
 
 //---------------------------------------------------------------------------------------
+void SceneNode::set_texture(int index){
+	texture_idx = index;
+	contain_texture = true;
+}
+
+//---------------------------------------------------------------------------------------
 void SceneNode::rotate(char axis, float angle) {
 	vec3 rot_axis;
 

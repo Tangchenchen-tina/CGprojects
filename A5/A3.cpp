@@ -125,6 +125,12 @@ void A3::init() {
                            getAssetFilePath("plant1.obj"),
                            getAssetFilePath("plant2.obj"),
                            getAssetFilePath("weapon.obj"),
+                           getAssetFilePath("board.obj"),
+                           getAssetFilePath("window.obj"),
+                           getAssetFilePath("smallarch.obj"),
+                           getAssetFilePath("rockset.obj"),
+                           getAssetFilePath("bobleave.obj"),
+                           getAssetFilePath("bobhouse.obj"),
                            getAssetFilePath("squidhouse.obj")});
 
   // Acquire the BatchInfoMap from the MeshConsolidator.
@@ -165,8 +171,6 @@ void A3::init() {
   initMusicSound();
 
   initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
-  cout << "setup particle SUCCESS" << endl;
-  cout << glfwGetTime << endl;
 }
 
 uint64_t timeSinceEpochMillisec() {
@@ -262,23 +266,19 @@ void A3::initParticleSystem() {
 
 void A3::initTextureMapping() {
   glGenTextures(1, &sandTexture);
-  // glActiveTexture(GL_TEXTURE1);
   glBindTexture(GL_TEXTURE_2D, sandTexture);
-
+  stbi_set_flip_vertically_on_load(true);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                  GL_LINEAR_MIPMAP_LINEAR);
+                  GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-  float borderColor[] = {1.0f, 1.0f, 0.0f, 1.0f};
-  glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
 
   int width, height, nrChannels;
   unsigned char *data =
-      stbi_load("Assets/texture/metal.jpg", &width, &height, &nrChannels, 0);
+      stbi_load("Assets/texture/s.png", &width, &height, &nrChannels, 0);
   if (data) {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA,
                  GL_UNSIGNED_BYTE, data);
     glGenerateMipmap(GL_TEXTURE_2D);
   } else {
@@ -286,6 +286,29 @@ void A3::initTextureMapping() {
   }
 
   stbi_image_free(data);
+  glBindTexture(GL_TEXTURE_2D, 0);
+
+  glGenTextures(1, &characterTexture);
+  glBindTexture(GL_TEXTURE_2D, characterTexture);
+  stbi_set_flip_vertically_on_load(true);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+                  GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+  int width_character, height_character, nrChannels_character;
+  unsigned char *cdata =
+      stbi_load("Assets/texture/characters.png", &width_character, &height_character, &nrChannels_character, 0);
+  if (cdata) {
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_character, height_character, 0, GL_RGBA,
+                 GL_UNSIGNED_BYTE, cdata);
+    glGenerateMipmap(GL_TEXTURE_2D);
+  } else {
+    cout << "Failed to load character texture" << endl;
+  }
+
+  stbi_image_free(cdata);
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
@@ -483,10 +506,8 @@ void A3::loadMusicWAVfile(const char *path, ALuint source, ALuint buffer) {
   if (bitsPerSample == 8) {
     if (channels == 1) {
       format = AL_FORMAT_MONO8;
-      cout << "8" << endl;
     } else if (channels == 2) {
       format = AL_FORMAT_STEREO8;
-      cout << "8" << endl;
     }
   } else if (bitsPerSample == 16) {
     if (channels == 1) {
@@ -518,7 +539,6 @@ void A3::initTimeQueue(const char *path, const char * movepath) {
   if(newfile2.is_open()){
     int millsec, idx;
     while(newfile2 >> millsec &&  newfile2 >> idx){
-      cout<< millsec << " "<<idx;
       timeMoveQueue.push(vec3(millsec-100, millsec+100, idx));
     }
   }
@@ -1097,7 +1117,7 @@ void A3::initViewMatrix() {
 void A3::initLightSources() {
   // World-space position
   // -----------Normal mode--------------
-  m_light.position = vec3(3.0f, 2 * 30.0f, 2 * 30.0f);
+  m_light.position = vec3(-30.0f, 2 * 40.0f, 2 * 30.0f);
   //----------- Shadow test puppet mode-------------
   //  m_light.position = vec3(0.0f, 0.0f, 15.0f);
   m_light.rgbIntensity = vec3(0.7f); // light
@@ -1278,7 +1298,7 @@ void A3::guiLogic() {
   ImGui::Text("Mode Selection:");
     ImGui::PushID(1);
   if (ImGui::RadioButton("Travel Mode (J)", &curr_mode, 1)) {
-    m_view = glm::lookAt(vec3(0.0f, 0.0f, 130.0f), vec3(0.0f, 0.0f, -1.0f),
+    m_view = glm::lookAt(vec3(0.0f, 0.0f, 140.0f), vec3(0.0f, 0.0f, -1.0f),
                          vec3(0.0f, 1.0f, 0.0f));
   }
   ImGui::PopID();
@@ -1364,7 +1384,7 @@ static void updateShaderUniforms(
     const glm::mat4 &viewMatrix, const glm::mat4 &roottrans, glm::mat4 &transM,
     glm::mat4 &transScale, glm::mat4 &rotateViewMatrix, int curr_mode,
     bool pick, float farplane, mat4 lightProjection, GLuint shadowMap,
-    GLuint sandTexture, bool shadowrender, bool texturerender) {
+    GLuint sandTexture, GLuint characterTexture, bool shadowrender, bool texturerender, int textureIndex) {
 
   shader.enable();
   {
@@ -1375,19 +1395,23 @@ static void updateShaderUniforms(
     glUniformMatrix4fv(location, 1, GL_FALSE, value_ptr(modelView));
     CHECK_GL_ERRORS;
 
+    location = shader.getUniformLocation("textureID");
+    glUniform1i(location, textureIndex);
+
     glUniform1i(shader.getUniformLocation("shadowMap"), 0);
     glUniform1i(shader.getUniformLocation("textureMap"), 1);
+    glUniform1i(shader.getUniformLocation("charactertextureMap"), 2);
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, shadowMap);
-    // location = shader.getUniformLocation("shadowMap");
-    // glUniform1i(location, shadowMap);
     CHECK_GL_ERRORS;
 
     glActiveTexture(GL_TEXTURE1);
     glBindTexture(GL_TEXTURE_2D, sandTexture);
-    // location = shader.getUniformLocation("shadowMap");
-    // glUniform1i(location, shadowMap);
+    CHECK_GL_ERRORS;
+
+    glActiveTexture(GL_TEXTURE2);
+    glBindTexture(GL_TEXTURE_2D, characterTexture);
     CHECK_GL_ERRORS;
 
     location = shader.getUniformLocation("Model");
@@ -1687,26 +1711,26 @@ void A3::draw() {
     }
   }
 
-  if (gameStart) 
-    updateTimeAnimation();
-
-  updateSphereAnimation();
-  updateShipAnimation(0.01, 0.015);
-  updateStarAnimation();
-  if (Lmode == 0)
-    moveLboatAnimation(vec3(0.5, 0, 0), 0);
-  else if (Lmode == 1)
-    moveLboatAnimation(vec3(0.5, 0, 0), 1);
-  else if (Lmode == 2) {
-    if(curr_loc == 0)
-    moveLboatAnimation(vec3(0, 0.37, 0.37), 2);
-    else
-      moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
+  // if (gameStart) {
+  //   updateTimeAnimation();
+  //   updateSphereAnimation();
+  // }
+  // updateShipAnimation(0.01, 0.015);
+  // updateStarAnimation();
+  // if (Lmode == 0)
+  //   moveLboatAnimation(vec3(0.5, 0, 0), 0);
+  // else if (Lmode == 1)
+  //   moveLboatAnimation(vec3(0.5, 0, 0), 1);
+  // else if (Lmode == 2) {
+  //   if(curr_loc == 0)
+  //   moveLboatAnimation(vec3(0, 0.37, 0.37), 2);
+  //   else
+  //     moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
   
-  }
+  // }
 
-  if (bulletout)
-    hitBulletAnimation();
+  // if (bulletout)
+  //   hitBulletAnimation();
 
   mat4 modeltrans = mat4(1.0f);
   mat4 modeltransS = mat4(1.0f);
@@ -1892,6 +1916,11 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
     if (node->m_nodeType != NodeType::GeometryNode)
       continue;
 
+    int index = -1;
+    if(node->contain_texture){
+      index = node->texture_idx;
+    }
+
     const GeometryNode *geometryNode = static_cast<const GeometryNode *>(node);
 
     // glm::mat4 root_trans =
@@ -1899,8 +1928,8 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
     glm::mat4 root_trans = transMatrix * rotateMatrix;
     updateShaderUniforms(m_shader, *geometryNode, m_view, root_trans, transM,
                          transScale, rotateViewMatrix, curr_mode, pick,
-                         far_plane, lightProjection, shadowMap, sandTexture,
-                         shadowMaprender, texturerender);
+                         far_plane, lightProjection, shadowMap, sandTexture, characterTexture,
+                         shadowMaprender, texturerender, index);
 
     // Get the BatchInfo corresponding to the GeometryNode's unique MeshId.
     BatchInfo batchInfo = m_batchInfoMap[geometryNode->meshId];
@@ -2323,7 +2352,7 @@ bool A3::keyInputEvent(int key, int action, int mods) {
     }
     if (key == GLFW_KEY_J) {
       curr_mode = 1;
-      m_view = glm::lookAt(vec3(0.0f, 0.0f, 130.0f), vec3(0.0f, 0.0f, -1.0f),
+      m_view = glm::lookAt(vec3(0.0f, 0.0f, 140.0f), vec3(0.0f, 0.0f, -1.0f),
                            vec3(0.0f, 1.0f, 0.0f));
     }
 

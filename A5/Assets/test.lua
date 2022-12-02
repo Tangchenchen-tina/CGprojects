@@ -65,10 +65,11 @@ innerSphereNode = gr.node('innerSphereNode')
 rootNode:add_child(innerSphereNode)
 
 
-house = gr.mesh('squirdhouse', 'house')
-house:scale(1.0041*5, 1.0041*5, 1.0041*5)
-house:translate(0, 30, -10)
-house:set_material(red)
+house = gr.mesh('cube', 'house')
+house:scale(2*5, 2*5, 2*5)
+house:rotate('y', 45)
+house:translate(0, 40, 30)
+house:set_material(orange)
 innerSphereNode:add_child(house)
 
 -- house = gr.mesh('cube', 'house')

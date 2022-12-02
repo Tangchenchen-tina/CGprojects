@@ -11,16 +11,20 @@ brown = gr.material({0.6, 0.38, 0.09}, {0.2,0.2,0.2}, 0)
 brownyellow = gr.material({0.84, 0.59, 0.24}, {0.2,0.2,0.2}, 0)
 red = gr.material({1, 0.12, 0.10}, {0.2,0.2,0.2}, 0)
 blue = gr.material({0.1, 0.12, 1}, {0.2,0.2,0.2}, 0)
-pink = gr.material({1, 0.5, 0.5}, {0.4, 0.4, 0.4}, 10.0)
+pink = gr.material({1, 0.55, 0.55}, {0.4, 0.4, 0.4}, 10.0)
 darkpink = gr.material({1, 0.4, 0.4}, {0.4, 0.4, 0.4}, 10.0)
 red = gr.material({1, 0.1, 0.1}, {0.4, 0.4, 0.4}, 10.0)
 lightgreen = gr.material({0.651, 0.8392, 0.03}, {0.4, 0.4, 0.4}, 10.0)
 gray = gr.material({0.5, 0.5, 0.5}, {0.4, 0.4, 0.4}, 10.0)
+white = gr.material({1, 1, 1}, {0.4, 0.4, 0.4}, 10.0)
+lightblue = gr.material({0.3, 0.8, 1}, {0.4, 0.4, 0.4}, 20.0)
+darkblue = gr.material({0, 0.2, 0.4}, {0.4, 0.4, 0.4}, 20.0)
 
 darkred = gr.material({0.698, 0.13, 0.13}, {0.4, 0.4, 0.4}, 10.0)
 darkorange = gr.material({0.93, 0.17, 0.17}, {0.4, 0.4, 0.4}, 10.0)
 darkpurple = gr.material({1, 0.0, 0.5}, {0.4, 0.4, 0.4}, 10.0)
 darkyellow = gr.material({1, 0.8, 0.07}, {0.4, 0.4, 0.4}, 10.0)
+ddyellow = gr.material({1, 0.6, 0.07}, {0.4, 0.4, 0.4}, 10.0)
 
 
 scale = 1.05*rootScale
@@ -71,19 +75,178 @@ innerSphere:translate(0, 0, 0)
 innerSphere:set_material(sand)
 innerSphereNode:add_child(innerSphere)
 
+--------------------------------------------------
+------------------- stones---------------------
+--------------------------------------------------
+stone1 = gr.mesh('smallarch', 'stone1')
+stone1:scale(0.2,0.2,0.2)
+stone1:translate(0,70,0)
+stone1:rotate('y', -45)
+stone1:rotate('z', -30)
+stone1:rotate('x', 65)
+stone1:set_material(gray)
+innerSphereNode:add_child(stone1)
+
+stone2 = gr.mesh('smallarch', 'stone2')
+stone2:scale(0.1,0.1,0.1)
+stone2:translate(0,65,0)
+stone2:rotate('y', 45)
+stone2:rotate('z', 20)
+stone2:rotate('x', -65)
+stone2:set_material(gray)
+innerSphereNode:add_child(stone2)
+
+stone3 = gr.mesh('rockset', 'stone3')
+stone3:scale(0.6,0.7,0.6)
+stone3:translate(0,65,0)
+stone3:rotate('y', -90)
+stone3:rotate('z', -90)
+stone3:rotate('y', -30)
+--stone3:rotate('y', -90)
+-- stone3:rotate('x', -65)
+stone3:set_material(gray)
+innerSphereNode:add_child(stone3)
+
+--------------------------------------------------
+------------------- boards---------------------
+--------------------------------------------------
+boardNode1 = gr.node('board1')
+innerSphereNode:add_child(boardNode1)
+
+board1 = gr.mesh('board', 'board1')
+board1:scale(3,3,3)
+board1:rotate('y', -120)
+board1:rotate('x', 30)
+board1:rotate('z', -10)
+board1:translate(20, 62, 30)
+board1:set_material(brown)
+boardNode1:add_child(board1)
+
+boardbottom1 = gr.mesh('cube', 'board1')
+boardbottom1:scale(0.75,4.6,7.5)
+boardbottom1:rotate('y', -120)
+boardbottom1:rotate('x', 30)
+boardbottom1:rotate('z', -10)
+boardbottom1:translate(19.8, 62, 30.4)
+boardbottom1:set_material(white)
+boardbottom1:set_texture(1)
+boardNode1:add_child(boardbottom1)
+
 
 --------------------------------------------------
 ------------------- houses---------------------
 --------------------------------------------------
+house1Node = gr.node('house1')
+innerSphereNode:add_child(house1Node)
 
 house = gr.mesh('squirdhouse', 'house')
 house:scale(1.0041*4, 1.0041*4, 1.0041*4)
 house:rotate('y', -60)
 house:rotate('z', 25)
 house:rotate('x', 15)
-house:translate(-40, 52, 20)
+house:translate(-40, 55, 20)
 house:set_material(gray)
-innerSphereNode:add_child(house)
+house1Node:add_child(house)
+
+house1w1 = gr.mesh('window', 'w1')
+house1w1:scale(0.4,0.4,0.4)
+house1w1:translate(5,4,-2.5)
+house1w1:set_material(lightblue)
+house:add_child(house1w1)
+
+house1w2 = gr.mesh('window', 'w1')
+house1w2:scale(0.4,0.4,0.4)
+house1w2:translate(5,4,3)
+house1w2:set_material(lightblue)
+house:add_child(house1w2)
+
+-----------------------
+house2Node = gr.node('house2')
+innerSphereNode:add_child(house2Node)
+
+house2 = gr.mesh('sphere', 'house')
+house2:scale(8, 8, 8)
+house2:translate(25, 55, 20)
+house2:rotate('x', 20)
+house2:rotate('x', 60)
+house2:set_material(ddyellow)
+house2Node:add_child(house2)
+
+house2w1 = gr.mesh('window', 'w1')
+house2w1:scale(0.2,0.2,0.2)
+house2w1:rotate('y', -90)
+house2w1:rotate('x', -45)
+house2w1:rotate('z', -45)
+house2w1:translate(5,4,5)
+house2w1:set_material(lightblue)
+house2:add_child(house2w1)
+
+house2w2 = gr.mesh('window', 'w1')
+house2w2:scale(0.3,0.3,0.3)
+house2w2:rotate('y', -90)
+house2w2:rotate('x', -20)
+house2w2:rotate('z', 60)
+house2w2:translate(-2,3,6.5)
+house2w2:set_material(lightblue)
+house2:add_child(house2w2)
+
+
+house3Node = gr.node('house3')
+innerSphereNode:add_child(house3Node)
+
+house3 = gr.mesh('squirdhouse', 'house')
+house3:scale(3, 3, 3)
+house3:rotate('y', 90)
+house3:translate(0, 62, 20)
+house3:set_material(darkblue)
+house3:rotate('z', -210)
+house3Node:add_child(house3)
+
+house3w1 = gr.mesh('window', 'w1')
+house3w1:scale(0.4,0.4,0.4)
+house3w1:translate(4,3.5,-2)
+house3w1:set_material(lightblue)
+house3:add_child(house3w1)
+
+house3w2 = gr.mesh('window', 'w1')
+house3w2:scale(0.4,0.4,0.4)
+house3w2:translate(4,3.5,2)
+house3w2:set_material(lightblue)
+house3:add_child(house3w2)
+
+---- spongbob
+house4Node = gr.node('house4')
+innerSphereNode:add_child(house4Node)
+
+house4 = gr.mesh('bobhouse', 'house')
+house4:scale(15, 15, 15)
+house4:translate(0, 71, 0)
+house4:rotate('y', -40)
+house4:rotate('z', -30)
+house4:rotate('x', 20)
+house4:set_material(orange)
+house4Node:add_child(house4)
+
+house4leave = gr.mesh('bobleave', 'house')
+house4leave:scale(0.8/15, 0.8/15, 0.8/15)
+house4leave:translate(0, 10, 0)
+house4leave:set_material(grass)
+house4:add_child(house4leave)
+
+house4w1 = gr.mesh('window', 'w1')
+house4w1:scale(0.1,0.1,0.1)
+house4w1:rotate('y', -100)
+house4w1:translate(-3,3.5,8.5)
+house4w1:set_material(lightblue)
+house4:add_child(house4w1)
+
+house4w2 = gr.mesh('window', 'w1')
+house4w2:scale(0.1,0.1,0.1)
+house4w2:rotate('y', -70)
+house4w2:translate(4,1,8.5)
+house4w2:set_material(lightblue)
+house4:add_child(house4w2)
+
 
 --------------------------------------------------
 ------------------- Plants---------------------
@@ -97,9 +260,18 @@ outerSphereNode:add_child(plant1)
 plant1:rotate('z', -30)
 plant1:rotate('x', 40)
 plant1:translate(2/3*rootScale,4.5/3*rootScale,4.5/3*rootScale)  --outer: 44.5
-plant1:scale(0.1*scale, 0.1*scale, 0.1*scale)
-plant1:set_lnode(8, 1, 0, 15, 1)
-plant1:set_material(darkred)
+plant1:scale(0.1*scale, 0.08*scale, 0.1*scale)
+plant1:set_lnode(15, 1, 0, 25, 1)
+plant1:set_material(darkyellow)
+
+plant1_1 = gr.mesh('plant1', 'plant1')
+outerSphereNode:add_child(plant1_1)
+plant1_1:rotate('z', -30)
+plant1_1:rotate('x', 40)
+plant1_1:translate(2/3*rootScale+2,4.5/3*rootScale-3,4.5/3*rootScale+2)  --outer: 44.5
+plant1_1:scale(0.08*scale, 0.05*scale, 0.08*scale)
+plant1_1:set_lnode(20, 1, 0, 30, 1)
+plant1_1:set_material(darkpurple)
 
 plant2 = gr.mesh('plant1', 'plant2')
 outerSphereNode:add_child(plant2)
@@ -209,13 +381,65 @@ plant13:scale(0.1*scale, 0.1*scale, 0.1*scale)
 plant13:set_lnode(25, 1, 0, 20, 1)
 plant13:set_material(darkyellow)
 
+-- pair 14 15
+plant14 = gr.mesh('plant1', 'grass2')
+outerSphereNode:add_child(plant14)
+plant14:translate(0,4.2/3*rootScale*1.5,0)  --outer: 44.5
+plant14:scale(0.1*scale, 0.07*scale, 0.1*scale)
+plant14:rotate('y', -45)
+--plant14:rotate('z', -30)
+plant14:rotate('x', 85)
+plant14:set_lnode(30, 1, 0, 30, 1)
+plant14:set_material(orange)
+
+plant15 = gr.mesh('plant1', 'grass2')
+outerSphereNode:add_child(plant15)
+plant15:translate(-4,4.2/3*rootScale*1.5,3)  --outer: 44.5
+plant15:scale(0.15*scale, 0.06*scale, 0.15*scale)
+plant15:rotate('y', -45)
+--plant15:rotate('z', -30)
+plant15:rotate('x', 80)
+plant15:set_lnode(40, 1, 0, 35, 1)
+plant15:set_material(darkyellow)
+
+-- pair 16 17 18
+plant16 = gr.mesh('plant1', 'grass2')
+outerSphereNode:add_child(plant16)
+plant16:translate(0,4.2/3*rootScale*1.5,0)  --outer: 44.5
+plant16:scale(0.1*scale, 0.12*scale, 0.1*scale)
+plant16:rotate('y', -90)
+plant16:rotate('z', -95)
+plant16:rotate('y', -30)
+plant16:set_lnode(20, 1, 0, 30, 1)
+plant16:set_material(orange)
+
+plant17 = gr.mesh('plant1', 'grass2')
+outerSphereNode:add_child(plant17)
+plant17:translate(-4,4.2/3*rootScale*1.5,3)  --outer: 44.5
+plant17:scale(0.15*scale, 0.13*scale, 0.15*scale)
+plant17:rotate('y', -90)
+plant17:rotate('z', -95)
+plant17:rotate('y', -30)
+plant17:set_lnode(30, 1, 0, 20, 1)
+plant17:set_material(darkyellow)
+
+plant18 = gr.mesh('plant1', 'grass2')
+outerSphereNode:add_child(plant18)
+plant18:translate(-1,4.2/3*rootScale*1.5,7)  --outer: 44.5
+plant18:scale(0.15*scale, 0.14*scale, 0.15*scale)
+plant18:rotate('y', -90)
+plant18:rotate('z', -95)
+plant18:rotate('y', -30)
+plant18:set_lnode(25, 1, 0, 20, 1)
+plant18:set_material(red)
+
 -------------------- Grass & -------------------
 
 grass1 = gr.mesh('plant1', 'grass1')
 outerSphereNode:add_child(grass1)
 grass1:rotate('z', 30)
 grass1:rotate('x', 40)
-grass1:translate(-2/3*rootScale,4.2/3*rootScale,4.5/3*rootScale)  --outer: 44.5
+grass1:translate(-2/3*rootScale-4,4.2/3*rootScale,4.5/3*rootScale)  --outer: 44.5
 grass1:scale(0.15*scale, 0.25*scale, 0.15*scale)
 grass1:set_lnode(3, 3, 1, 80, 0.25*scale)
 grass1:set_material(orange)
@@ -228,6 +452,23 @@ grass2:translate(3/3*rootScale,-4.2/3*rootScale,3.7/3*rootScale)  --outer: 44.5
 grass2:scale(0.15*scale, 0.3*scale, 0.15*scale)
 grass2:set_lnode(3, 3, 1, 70, 0.3*scale)
 grass2:set_material(orange)
+
+
+grass3 = gr.mesh('plant1', 'grass2')
+outerSphereNode:add_child(grass3)
+grass3:translate(0,4.2/3*rootScale*1.5,0)  --outer: 44.5
+grass3:scale(0.15*scale, 0.3*scale, 0.15*scale)
+grass3:rotate('z', -210)
+grass3:set_lnode(4, 4, 1, 40, 0.3*scale)
+grass3:set_material(red)
+
+grass4 = gr.mesh('plant1', 'grass2')
+outerSphereNode:add_child(grass4)
+grass4:translate(-2,4.2/3*rootScale*1.5,3)  --outer: 44.5
+grass4:scale(0.15*scale, 0.3*scale, 0.15*scale)
+grass4:rotate('z', -210)
+grass4:set_lnode(3, 3, 1, 70, 0.3*scale)
+grass4:set_material(darkyellow)
 
 --------------------------------------------------
 ------------------- Character---------------------

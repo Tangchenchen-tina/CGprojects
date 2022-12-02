@@ -302,6 +302,17 @@ extern "C" int gr_lnode_cmd(lua_State *L) {
   return 0;
 }
 
+extern "C" int gr_texture_cmd(lua_State *L) {
+  gr_node_ud *selfdata = (gr_node_ud *)luaL_checkudata(L, 1, "gr.node");
+  luaL_argcheck(L, selfdata != 0, 1, "Node expected");
+
+  int index = luaL_checknumber(L, 2);
+
+  SceneNode *self = (selfdata->node);
+  self->set_texture(index);
+  return 0;
+}
+
 // Rotate a node.
 extern "C" int gr_node_rotate_cmd(lua_State *L) {
   GRLUA_DEBUG_CALL;
@@ -374,6 +385,7 @@ static const luaL_Reg grlib_node_methods[] = {
     {"rotate", gr_node_rotate_cmd},
     {"translate", gr_node_translate_cmd},
     {"set_lnode", gr_lnode_cmd},
+    {"set_texture", gr_texture_cmd},
     {0, 0}};
 
 // This function calls the lua interpreter to do the actual importing

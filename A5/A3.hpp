@@ -176,6 +176,7 @@ protected:
 
   // Texture Mapping
   unsigned int sandTexture;
+  unsigned int characterTexture;
   void initTextureMapping();
 
   // CubeMap
@@ -332,7 +333,7 @@ protected:
   bool cuberender = true;
   bool shadowMaprender = false;
   bool particlerender = false;
-  bool texturerender = false;
+  bool texturerender = true;
   bool toonrender = true;
   bool cplxLSystemrender = false;
   bool gameStart = false;

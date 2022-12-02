@@ -50,6 +50,7 @@ public:
     void translate(const glm::vec3& amount);
 
     void set_lnode(int layers, int base_num, int type_h, int angle, float scale);
+    void set_texture(int index);
 
 
 	friend std::ostream & operator << (std::ostream & os, const SceneNode & node);
@@ -69,7 +70,8 @@ public:
 
     LnodeInfo lInfo;
     bool LNode = false;
-
+    int texture_idx;
+    bool contain_texture = false;
 
 
 private:
