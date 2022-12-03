@@ -76,6 +76,56 @@ innerSphere:set_material(sand)
 innerSphereNode:add_child(innerSphere)
 
 --------------------------------------------------
+------------------- Jelly fish ---------------------
+--------------------------------------------------
+jellyFishNode1 = gr.node('jellyfish')
+innerSphereNode:add_child(jellyFishNode1)
+
+jellyfish1 = gr.mesh('jellyfish', 'j1')
+jellyfish1:scale(2,2,2)
+jellyfish1:rotate('y', 30)
+jellyfish1:rotate('z', 30)
+jellyfish1:translate(0,75,0)
+jellyfish1:set_material(pink)
+jellyFishNode1:add_child(jellyfish1)
+
+jellyfish2 = gr.mesh('jellyfish', 'j2')
+jellyfish2:scale(2.5,2.5,2.5)
+jellyfish2:rotate('y', 10)
+jellyfish2:rotate('z', 10)
+jellyfish2:rotate('x', 20)
+jellyfish2:translate(-5,85,1)
+jellyfish2:set_material(pink)
+jellyFishNode1:add_child(jellyfish2)
+
+jellyfish3 = gr.mesh('jellyfish', 'j3')
+jellyfish3:scale(3,3,3)
+jellyfish3:rotate('y', 80)
+jellyfish3:rotate('z', -20)
+jellyfish3:rotate('x', 50)
+jellyfish3:translate(5,95,-4)
+jellyfish3:set_material(pink)
+jellyFishNode1:add_child(jellyfish3)
+
+jellyfish4 = gr.mesh('jellyfish', 'j3')
+jellyfish4:scale(1,1,1)
+jellyfish4:rotate('y', 80)
+jellyfish4:rotate('z', -10)
+jellyfish4:rotate('x', 5)
+jellyfish4:translate(-18,49,68)
+jellyfish4:set_material(pink)
+jellyFishNode1:add_child(jellyfish4)
+
+jellyfish5 = gr.mesh('jellyfish', 'j3')
+jellyfish5:scale(2,2,2)
+jellyfish5:rotate('y', 80)
+jellyfish5:rotate('z', -40)
+jellyfish5:rotate('x', 40)
+jellyfish5:translate(50,100,-4)
+jellyfish5:set_material(darkpink)
+jellyFishNode1:add_child(jellyfish5)
+
+--------------------------------------------------
 ------------------- stones---------------------
 --------------------------------------------------
 stone1 = gr.mesh('smallarch', 'stone1')
@@ -102,10 +152,16 @@ stone3:translate(0,65,0)
 stone3:rotate('y', -90)
 stone3:rotate('z', -90)
 stone3:rotate('y', -30)
---stone3:rotate('y', -90)
--- stone3:rotate('x', -65)
 stone3:set_material(gray)
 innerSphereNode:add_child(stone3)
+
+stone4 = gr.mesh('rockset', 'stone4')
+stone4:scale(0.5,1,0.5)
+stone4:translate(0,62,0)
+stone4:rotate('z', -65)
+stone4:rotate('y', 60)
+stone4:set_material(gray)
+innerSphereNode:add_child(stone4)
 
 --------------------------------------------------
 ------------------- boards---------------------
@@ -148,6 +204,13 @@ house:translate(-40, 55, 20)
 house:set_material(gray)
 house1Node:add_child(house)
 
+door1 = gr.mesh('door', 'd1')
+door1:scale(0.25,0.25,0.25)
+door1:rotate('y', 180)
+door1:translate(6, -5, 0)
+door1:set_material(brown)
+house:add_child(door1)
+
 house1w1 = gr.mesh('window', 'w1')
 house1w1:scale(0.4,0.4,0.4)
 house1w1:translate(5,4,-2.5)
@@ -166,11 +229,19 @@ innerSphereNode:add_child(house2Node)
 
 house2 = gr.mesh('sphere', 'house')
 house2:scale(8, 8, 8)
-house2:translate(25, 55, 20)
+house2:rotate('z', -20)
+house2:translate(25, 57, 20) -- x=25 55 20
 house2:rotate('x', 20)
 house2:rotate('x', 60)
 house2:set_material(ddyellow)
 house2Node:add_child(house2)
+
+door2 = gr.mesh('door', 'd1')
+door2:scale(0.2,0.15,0.15)
+door2:rotate('y', 110)
+door2:translate(3, -3, 7)
+door2:set_material(lightblue)
+house2:add_child(door2)
 
 house2w1 = gr.mesh('window', 'w1')
 house2w1:scale(0.2,0.2,0.2)
@@ -186,7 +257,7 @@ house2w2:scale(0.3,0.3,0.3)
 house2w2:rotate('y', -90)
 house2w2:rotate('x', -20)
 house2w2:rotate('z', 60)
-house2w2:translate(-2,3,6.5)
+house2w2:translate(-2,3,7)
 house2w2:set_material(lightblue)
 house2:add_child(house2w2)
 
@@ -196,11 +267,20 @@ innerSphereNode:add_child(house3Node)
 
 house3 = gr.mesh('squirdhouse', 'house')
 house3:scale(3, 3, 3)
-house3:rotate('y', 90)
-house3:translate(0, 62, 20)
+house3:rotate('y', 150)
+house3:rotate('x',20)
+--house3:rotate('x',10)
+house3:translate(0, 65, 20)
 house3:set_material(darkblue)
 house3:rotate('z', -210)
 house3Node:add_child(house3)
+
+door3 = gr.mesh('door', 'd1')
+door3:scale(0.15,0.15,0.15)
+door3:rotate('y', 180)
+door3:translate(4.5, -3, 0)
+door3:set_material(brown)
+house3:add_child(door3)
 
 house3w1 = gr.mesh('window', 'w1')
 house3w1:scale(0.4,0.4,0.4)
@@ -233,6 +313,14 @@ house4leave:translate(0, 10, 0)
 house4leave:set_material(grass)
 house4:add_child(house4leave)
 
+door4 = gr.mesh('door', 'd3')
+door4:scale(0.1,0.07,0.07) -- z x y
+door4:rotate('y', 90)
+door4:rotate('x', 10)
+door4:translate(0, -4, 8.8)
+door4:set_material(lightblue)
+house4:add_child(door4)
+
 house4w1 = gr.mesh('window', 'w1')
 house4w1:scale(0.1,0.1,0.1)
 house4w1:rotate('y', -100)
@@ -246,6 +334,13 @@ house4w2:rotate('y', -70)
 house4w2:translate(4,1,8.5)
 house4w2:set_material(lightblue)
 house4:add_child(house4w2)
+
+house4w3 = gr.mesh('window', 'w3')
+house4w3:scale(0.05,0.05,0.05)
+house4w3:rotate('y', -90)
+house4w3:translate(0,-3,9.8)
+house4w3:set_material(lightblue)
+house4:add_child(house4w3)
 
 
 --------------------------------------------------
@@ -384,7 +479,7 @@ plant13:set_material(darkyellow)
 -- pair 14 15
 plant14 = gr.mesh('plant1', 'grass2')
 outerSphereNode:add_child(plant14)
-plant14:translate(0,4.2/3*rootScale*1.5,0)  --outer: 44.5
+plant14:translate(0,4.2/3*rootScale*1.5-2,0)  --outer: 44.5
 plant14:scale(0.1*scale, 0.07*scale, 0.1*scale)
 plant14:rotate('y', -45)
 --plant14:rotate('z', -30)
@@ -394,7 +489,7 @@ plant14:set_material(orange)
 
 plant15 = gr.mesh('plant1', 'grass2')
 outerSphereNode:add_child(plant15)
-plant15:translate(-4,4.2/3*rootScale*1.5,3)  --outer: 44.5
+plant15:translate(-4,4.2/3*rootScale*1.5-2,3)  --outer: 44.5
 plant15:scale(0.15*scale, 0.06*scale, 0.15*scale)
 plant15:rotate('y', -45)
 --plant15:rotate('z', -30)

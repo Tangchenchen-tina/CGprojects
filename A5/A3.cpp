@@ -131,6 +131,8 @@ void A3::init() {
                            getAssetFilePath("rockset.obj"),
                            getAssetFilePath("bobleave.obj"),
                            getAssetFilePath("bobhouse.obj"),
+                           getAssetFilePath("door.obj"),
+                           getAssetFilePath("Jellyfish.obj"),
                            getAssetFilePath("squidhouse.obj")});
 
   // Acquire the BatchInfoMap from the MeshConsolidator.
@@ -1711,10 +1713,10 @@ void A3::draw() {
     }
   }
 
-  // if (gameStart) {
+  if (gameStart) {
   //   updateTimeAnimation();
-  //   updateSphereAnimation();
-  // }
+   updateSphereAnimation();
+  }
   // updateShipAnimation(0.01, 0.015);
   // updateStarAnimation();
   // if (Lmode == 0)
