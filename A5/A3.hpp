@@ -263,12 +263,12 @@ protected:
   float LMinZ = -0.5;
   int Ldir = 0; // down
 
-  float leftbound = -9;
+  float leftbound = -7.5;
   float origin = 0;
-  float rightbound = 7;
+  float rightbound = 7.5;
   vec3 curr_L_loc = vec3(0,0,0);
   float curr_L_uploc = 0;
-  float upbound = 6.5;
+  float upbound = 7;
   bool moveLeft = false;
   bool moveRight = false;
   bool moveup = false;
@@ -303,7 +303,7 @@ protected:
   // Right Ship Bullet
   GeometryNode * bullet;
   bool bulletout = false;
-  void initBullet(float angle);
+  void initBullet(float angle, bool coin);
   vec3 curr_bullet_loc;
 
   // Music
@@ -315,6 +315,8 @@ protected:
   ALuint moveBuffer;
   ALuint hitSource;
   ALuint hitBuffer;
+  ALuint coinSource;
+  ALuint coinBuffer;
   ALuint backgroundSource;
   ALuint backgroundBuffer;
 
@@ -327,6 +329,8 @@ protected:
   uint64_t currTime;
   void initTimeQueue(const char * path, const char * pathmove);
   void updateTimeAnimation();
+  void startGame();
+  void endGame();
 
 
   // renderContral
@@ -340,4 +344,5 @@ protected:
 
   //ViewMode
   int curr_veiw_mode = 0;
+  int coin_mode = 0;
 };

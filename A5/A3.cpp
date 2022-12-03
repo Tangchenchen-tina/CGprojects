@@ -129,6 +129,7 @@ void A3::init() {
                            getAssetFilePath("window.obj"),
                            getAssetFilePath("smallarch.obj"),
                            getAssetFilePath("rockset.obj"),
+                           getAssetFilePath("rockset2.obj"),
                            getAssetFilePath("bobleave.obj"),
                            getAssetFilePath("bobhouse.obj"),
                            getAssetFilePath("door.obj"),
@@ -197,12 +198,16 @@ void A3::setupParticles() {
                              life4 / 5); // set mode to 1
 }
 
-void A3::initBullet(float angle) {
+void A3::initBullet(float angle, bool coin) {
   if (bullet) {
     m_rootNode.get()->remove_child(bullet);
   }
   GeometryNode *bulletnode = new GeometryNode("sphere", "bullet");
   bulletnode->material = Material(vec3(1, 0, 0), vec3(0.4, 0.4, 0.4), 10.0);
+  if(coin){
+    bulletnode->material = Material(vec3(1, 1, 0), vec3(0.4, 0.4, 0.4), 10.0);  
+    bulletnode->coin = true;
+  }
   bulletnode->scale(vec3(0.5, 0.5, 0.5));
   bulletnode->translate(vec3(10.5, 38, 55));
   bulletnode->rotate('x', angle);
@@ -562,7 +567,7 @@ void A3::initMusicSound() {
   alGenSources((ALuint)1, &moveSource);
   alSourcei(moveSource, AL_SOURCE_RELATIVE, AL_TRUE);
   alSourcef(moveSource, AL_PITCH, 1);
-  alSourcef(moveSource, AL_GAIN, 0.4);
+  alSourcef(moveSource, AL_GAIN, 1.5);
   alSource3f(moveSource, AL_POSITION, 0, 0, 0);
   alSource3f(moveSource, AL_VELOCITY, 0, 0, 0);
   alSourcei(moveSource, AL_LOOPING, AL_FALSE);
@@ -573,13 +578,24 @@ void A3::initMusicSound() {
   alGenSources((ALuint)1, &hitSource);
   alSourcei(hitSource, AL_SOURCE_RELATIVE, AL_TRUE);
   alSourcef(hitSource, AL_PITCH, 1);
-  alSourcef(hitSource, AL_GAIN, 0.4);
+  alSourcef(hitSource, AL_GAIN, 2);
   alSource3f(hitSource, AL_POSITION, 0, 0, 0);
   alSource3f(hitSource, AL_VELOCITY, 0, 0, 0);
   alSourcei(hitSource, AL_LOOPING, AL_FALSE);
   alGenBuffers((ALuint)1, &hitBuffer);
 
   loadMusicWAVfile("Assets/sound/blurp_x.wav", hitSource, hitBuffer); //hit-blurp_x
+
+    alGenSources((ALuint)1, &coinSource);
+  alSourcei(coinSource, AL_SOURCE_RELATIVE, AL_TRUE);
+  alSourcef(coinSource, AL_PITCH, 1);
+  alSourcef(coinSource, AL_GAIN, 0.9);
+  alSource3f(coinSource, AL_POSITION, 0, 0, 0);
+  alSource3f(coinSource, AL_VELOCITY, 0, 0, 0);
+  alSourcei(coinSource, AL_LOOPING, AL_FALSE);
+  alGenBuffers((ALuint)1, &coinBuffer);
+
+  loadMusicWAVfile("Assets/sound/coin.wav", coinSource, coinBuffer); //hit-blurp_x
 
 
     alGenSources((ALuint)1, &backgroundSource);
@@ -1164,6 +1180,28 @@ void A3::uploadCommonSceneUniforms() {
   m_shader.disable();
 }
 
+void A3::startGame(){
+    if (!gameStart) {
+      gameStart = true;
+      alSourcePlay(backgroundSource);
+      startTime = timeSinceEpochMillisec();
+      curr_mode = 0;
+      near = true;
+      mid = false;
+      far = false;
+    }
+}
+
+void A3::endGame(){
+      initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
+      alSourceStop(backgroundSource);
+      gameStart = false;
+      curr_mode = 0;
+      near = true;
+      mid = false;
+      far = false;
+}
+
 void A3::updateParticles() {
   particleSys.particlesCount = 0;
   for (int i = 0; i < particleSys.maxParticles; i++) {
@@ -1272,7 +1310,19 @@ void A3::guiLogic() {
       // reset Joints && clearn undo/redo stack
       resetPos();
       resetOrin();
-      resetJoints();
+      curr_mode = 0;
+      coin_mode = 0;
+      curr_loc = 0;
+      curr_angle = 0;
+      Lmode = 0;
+      weapon_curr_angle = 0;
+      cuberender = true;
+      shadowMaprender = false;
+      particlerender = false;
+      texturerender = true;
+      toonrender = true;
+      cplxLSystemrender = false;
+      gameStart = false;
     }
     if (ImGui::Button("Quit Application (Q)")) {
       glfwSetWindowShouldClose(m_window, GL_TRUE);
@@ -1315,6 +1365,20 @@ void A3::guiLogic() {
   } 
   ImGui::PopID();
 
+//---------------------------------------------------
+  ImGui::Text("Game Sub Mode Selection:");
+      ImGui::SameLine();
+    ImGui::PushID(1);
+  if (ImGui::RadioButton("Non Coin", &coin_mode, 0)) {
+  }
+  ImGui::PopID();
+  ImGui::SameLine();
+  ImGui::PushID(0);
+  if (ImGui::RadioButton("Coin", &coin_mode, 1)) {
+  }
+  ImGui::PopID();
+
+//---------------------------------------------------
   ImGui::Text("Game View Selection:");
     ImGui::SameLine();
     ImGui::PushID(1);
@@ -1339,26 +1403,11 @@ void A3::guiLogic() {
   ImGui::PopID();
 
   if (ImGui::Button("Start Game")) {
-    // start the game
-    if (!gameStart) {
-      gameStart = true;
-      alSourcePlay(backgroundSource);
-      startTime = timeSinceEpochMillisec();
-      curr_mode = 0;
-      near = true;
-      mid = false;
-      far = false;
-    }
+    startGame();
   }
     ImGui::SameLine();
   if (ImGui::Button("End Game")) {
-      initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
-      alSourceStop(backgroundSource);
-      gameStart = false;
-      curr_mode = 0;
-      near = true;
-      mid = false;
-      far = false;
+    endGame();
   }
 
   framerate = ImGui::GetIO().Framerate;
@@ -1469,7 +1518,7 @@ static void updateShaderUniforms(
 
 void A3::updateSphereAnimation() {
   if (curr_mode == 0) {
-    outerSphere->rotate('x', 0.3);
+    outerSphere->rotate('x', 0.15);
   }
 }
 
@@ -1618,9 +1667,9 @@ void A3::moveLboatAnimation(vec3 L_speed, int mode) {
 
 bool A3::checkCollision() {
   for (auto locV : curr_Lship_loc) {
-    if (abs(locV.x - curr_bullet_loc.x) <= 2 &&
-        abs(locV.z - curr_bullet_loc.z) <= 2 &&
-        abs(locV.y - curr_bullet_loc.y) <= 2) {
+    if (abs(locV.x - curr_bullet_loc.x) <= 2.5 &&
+        abs(locV.z - curr_bullet_loc.z) <= 2.5 &&
+        abs(locV.y - curr_bullet_loc.y) <= 2.5) {
       return true;
     }
   }
@@ -1633,7 +1682,12 @@ void A3::hitAnimation(vec3 speed, int pos) {
     curr_bullet_loc = vec3(bullet->trans * vec4(0, 0, 0, 1));
     bool collide = checkCollision();
     if (collide) {
-      alSourcePlay(hitSource);
+      if(!bullet->coin){
+        alSourcePlay(hitSource);
+      }else{
+        alSourcePlay(coinSource);
+      }
+
       particleSys.createParticle(2, 10, curr_bullet_loc, vec3(0, 0.2, 0), 0.1,
                                  10); // set mode to 1
       m_rootNode.get()->remove_child(bullet);
@@ -1650,6 +1704,10 @@ void A3::hitBulletAnimation() {
     float scale = 1.05;
     float x_speed = -0.3*scale;
     float z_speed = 0.15*scale;
+    if(bullet && bullet->coin){
+      x_speed = -0.17*scale;
+      z_speed = 0.15*scale;
+    }
     float y_speed = -1*(normal.x*x_speed + normal.z*z_speed)/normal.y;
     speed = vec3(x_speed, y_speed, z_speed);
   } else if (curr_loc == 2) {
@@ -1658,6 +1716,10 @@ void A3::hitBulletAnimation() {
     float scale = 0.85;
     float x_speed = -0.27 *scale;
     float z_speed = 0.42*scale;
+    if(bullet && bullet->coin){
+      x_speed = -0.16*scale;
+      z_speed = 0.42*scale;
+    }
     float y_speed = -1*(normal.x*x_speed + normal.z*z_speed)/normal.y;
     speed = vec3(x_speed, y_speed, z_speed);
     // cout<<to_string(speed)<<endl;
@@ -1676,7 +1738,14 @@ void A3::updateTimeAnimation(){
     currTime = timeSinceEpochMillisec() - startTime;
     // cout<<to_string(currTimeInterval) << " "<<currTime<<endl;
     if (currTime >= currTimeInterval.x && currTime <= currTimeInterval.y) {
-      initBullet(angleList[curr_loc]);
+      bool coin = false;
+      if(curr_loc != 0 && coin_mode == 1){
+        int num = rand()%10;
+        if(num >= 6){
+          coin = true;
+        }
+      }
+      initBullet(angleList[curr_loc], coin);
       bulletout = true;
       timeQueue.pop();
     }
@@ -1714,25 +1783,24 @@ void A3::draw() {
   }
 
   if (gameStart) {
-  //   updateTimeAnimation();
+    updateTimeAnimation();
    updateSphereAnimation();
   }
-  // updateShipAnimation(0.01, 0.015);
-  // updateStarAnimation();
-  // if (Lmode == 0)
-  //   moveLboatAnimation(vec3(0.5, 0, 0), 0);
-  // else if (Lmode == 1)
-  //   moveLboatAnimation(vec3(0.5, 0, 0), 1);
-  // else if (Lmode == 2) {
-  //   if(curr_loc == 0)
-  //   moveLboatAnimation(vec3(0, 0.37, 0.37), 2);
-  //   else
-  //     moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
-  
-  // }
+  updateShipAnimation(0.01, 0.015);
+  updateStarAnimation();
+  if (Lmode == 0)
+    moveLboatAnimation(vec3(0.45, 0, 0), 0);
+  else if (Lmode == 1)
+    moveLboatAnimation(vec3(0.45, 0, 0), 1);
+  else if (Lmode == 2) {
+    if(curr_loc == 0)
+      moveLboatAnimation(vec3(0, 0.34, 0.34), 2);
+    else
+      moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
+  }
 
-  // if (bulletout)
-  //   hitBulletAnimation();
+  if (bulletout)
+    hitBulletAnimation();
 
   mat4 modeltrans = mat4(1.0f);
   mat4 modeltransS = mat4(1.0f);
@@ -2205,9 +2273,7 @@ bool A3::mouseMoveEvent(double xPos, double yPos) {
 
   float x_amount = (xpos - initX) / TRANSSCALE;
   float y_amount = -1 * (ypos - initY) / TRANSSCALE;
-  if (curr_mode == 0) {
     movePuppetXYZ(x_amount, y_amount, idx);
-  }
 
   float center_x = m_framebufferWidth / 2;
   float center_y = m_framebufferHeight / 2;
@@ -2367,7 +2433,7 @@ bool A3::keyInputEvent(int key, int action, int mods) {
     if(key == GLFW_KEY_L){
         cplxLSystemrender = (cplxLSystemrender) ? false : true;
     }
-    if(key == GLFW_KEY_P){
+    if(key == GLFW_KEY_A){
         particlerender = (particlerender) ? false : true;
     }
 
@@ -2400,13 +2466,20 @@ bool A3::keyInputEvent(int key, int action, int mods) {
       Lmode = 1;
     }
     if (key == GLFW_KEY_W) {
-      initBullet(angleList[curr_loc]);
+      initBullet(angleList[curr_loc], false);
       bulletout = true;
     }
     if (key == GLFW_KEY_UP) {
       alSourcePlay(moveSource);
       moveup = true;
       Lmode = 2;
+    }
+    if (key == GLFW_KEY_SPACE) {
+      if(gameStart){
+        endGame();
+      }else{
+        startGame();
+      }
     }
   }
   // Fill in with event handling code...
