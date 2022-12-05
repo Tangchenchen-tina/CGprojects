@@ -106,6 +106,7 @@ protected:
   void updateJointSet(int id);
 
   void resetPos();
+  void resetModes();
   void resetOrin();
   void resetJoints();
   void redo();
@@ -341,6 +342,9 @@ protected:
   bool toonrender = true;
   bool cplxLSystemrender = false;
   bool gameStart = false;
+
+  int LSystemMode = 0;
+  int travelView = 0;
 
   //ViewMode
   int curr_veiw_mode = 0;

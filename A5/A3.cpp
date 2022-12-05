@@ -124,6 +124,7 @@ void A3::init() {
                            getAssetFilePath("starpant.obj"),
                            getAssetFilePath("plant1.obj"),
                            getAssetFilePath("plant2.obj"),
+                           getAssetFilePath("plant3.obj"),
                            getAssetFilePath("weapon.obj"),
                            getAssetFilePath("board.obj"),
                            getAssetFilePath("window.obj"),
@@ -194,7 +195,8 @@ void A3::setupParticles() {
   particleSys.createParticle(1, 15, vec3(11.2, 35.7, 55), vec3(0, -0.1, 0.1),
                              0.1, life3 / 5); // set mode to 1
   float life4 = rand() % 8 + 10;
-  particleSys.createParticle(1, 15, vec3(9.5, 35.7, 55), vec3(0, -0.1, 0.1), 0.1,
+  particleSys.createParticle(1, 15, vec3(9.5, 35.7, 55), vec3(0, -0.1, 0.1),
+                             0.1,
                              life4 / 5); // set mode to 1
 }
 
@@ -204,8 +206,8 @@ void A3::initBullet(float angle, bool coin) {
   }
   GeometryNode *bulletnode = new GeometryNode("sphere", "bullet");
   bulletnode->material = Material(vec3(1, 0, 0), vec3(0.4, 0.4, 0.4), 10.0);
-  if(coin){
-    bulletnode->material = Material(vec3(1, 1, 0), vec3(0.4, 0.4, 0.4), 10.0);  
+  if (coin) {
+    bulletnode->material = Material(vec3(1, 1, 0), vec3(0.4, 0.4, 0.4), 10.0);
     bulletnode->coin = true;
   }
   bulletnode->scale(vec3(0.5, 0.5, 0.5));
@@ -277,8 +279,7 @@ void A3::initTextureMapping() {
   stbi_set_flip_vertically_on_load(true);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                  GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
   int width, height, nrChannels;
@@ -300,16 +301,16 @@ void A3::initTextureMapping() {
   stbi_set_flip_vertically_on_load(true);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
-                  GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
   int width_character, height_character, nrChannels_character;
   unsigned char *cdata =
-      stbi_load("Assets/texture/characters.png", &width_character, &height_character, &nrChannels_character, 0);
+      stbi_load("Assets/texture/characters.png", &width_character,
+                &height_character, &nrChannels_character, 0);
   if (cdata) {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_character, height_character, 0, GL_RGBA,
-                 GL_UNSIGNED_BYTE, cdata);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width_character, height_character,
+                 0, GL_RGBA, GL_UNSIGNED_BYTE, cdata);
     glGenerateMipmap(GL_TEXTURE_2D);
   } else {
     cout << "Failed to load character texture" << endl;
@@ -529,7 +530,7 @@ void A3::loadMusicWAVfile(const char *path, ALuint source, ALuint buffer) {
   fclose(fp);
 }
 
-void A3::initTimeQueue(const char *path, const char * movepath) {
+void A3::initTimeQueue(const char *path, const char *movepath) {
   timeQueue = queue<vec2>();
   ifstream newfile;
   newfile.open(path, ios::in);
@@ -543,10 +544,10 @@ void A3::initTimeQueue(const char *path, const char * movepath) {
   timeMoveQueue = queue<vec3>();
   ifstream newfile2;
   newfile2.open(movepath, ios::in);
-  if(newfile2.is_open()){
+  if (newfile2.is_open()) {
     int millsec, idx;
-    while(newfile2 >> millsec &&  newfile2 >> idx){
-      timeMoveQueue.push(vec3(millsec-100, millsec+100, idx));
+    while (newfile2 >> millsec && newfile2 >> idx) {
+      timeMoveQueue.push(vec3(millsec - 100, millsec + 100, idx));
     }
   }
 }
@@ -573,7 +574,7 @@ void A3::initMusicSound() {
   alSourcei(moveSource, AL_LOOPING, AL_FALSE);
   alGenBuffers((ALuint)1, &moveBuffer);
 
-  loadMusicWAVfile("Assets/sound/blip.wav", moveSource, moveBuffer); //good
+  loadMusicWAVfile("Assets/sound/blip.wav", moveSource, moveBuffer); // good
 
   alGenSources((ALuint)1, &hitSource);
   alSourcei(hitSource, AL_SOURCE_RELATIVE, AL_TRUE);
@@ -584,9 +585,10 @@ void A3::initMusicSound() {
   alSourcei(hitSource, AL_LOOPING, AL_FALSE);
   alGenBuffers((ALuint)1, &hitBuffer);
 
-  loadMusicWAVfile("Assets/sound/blurp_x.wav", hitSource, hitBuffer); //hit-blurp_x
+  loadMusicWAVfile("Assets/sound/blurp_x.wav", hitSource,
+                   hitBuffer); // hit-blurp_x
 
-    alGenSources((ALuint)1, &coinSource);
+  alGenSources((ALuint)1, &coinSource);
   alSourcei(coinSource, AL_SOURCE_RELATIVE, AL_TRUE);
   alSourcef(coinSource, AL_PITCH, 1);
   alSourcef(coinSource, AL_GAIN, 0.9);
@@ -595,10 +597,10 @@ void A3::initMusicSound() {
   alSourcei(coinSource, AL_LOOPING, AL_FALSE);
   alGenBuffers((ALuint)1, &coinBuffer);
 
-  loadMusicWAVfile("Assets/sound/coin.wav", coinSource, coinBuffer); //hit-blurp_x
+  loadMusicWAVfile("Assets/sound/coin.wav", coinSource,
+                   coinBuffer); // hit-blurp_x
 
-
-    alGenSources((ALuint)1, &backgroundSource);
+  alGenSources((ALuint)1, &backgroundSource);
   alSourcei(backgroundSource, AL_SOURCE_RELATIVE, AL_TRUE);
   alSourcef(backgroundSource, AL_PITCH, 1);
   alSourcef(backgroundSource, AL_GAIN, 0.4);
@@ -607,7 +609,8 @@ void A3::initMusicSound() {
   alSourcei(backgroundSource, AL_LOOPING, AL_FALSE);
   alGenBuffers((ALuint)1, &backgroundBuffer);
 
-  loadMusicWAVfile("Assets/sound/funky-town.wav", backgroundSource, backgroundBuffer);
+  loadMusicWAVfile("Assets/sound/funky-town.wav", backgroundSource,
+                   backgroundBuffer);
 }
 
 void A3::generateChild(SceneNode *parent, LnodeInfo l) {
@@ -700,6 +703,26 @@ void A3::resetOrin() {
   rotateMatrix = mat4(1.0);
   prev_rotateMatrix = mat4(1.0);
   initViewMatrix();
+  outerSphere->set_transform(mat4(1.0));
+}
+
+void A3::resetModes() {
+  curr_mode = 0;
+  coin_mode = 0;
+  curr_loc = 0;
+  curr_angle = 0;
+  Lmode = 0;
+  weapon_curr_angle = 0;
+  curr_veiw_mode = 0;
+  travelView = 0;
+  LSystemMode = 0;
+  cuberender = true;
+  shadowMaprender = false;
+  particlerender = false;
+  texturerender = true;
+  toonrender = true;
+  cplxLSystemrender = false;
+  gameStart = false;
 }
 
 // TODO: clear redo undo stack
@@ -1180,26 +1203,25 @@ void A3::uploadCommonSceneUniforms() {
   m_shader.disable();
 }
 
-void A3::startGame(){
-    if (!gameStart) {
-      gameStart = true;
-      alSourcePlay(backgroundSource);
-      startTime = timeSinceEpochMillisec();
-      curr_mode = 0;
-      near = true;
-      mid = false;
-      far = false;
-    }
+void A3::startGame() {
+  if (!gameStart) {
+    gameStart = true;
+    alSourcePlay(backgroundSource);
+    startTime = timeSinceEpochMillisec();
+    curr_mode = 0;
+    near = true;
+    mid = false;
+    far = false;
+  }
 }
 
-void A3::endGame(){
-      initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
-      alSourceStop(backgroundSource);
-      gameStart = false;
-      curr_mode = 0;
-      near = true;
-      mid = false;
-      far = false;
+void A3::endGame() {
+  initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
+  alSourceStop(backgroundSource);
+  gameStart = false;
+  near = true;
+  mid = false;
+  far = false;
 }
 
 void A3::updateParticles() {
@@ -1302,27 +1324,15 @@ void A3::guiLogic() {
       // reset position
       resetPos();
     }
-    if (ImGui::Button("Reset Orintation (O)")) {
+    if (ImGui::Button("Reset Orientation (O)")) {
       // reset orintation
       resetOrin();
     }
-    if (ImGui::Button("Reset All (A)")) {
+    if (ImGui::Button("Reset All (R)")) {
       // reset Joints && clearn undo/redo stack
       resetPos();
       resetOrin();
-      curr_mode = 0;
-      coin_mode = 0;
-      curr_loc = 0;
-      curr_angle = 0;
-      Lmode = 0;
-      weapon_curr_angle = 0;
-      cuberender = true;
-      shadowMaprender = false;
-      particlerender = false;
-      texturerender = true;
-      toonrender = true;
-      cplxLSystemrender = false;
-      gameStart = false;
+      resetModes();
     }
     if (ImGui::Button("Quit Application (Q)")) {
       glfwSetWindowShouldClose(m_window, GL_TRUE);
@@ -1341,35 +1351,87 @@ void A3::guiLogic() {
   if (ImGui::BeginMenu("Premium Options")) {
     ImGui::Checkbox("Toon Shader (T)", &toonrender);
     ImGui::Checkbox("Shadow (S)", &shadowMaprender);
-    ImGui::Checkbox("Complex L-System (L)", &cplxLSystemrender);
     ImGui::Checkbox("Particle System (P)", &particlerender);
+
+    ImGui::Text("L-System Model:");
+    ImGui::SameLine();
+    ImGui::PushID(0);
+    if (ImGui::RadioButton("Normal", &LSystemMode, 0)) {
+    }
+    ImGui::PopID();
+    ImGui::SameLine();
+    ImGui::PushID(1);
+    if (ImGui::RadioButton("Premium1", &LSystemMode, 1)) {
+    }
+    ImGui::PopID();
+    ImGui::SameLine();
+    ImGui::PushID(2);
+    if (ImGui::RadioButton("Premium2", &LSystemMode, 2)) {
+    }
+    ImGui::PopID();
     ImGui::EndMenu();
   }
 
   // Create Button, and check if it was clicked:
-  ImGui::Text("Mode Selection:");
-    ImGui::PushID(1);
+  ImGui::Text("=== MODE SELECTION ===");
+  ImGui::PushID(1);
   if (ImGui::RadioButton("Travel Mode (J)", &curr_mode, 1)) {
+    endGame();
+    travelView = 0;
     m_view = glm::lookAt(vec3(0.0f, 0.0f, 140.0f), vec3(0.0f, 0.0f, -1.0f),
                          vec3(0.0f, 1.0f, 0.0f));
+  }
+  ImGui::PopID();
+
+  ImGui::Text("Travel View Selection:");
+  ImGui::SameLine();
+  ImGui::PushID(0);
+  if (ImGui::RadioButton("front", &travelView, 0)) {
+    if (curr_mode == 1)
+      m_view = glm::lookAt(vec3(0.0f, 0.0f, 140.0f), vec3(0.0f, 0.0f, -1.0f),
+                           vec3(0.0f, 1.0f, 0.0f));
+  }
+  ImGui::PopID();
+  ImGui::SameLine();
+  ImGui::PushID(1);
+  if (ImGui::RadioButton("back", &travelView, 1)) {
+    if (curr_mode == 1)
+      m_view = glm::lookAt(vec3(0.0f, 0.0f, -140.0f), vec3(0.0f, 0.0f, 1.0f),
+                           vec3(0.0f, 1.0f, 0.0f));
+  }
+  ImGui::PopID();
+  ImGui::SameLine();
+  ImGui::PushID(2);
+  if (ImGui::RadioButton("up", &travelView, 2)) {
+    if (curr_mode == 1)
+      m_view = glm::lookAt(vec3(0.0f, 140.0f, 0.0f), vec3(0.0f, -1.0f, 0.0f),
+                           vec3(0.0f, 0.0f, 1.0f));
+  }
+  ImGui::PopID();
+  ImGui::SameLine();
+  ImGui::PushID(3);
+  if (ImGui::RadioButton("down", &travelView, 3)) {
+    if (curr_mode == 1)
+      m_view = glm::lookAt(vec3(0.0f, -140.0f, 0.0f), vec3(0.0f, 1.0f, 0.0f),
+                           vec3(0.0f, 0.0f, 1.0f));
   }
   ImGui::PopID();
 
   ImGui::PushID(0);
   if (ImGui::RadioButton("Game Mode (G)", &curr_mode, 0)) {
     pick = false;
-    m_view = glm::lookAt(vec3(0.0f, 70.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
+    m_view = glm::lookAt(vec3(0.0f, 45.0f, 85.0f), vec3(0.0f, 60.0f, -1.0f),
                          vec3(0.0f, 1.0f, 0.0f));
     uploadCommonSceneUniforms();
     draw();
-  } 
+  }
   ImGui::PopID();
 
-//---------------------------------------------------
+  //---------------------------------------------------
   ImGui::Text("Game Sub Mode Selection:");
-      ImGui::SameLine();
-    ImGui::PushID(1);
-  if (ImGui::RadioButton("Non Coin", &coin_mode, 0)) {
+  ImGui::SameLine();
+  ImGui::PushID(1);
+  if (ImGui::RadioButton("No Coin", &coin_mode, 0)) {
   }
   ImGui::PopID();
   ImGui::SameLine();
@@ -1378,10 +1440,10 @@ void A3::guiLogic() {
   }
   ImGui::PopID();
 
-//---------------------------------------------------
+  //---------------------------------------------------
   ImGui::Text("Game View Selection:");
-    ImGui::SameLine();
-    ImGui::PushID(1);
+  ImGui::SameLine();
+  ImGui::PushID(1);
   if (ImGui::RadioButton("Left", &curr_veiw_mode, 1)) {
     m_view = glm::lookAt(vec3(-20.0f, 45.0f, 75.0f), vec3(0.0f, 45.0f, 45.0f),
                          vec3(0.0f, 1.0f, 0.3f));
@@ -1403,39 +1465,31 @@ void A3::guiLogic() {
   ImGui::PopID();
 
   if (ImGui::Button("Start Game")) {
-    startGame();
+    if (curr_mode == 0)
+      startGame();
   }
-    ImGui::SameLine();
+  ImGui::SameLine();
   if (ImGui::Button("End Game")) {
-    endGame();
+    if (curr_mode == 0)
+      endGame();
   }
 
   framerate = ImGui::GetIO().Framerate;
   ImGui::Text("Framerate: %.1f FPS", framerate);
-
-  // ImGui::Text("Undo/Redo Warning: ");
-  // ImGui::SameLine();
-  // if (redo_stack.size() > 0 && undo_stack.size() > 1) {
-  //   ImGui::Text("no warning");
-  // } else if (redo_stack.size() <= 0 && undo_stack.size() <= 1) {
-  //   ImGui::Text("Redo and Undo invalid");
-  // } else if (redo_stack.size() <= 0) {
-  //   ImGui::Text("Redo invalid");
-  // } else if (undo_stack.size() <= 1) {
-  //   ImGui::Text("Undo invalid");
-  // }
 
   ImGui::End();
 }
 
 //----------------------------------------------------------------------------------------
 // Update mesh specific shader uniforms:
-static void updateShaderUniforms(
-    const ShaderProgram &shader, const GeometryNode &node,
-    const glm::mat4 &viewMatrix, const glm::mat4 &roottrans, glm::mat4 &transM,
-    glm::mat4 &transScale, glm::mat4 &rotateViewMatrix, int curr_mode,
-    bool pick, float farplane, mat4 lightProjection, GLuint shadowMap,
-    GLuint sandTexture, GLuint characterTexture, bool shadowrender, bool texturerender, int textureIndex) {
+static void
+updateShaderUniforms(const ShaderProgram &shader, const GeometryNode &node,
+                     const glm::mat4 &viewMatrix, const glm::mat4 &roottrans,
+                     glm::mat4 &transM, glm::mat4 &transScale,
+                     glm::mat4 &rotateViewMatrix, int curr_mode, bool pick,
+                     float farplane, mat4 lightProjection, GLuint shadowMap,
+                     GLuint sandTexture, GLuint characterTexture,
+                     bool shadowrender, bool texturerender, int textureIndex) {
 
   shader.enable();
   {
@@ -1682,9 +1736,9 @@ void A3::hitAnimation(vec3 speed, int pos) {
     curr_bullet_loc = vec3(bullet->trans * vec4(0, 0, 0, 1));
     bool collide = checkCollision();
     if (collide) {
-      if(!bullet->coin){
+      if (!bullet->coin) {
         alSourcePlay(hitSource);
-      }else{
+      } else {
         alSourcePlay(coinSource);
       }
 
@@ -1700,27 +1754,29 @@ void A3::hitBulletAnimation() {
   if (curr_loc == 0) {
     speed = vec3(-0.33, 0, 0);
   } else if (curr_loc == 1) {
-    vec3 normal = vec3(2*curr_bullet_loc.x, 2*curr_bullet_loc.y, 2*curr_bullet_loc.z);
+    vec3 normal = vec3(2 * curr_bullet_loc.x, 2 * curr_bullet_loc.y,
+                       2 * curr_bullet_loc.z);
     float scale = 1.05;
-    float x_speed = -0.3*scale;
-    float z_speed = 0.15*scale;
-    if(bullet && bullet->coin){
-      x_speed = -0.17*scale;
-      z_speed = 0.15*scale;
+    float x_speed = -0.3 * scale;
+    float z_speed = 0.15 * scale;
+    if (bullet && bullet->coin) {
+      x_speed = -0.17 * scale;
+      z_speed = 0.15 * scale;
     }
-    float y_speed = -1*(normal.x*x_speed + normal.z*z_speed)/normal.y;
+    float y_speed = -1 * (normal.x * x_speed + normal.z * z_speed) / normal.y;
     speed = vec3(x_speed, y_speed, z_speed);
   } else if (curr_loc == 2) {
-   // cout<<to_string(curr_bullet_loc)<<endl;
-   vec3 normal = vec3(2*curr_bullet_loc.x, 2*curr_bullet_loc.y, 2*curr_bullet_loc.z);
+    // cout<<to_string(curr_bullet_loc)<<endl;
+    vec3 normal = vec3(2 * curr_bullet_loc.x, 2 * curr_bullet_loc.y,
+                       2 * curr_bullet_loc.z);
     float scale = 0.85;
-    float x_speed = -0.27 *scale;
-    float z_speed = 0.42*scale;
-    if(bullet && bullet->coin){
-      x_speed = -0.16*scale;
-      z_speed = 0.42*scale;
+    float x_speed = -0.27 * scale;
+    float z_speed = 0.42 * scale;
+    if (bullet && bullet->coin) {
+      x_speed = -0.16 * scale;
+      z_speed = 0.42 * scale;
     }
-    float y_speed = -1*(normal.x*x_speed + normal.z*z_speed)/normal.y;
+    float y_speed = -1 * (normal.x * x_speed + normal.z * z_speed) / normal.y;
     speed = vec3(x_speed, y_speed, z_speed);
     // cout<<to_string(speed)<<endl;
 
@@ -1732,35 +1788,36 @@ void A3::hitBulletAnimation() {
   hitAnimation(speed, 0);
 }
 
-void A3::updateTimeAnimation(){
-    currTimeInterval = timeQueue.front();
-    currTimeMoveInterval = timeMoveQueue.front();
-    currTime = timeSinceEpochMillisec() - startTime;
-    // cout<<to_string(currTimeInterval) << " "<<currTime<<endl;
-    if (currTime >= currTimeInterval.x && currTime <= currTimeInterval.y) {
-      bool coin = false;
-      if(curr_loc != 0 && coin_mode == 1){
-        int num = rand()%10;
-        if(num >= 6){
-          coin = true;
-        }
+void A3::updateTimeAnimation() {
+  currTimeInterval = timeQueue.front();
+  currTimeMoveInterval = timeMoveQueue.front();
+  currTime = timeSinceEpochMillisec() - startTime;
+  // cout<<to_string(currTimeInterval) << " "<<currTime<<endl;
+  if (currTime >= currTimeInterval.x && currTime <= currTimeInterval.y) {
+    bool coin = false;
+    if (curr_loc != 0 && coin_mode == 1) {
+      int num = rand() % 10;
+      if (num >= 6) {
+        coin = true;
       }
-      initBullet(angleList[curr_loc], coin);
-      bulletout = true;
-      timeQueue.pop();
     }
-    if(currTime >= currTimeMoveInterval.x && currTime <= currTimeMoveInterval.y){
-      near = false;
-      far = false;
-      mid = false;
-      if(currTimeMoveInterval.z == 0)
-        near = true;
-      else if(currTimeMoveInterval.z == 1)
-        mid = true;
-      else if(currTimeMoveInterval.z == 2)
-        far = true;
-      timeMoveQueue.pop();
-    }
+    initBullet(angleList[curr_loc], coin);
+    bulletout = true;
+    timeQueue.pop();
+  }
+  if (currTime >= currTimeMoveInterval.x &&
+      currTime <= currTimeMoveInterval.y) {
+    near = false;
+    far = false;
+    mid = false;
+    if (currTimeMoveInterval.z == 0)
+      near = true;
+    else if (currTimeMoveInterval.z == 1)
+      mid = true;
+    else if (currTimeMoveInterval.z == 2)
+      far = true;
+    timeMoveQueue.pop();
+  }
 }
 
 //----------------------------------------------------------------------------------------
@@ -1782,25 +1839,25 @@ void A3::draw() {
     }
   }
 
-  if (gameStart) {
-    updateTimeAnimation();
-   updateSphereAnimation();
-  }
-  updateShipAnimation(0.01, 0.015);
-  updateStarAnimation();
-  if (Lmode == 0)
-    moveLboatAnimation(vec3(0.45, 0, 0), 0);
-  else if (Lmode == 1)
-    moveLboatAnimation(vec3(0.45, 0, 0), 1);
-  else if (Lmode == 2) {
-    if(curr_loc == 0)
-      moveLboatAnimation(vec3(0, 0.34, 0.34), 2);
-    else
-      moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
-  }
+  // if (gameStart) {
+  //   updateTimeAnimation();
+  //   updateSphereAnimation();
+  // }
+  // updateShipAnimation(0.01, 0.015);
+  // updateStarAnimation();
+  // if (Lmode == 0)
+  //   moveLboatAnimation(vec3(0.45, 0, 0), 0);
+  // else if (Lmode == 1)
+  //   moveLboatAnimation(vec3(0.45, 0, 0), 1);
+  // else if (Lmode == 2) {
+  //   if (curr_loc == 0)
+  //     moveLboatAnimation(vec3(0, 0.34, 0.34), 2);
+  //   else
+  //     moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
+  // }
 
-  if (bulletout)
-    hitBulletAnimation();
+  // if (bulletout)
+  //   hitBulletAnimation();
 
   mat4 modeltrans = mat4(1.0f);
   mat4 modeltransS = mat4(1.0f);
@@ -1987,7 +2044,7 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
       continue;
 
     int index = -1;
-    if(node->contain_texture){
+    if (node->contain_texture) {
       index = node->texture_idx;
     }
 
@@ -1998,14 +2055,19 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
     glm::mat4 root_trans = transMatrix * rotateMatrix;
     updateShaderUniforms(m_shader, *geometryNode, m_view, root_trans, transM,
                          transScale, rotateViewMatrix, curr_mode, pick,
-                         far_plane, lightProjection, shadowMap, sandTexture, characterTexture,
-                         shadowMaprender, texturerender, index);
+                         far_plane, lightProjection, shadowMap, sandTexture,
+                         characterTexture, shadowMaprender, texturerender,
+                         index);
 
     // Get the BatchInfo corresponding to the GeometryNode's unique MeshId.
     BatchInfo batchInfo = m_batchInfoMap[geometryNode->meshId];
-    if (cplxLSystemrender) {
+    if (LSystemMode != 0) {
       if (geometryNode->meshId == "plant1") {
-        batchInfo = m_batchInfoMap["plant2"];
+        if (LSystemMode == 1) {
+          batchInfo = m_batchInfoMap["plant2"];
+        } else if (LSystemMode == 2) {
+          batchInfo = m_batchInfoMap["plant3"];
+        }
       }
     }
 
@@ -2199,7 +2261,8 @@ void A3::rotatePuppetXYZ(float curr_x, float curr_y) {
       // rotateMatrix = glm::rotate(prev_rotateMatrix, angle, axis);
       if (axis != vec3(0.0f)) {
         rotateMatrix = glm::rotate(rotateMatrix, angle, axis);
-        // cout<<"currentrotate" << rotateMatrix << endl << endl;
+        // m_view = glm::rotate(m_view, -angle, axis);
+        //  cout<<"currentrotate" << rotateMatrix << endl << endl;
       }
 
     } else {
@@ -2273,7 +2336,7 @@ bool A3::mouseMoveEvent(double xPos, double yPos) {
 
   float x_amount = (xpos - initX) / TRANSSCALE;
   float y_amount = -1 * (ypos - initY) / TRANSSCALE;
-    movePuppetXYZ(x_amount, y_amount, idx);
+  movePuppetXYZ(x_amount, y_amount, idx);
 
   float center_x = m_framebufferWidth / 2;
   float center_y = m_framebufferHeight / 2;
@@ -2398,6 +2461,7 @@ bool A3::keyInputEvent(int key, int action, int mods) {
     if (key == GLFW_KEY_R) {
       resetPos();
       resetOrin();
+      resetModes();
       curr_mode = 0;
     }
     if (key == GLFW_KEY_C) {
@@ -2419,22 +2483,20 @@ bool A3::keyInputEvent(int key, int action, int mods) {
                            vec3(0.0f, 1.0f, 0.0f));
     }
     if (key == GLFW_KEY_J) {
+      endGame();
       curr_mode = 1;
       m_view = glm::lookAt(vec3(0.0f, 0.0f, 140.0f), vec3(0.0f, 0.0f, -1.0f),
                            vec3(0.0f, 1.0f, 0.0f));
     }
 
-    if(key == GLFW_KEY_T){
-        toonrender = (toonrender) ? false : true;
+    if (key == GLFW_KEY_T) {
+      toonrender = (toonrender) ? false : true;
     }
-    if(key == GLFW_KEY_S){
-        shadowMaprender = (shadowMaprender) ? false : true;
+    if (key == GLFW_KEY_S) {
+      shadowMaprender = (shadowMaprender) ? false : true;
     }
-    if(key == GLFW_KEY_L){
-        cplxLSystemrender = (cplxLSystemrender) ? false : true;
-    }
-    if(key == GLFW_KEY_A){
-        particlerender = (particlerender) ? false : true;
+    if (key == GLFW_KEY_A) {
+      particlerender = (particlerender) ? false : true;
     }
 
     if (key == GLFW_KEY_1) {
@@ -2475,14 +2537,13 @@ bool A3::keyInputEvent(int key, int action, int mods) {
       Lmode = 2;
     }
     if (key == GLFW_KEY_SPACE) {
-      if(gameStart){
+      if (gameStart && curr_mode == 0) {
         endGame();
-      }else{
+      } else if(!gameStart && curr_mode == 0) {
         startGame();
       }
     }
   }
-  // Fill in with event handling code...
 
   return eventHandled;
 }
