@@ -1,73 +1,54 @@
 Compilation:
-- In A3 directory, run 'premake4 gmake'
-- In A3 directory, run 'make'
-- In A3 directory, run './A3 Assets/puppet.lua'
+- In A5 directory, run 'premake4 gmake'
+- In A5 directory, run 'make'
+- In A5 directory, run './A5 Assets/project.lua'
 
 Manual:
-- Finish all features.
-- Modifing JointNode.cpp and SceneNode.cpp that now it could also rotate around Z coordinate. (After picking joint, press left and middle allow rotate around Z)
-- Update Assets/FragmentShader.fs, Assets/VertexShader.vs follow the Picking_Example
-- Add cylinder.obj, eyeslash.obj, foot.obj, mouth.obj, nose.obj in Asset/
-- When click "Joint" on GUI, middle of the mouse will control rotate on X-axis (mouse y-direction movement) or Y-axis (mouse y-direction movement).
-- When click "Joint" on GUI, when left and middle of the mouse are clicked and moved at the same time, it will control rotate on Z-axis (mouse y-direction movement)
-- Parts allow to rotate around X and Z: arms and legs
-- Parts allow to rotate around Y and Z: head, neck, shoulder, hip
+- Play instruction:
 
+       -- (UP) Squidward jump (dodge bullet)
+       -- (RIGHT) Squidward move right (collect coin)
+       -- (LEFT) Sqiodward move left
 
-Hierarchical model:
+      Testing or 2-player mode
+       -- (1) Patrick Star move to near position
+       -- (2) Patrick Star move to middle position
+       -- (3) Patrick Star move to far position
+       -- (W) Hit ball
 
-(Uphead, Midhead, LeftEye, LeftEyeSlash, RightEye, RightEyeSlash, Mouth, Nose)
-                        |
-                      head  
-                        |
-                      headJoint
-                        |
-                      headNode
-                        |
-                      neck
-                        |
-                      neckJoint
-                        |
-                      neckNode
-                        |
-                      shoulder
-                        |               
-LeftUpperArmNode  --- shoulderJoint --- RightUpperArmNode
-      |                 |                       |
-LeftUpperArmJoint     shoulderNode      RightUpperArmJoint
-      |                 |                       |
-LeftUpperArm          torso             RightUpperArm
-      |                 |                       |
-LeftForeArmNode       torsoNode         RightForeArmNode
-      |                 |                       |
-LeftForeArmJoint      HipNode           RightForeArmJoint
-      |                 |                       |
-LeftForeArm           HipJoint          RightForArm
-      |                 |                       | 
-LeftHandNode            |               RightHandNode        
-      |                 |                       |
-LeftHandJoint           |               RightHandJoint          
-      |                 |                       |                         
-LeftHand                |                 RightHand
-                        |
-                        | 
-          /            /                        \                   \
-LeftLeg1Node        LeftLegNode2           RightLegNode3          RightLegNode4
-      |                 |                       |                       |
-LeftLegJoint1       LeftLegJoint2          RightLegJoint3           RightLegJoint4
-      |                 |                       |                       |
-UpLeftLeg1           UpLeftLeg2            UpRightLeg3              UpRightLeg4
-      |                 |                       |                       |
-CalfNode1            CalfNode2              CalfNode3                CalfNode4
-      |                 |                       |                       |
-CalfJoint1           CalfJoint2             CalfJoint3               CalfJoint4
-      |                 |                       |                       |
-Calf1                 Calf2                   Calf3                   Calf4
-      |                 |                       |                        |
-FootNode1             FootNode2             FootNode3                FootNode4      
-      |                 |                       |                       |
-FootJoint1           FootJoint2             FootJoint3               FootJoint4            
-      |                 |                       |                       |                        
-foot1                  foot2                  foot3                   foot4
+- Application:
 
+      -- (I) Reset Position: reset position of sphere
+      -- (O) Reset Orintation: reset orintation of sphere
+      -- (R) Reset All: reset All
+      -- (Q) Quit Application: quit game
 
+- Basic Options (Same as A3):
+
+      -- (C) Circle: show virtual sphere circle
+      -- (Z) Z-buffer: enbale Z-buffeer
+      -- (B) Backface culling: enable backface culling
+      -- (F) Frontface culling: enable frontface culling
+
+- Premium Options:
+
+      -- (T) Toon shader: enable toon shader or not
+      -- (S) Shadow: show shadow
+      -- (A) Particle System: show particle system
+      -- L-System Model: choose L-system model within three models
+
+- Mode Selection:\
+In both Travel Mode and Game Mode, user could drag right button of mouse to move sphere in x and y axis; darg middle button of mouse to move sphere in z axis; drag right button of mouse for 3D virtual sphere if inside circle or rotate view axis around the circle.\
+
+      -- (J) Travel Mode
+             *Travel View Selection : selection different view position.
+      -- (G) Game Mode
+            * Game Sub Mode Selection: choose play mode between coin and no-coin
+            * Game View Selection: choose the player's view while play game.
+
+- Start Game && End Game
+
+      -- (SPACE) Start Game: will start the game in game mode.
+      -- (SPACE) End Game: stop game.
+
+      

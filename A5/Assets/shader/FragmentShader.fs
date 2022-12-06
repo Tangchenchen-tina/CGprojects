@@ -101,7 +101,7 @@ if(toonrender){
       }
    }
    if(textureID != -1){
-      result = color;
+      result = color*visibility;
    }else{
       result = ambientIntensity+ (visibility) * material.kd* color *light.rgbIntensity;
    }
@@ -123,10 +123,10 @@ if(toonrender){
     result = ambientIntensity + visibility * light.rgbIntensity * (diffuse + specular);
    if(textureflag == 1 && textureID != -1){
       if(textureID == 0){
-         result = texture(textureMap, textCoords).rgb;
+         result = texture(textureMap, textCoords).rgb*visibility;
       }
       else if(textureID == 1){
-         result = texture(charactertextureMap, textCoords).rgb;
+         result = texture(charactertextureMap, textCoords).rgb*visibility;
       }
    }
 

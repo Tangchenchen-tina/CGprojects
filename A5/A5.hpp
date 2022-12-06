@@ -40,10 +40,10 @@ struct JointNodeInfo {
   bool isSelected;
 };
 
-class A3 : public CS488Window {
+class A5 : public CS488Window {
 public:
-  A3(const std::string &luaSceneFile);
-  virtual ~A3();
+  A5(const std::string &luaSceneFile);
+  virtual ~A5();
 
 protected:
   virtual void init() override;
@@ -274,7 +274,7 @@ protected:
   bool moveRight = false;
   bool moveup = false;
   bool movedown = false;
-  int Lmode = 0;
+  vec3 Lmode = vec3(0);
 
 
   // Right Ship

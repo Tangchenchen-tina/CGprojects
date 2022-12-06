@@ -5,7 +5,7 @@ Instanced_Example*/Makefile
 shared/glfw**/Makefile
 shared/imgui**/Makefile
 
-build
+build 
 
 *.a
 *.o

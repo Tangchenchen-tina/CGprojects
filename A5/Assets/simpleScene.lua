@@ -16,7 +16,7 @@ rootNode:scale(S,S,S)
 
 -- Create a GeometryNode with MeshId = 'cube', and name = 'torso'.
 -- MeshId's must reference a .obj file that has been previously loaded into
--- the MeshConsolidator instance within A3::init().
+-- the MeshConsolidator instance within A5::init().
 cubeMesh = gr.mesh('cube', 'name-of-cube')
 cubeMesh:scale(1.0, 1.0, 1.0)
 cubeMesh:rotate('y', 45.0)
@@ -36,6 +36,6 @@ sphereMesh:set_material(gr.material({0.4, 0.8, 0.4}, {0.8, 0.8, 0.8}, 50.0))
 rootNode:add_child(sphereMesh)
 
 
--- Return the root with all of it's childern.  The SceneNode A3::m_rootNode will be set
+-- Return the root with all of it's childern.  The SceneNode A5::m_rootNode will be set
 -- equal to the return value from this Lua script.
 return rootNode

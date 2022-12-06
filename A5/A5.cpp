@@ -1,6 +1,6 @@
 // Termm-Fall 2022
 
-#include "A3.hpp"
+#include "A5.hpp"
 #include "scene_lua.hpp"
 using namespace std;
 
@@ -60,7 +60,7 @@ const float MAXLIFE = 25;
 
 //----------------------------------------------------------------------------------------
 // Constructor
-A3::A3(const std::string &luaSceneFile)
+A5::A5(const std::string &luaSceneFile)
     : m_luaSceneFile(luaSceneFile), m_positionAttribLocation(0),
       m_normalAttribLocation(0), m_vao_meshData(0), m_vbo_vertexPositions(0),
       m_vbo_vertexNormals(0), m_vao_arcCircle(0), m_vbo_arcCircle(0) {
@@ -76,7 +76,7 @@ A3::A3(const std::string &luaSceneFile)
 
 //----------------------------------------------------------------------------------------
 // Destructor
-A3::~A3() {
+A5::~A5() {
   alDeleteSources(1, &moveSource);
 
   device = alcGetContextsDevice(context);
@@ -89,7 +89,7 @@ A3::~A3() {
 /*
  * Called once, at program start.
  */
-void A3::init() {
+void A5::init() {
   // Set the background colour.
   glClearColor(0.7, 0.7, 0.7, 0.8);
 
@@ -183,7 +183,7 @@ uint64_t timeSinceEpochMillisec() {
       .count();
 }
 
-void A3::setupParticles() {
+void A5::setupParticles() {
   particleSys = ParticleSystem();
   float life = rand() % 8 + 10;
   particleSys.createParticle(0, 15, vec3(-11.2, 35.7, 55), vec3(0, -0.1, 0.1),
@@ -200,7 +200,7 @@ void A3::setupParticles() {
                              life4 / 5); // set mode to 1
 }
 
-void A3::initBullet(float angle, bool coin) {
+void A5::initBullet(float angle, bool coin) {
   if (bullet) {
     m_rootNode.get()->remove_child(bullet);
   }
@@ -218,7 +218,7 @@ void A3::initBullet(float angle, bool coin) {
   m_rootNode.get()->add_child(bullet);
 }
 
-void A3::initParticleSystem() {
+void A5::initParticleSystem() {
   vec3 cubeVertices[] = {// right
                          vec3(1, 1, 1), vec3(1, 1, -1), vec3(1, -1, -1),
                          vec3(1, -1, -1), vec3(1, -1, 1), vec3(1, 1, 1),
@@ -273,7 +273,7 @@ void A3::initParticleSystem() {
   CHECK_GL_ERRORS;
 }
 
-void A3::initTextureMapping() {
+void A5::initTextureMapping() {
   glGenTextures(1, &sandTexture);
   glBindTexture(GL_TEXTURE_2D, sandTexture);
   stbi_set_flip_vertically_on_load(true);
@@ -320,7 +320,7 @@ void A3::initTextureMapping() {
   glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void A3::initCubeMap() {
+void A5::initCubeMap() {
   vec3 cubeVertices[] = {// right
                          vec3(1, 1, 1), vec3(1, 1, -1), vec3(1, -1, -1),
                          vec3(1, -1, -1), vec3(1, -1, 1), vec3(1, 1, 1),
@@ -357,7 +357,7 @@ void A3::initCubeMap() {
   glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 }
 
-void A3::loadCubeMap() {
+void A5::loadCubeMap() {
   vector<std::string> uwfaces = {"Assets/texture/cartoon_nonclear/right.jpg",
                                  "Assets/texture/cartoon_nonclear/left.jpg",
                                  "Assets/texture/cartoon_nonclear/top.jpg",
@@ -385,7 +385,7 @@ void A3::loadCubeMap() {
   glTexParameteri(GL_TEXTURE_CUBE_MAP, GL_TEXTURE_WRAP_R, GL_CLAMP_TO_EDGE);
 }
 
-void A3::initLNodes() {
+void A5::initLNodes() {
   srand(time(NULL));
   queue<SceneNode *> queue;
   // jointsSet.clear();
@@ -470,7 +470,7 @@ void A3::initLNodes() {
   }
 }
 
-void A3::loadMusicWAVfile(const char *path, ALuint source, ALuint buffer) {
+void A5::loadMusicWAVfile(const char *path, ALuint source, ALuint buffer) {
   FILE *fp = fopen(path, "rb");
   char type[4];
   DWORD size, chunkSize;
@@ -530,7 +530,7 @@ void A3::loadMusicWAVfile(const char *path, ALuint source, ALuint buffer) {
   fclose(fp);
 }
 
-void A3::initTimeQueue(const char *path, const char *movepath) {
+void A5::initTimeQueue(const char *path, const char *movepath) {
   timeQueue = queue<vec2>();
   ifstream newfile;
   newfile.open(path, ios::in);
@@ -552,7 +552,7 @@ void A3::initTimeQueue(const char *path, const char *movepath) {
   }
 }
 
-void A3::initMusicSound() {
+void A5::initMusicSound() {
   device = alcOpenDevice(NULL);
   if (!device)
     cout << "No device" << endl;
@@ -613,7 +613,7 @@ void A3::initMusicSound() {
                    backgroundBuffer);
 }
 
-void A3::generateChild(SceneNode *parent, LnodeInfo l) {
+void A5::generateChild(SceneNode *parent, LnodeInfo l) {
   int layers = l.layer_num;
   int angle = l.angle;
   float scale = l.scale;
@@ -654,7 +654,7 @@ void A3::generateChild(SceneNode *parent, LnodeInfo l) {
   }
 }
 
-void A3::initAnimationNodes() {
+void A5::initAnimationNodes() {
   queue<SceneNode *> queue;
   // jointsSet.clear();
   queue.emplace(m_rootNode.get());
@@ -694,24 +694,26 @@ void A3::initAnimationNodes() {
   curr_Lship_loc.emplace_back(vec3(-10.5, 42, 55));
 }
 
-void A3::resetPos() {
+void A5::resetPos() {
   transMatrix = mat4(1.0);
   prev_transMatrix = mat4(1.0);
 }
 
-void A3::resetOrin() {
+void A5::resetOrin() {
   rotateMatrix = mat4(1.0);
   prev_rotateMatrix = mat4(1.0);
-  initViewMatrix();
+  //initViewMatrix();
   outerSphere->set_transform(mat4(1.0));
 }
 
-void A3::resetModes() {
+void A5::resetModes() {
+  endGame();
+  initViewMatrix();
   curr_mode = 0;
   coin_mode = 0;
   curr_loc = 0;
   curr_angle = 0;
-  Lmode = 0;
+  Lmode = vec3(0);
   weapon_curr_angle = 0;
   curr_veiw_mode = 0;
   travelView = 0;
@@ -726,7 +728,7 @@ void A3::resetModes() {
 }
 
 // TODO: clear redo undo stack
-void A3::resetJoints() {
+void A5::resetJoints() {
   queue<SceneNode *> queue;
   queue.emplace(m_rootNode.get());
   while (!queue.empty()) {
@@ -748,7 +750,7 @@ void A3::resetJoints() {
   updateUndoStack();
 }
 
-void A3::apply_map(unordered_map<int, JointNodeInfo> curr_map) {
+void A5::apply_map(unordered_map<int, JointNodeInfo> curr_map) {
   queue<SceneNode *> queue;
   // jointsSet.clear();
   queue.emplace(m_rootNode.get());
@@ -771,7 +773,7 @@ void A3::apply_map(unordered_map<int, JointNodeInfo> curr_map) {
   }
 }
 
-void A3::redo() {
+void A5::redo() {
   if (redo_stack.size() > 0) {
     unordered_map<int, JointNodeInfo> redo_map = redo_stack.back();
     redo_stack.pop_back();
@@ -780,7 +782,7 @@ void A3::redo() {
   }
 }
 
-void A3::undo() {
+void A5::undo() {
   if (undo_stack.size() > 1) {
     unordered_map<int, JointNodeInfo> undo_map = undo_stack.back();
     undo_stack.pop_back();
@@ -790,7 +792,7 @@ void A3::undo() {
   }
 }
 
-void A3::updateUndoStack() {
+void A5::updateUndoStack() {
   queue<SceneNode *> queue;
   queue.emplace(m_rootNode.get());
   unordered_map<int, JointNodeInfo> undo_map;
@@ -812,7 +814,7 @@ void A3::updateUndoStack() {
   undo_stack.emplace_back(undo_map);
 }
 
-void A3::initShadowTexture() {
+void A5::initShadowTexture() {
   glGenFramebuffers(1, &shadowMapFBO);
   glGenTextures(1, &shadowMap);
   glBindTexture(GL_TEXTURE_2D, shadowMap);
@@ -834,7 +836,7 @@ void A3::initShadowTexture() {
   glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
-void A3::updateJointSet(int id) {
+void A5::updateJointSet(int id) {
   JointNode *jnode = nullptr;
   queue<SceneNode *> queue;
   SceneNode *snode = m_rootNode.get();
@@ -879,7 +881,7 @@ void A3::updateJointSet(int id) {
   }
 }
 
-void A3::pickingJoints() {
+void A5::pickingJoints() {
   uploadCommonSceneUniforms();
   glClearColor(1.0, 1.0, 1.0, 1.0);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -915,7 +917,7 @@ void A3::pickingJoints() {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::processLuaSceneFile(const std::string &filename) {
+void A5::processLuaSceneFile(const std::string &filename) {
   // This version of the code treats the Lua file as an Asset,
   // so that you'd launch the program with just the filename
   // of a puppet in the Assets/ directory.
@@ -931,7 +933,7 @@ void A3::processLuaSceneFile(const std::string &filename) {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::createShaderProgram() {
+void A5::createShaderProgram() {
   m_shader.generateProgramObject();
   m_shader.attachVertexShader(
       getAssetFilePath("shader/VertexShader.vs").c_str());
@@ -991,7 +993,7 @@ void A3::createShaderProgram() {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::enableVertexShaderInputSlots() {
+void A5::enableVertexShaderInputSlots() {
   //-- Enable input slots for m_vao_meshData:
   {
     glBindVertexArray(m_vao_meshData);
@@ -1030,7 +1032,7 @@ void A3::enableVertexShaderInputSlots() {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::uploadVertexDataToVbos(const MeshConsolidator &meshConsolidator) {
+void A5::uploadVertexDataToVbos(const MeshConsolidator &meshConsolidator) {
   // Generate VBO to store all vertex position data
   {
     glGenBuffers(1, &m_vbo_vertexPositions);
@@ -1091,7 +1093,7 @@ void A3::uploadVertexDataToVbos(const MeshConsolidator &meshConsolidator) {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::mapVboDataToVertexShaderInputLocations() {
+void A5::mapVboDataToVertexShaderInputLocations() {
   // Bind VAO in order to record the data mapping.
   glBindVertexArray(m_vao_meshData);
 
@@ -1135,14 +1137,14 @@ void A3::mapVboDataToVertexShaderInputLocations() {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::initPerspectiveMatrix() {
+void A5::initPerspectiveMatrix() {
   float aspect = ((float)m_windowWidth) / m_windowHeight;
   m_perpsective =
       glm::perspective(degreesToRadians(65.0f), aspect, 0.1f, 100.0f);
 }
 
 //----------------------------------------------------------------------------------------
-void A3::initViewMatrix() {
+void A5::initViewMatrix() {
   // ------------ Shadow test puppet mode
   // m_view = glm::lookAt(vec3(0.0f, 0.0f, 0.0f), vec3(0.0f, 0.0f, -1.0f),
   //                      vec3(0.0f, 1.0f, 0.0f));
@@ -1155,7 +1157,7 @@ void A3::initViewMatrix() {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::initLightSources() {
+void A5::initLightSources() {
   // World-space position
   // -----------Normal mode--------------
   m_light.position = vec3(-30.0f, 2 * 40.0f, 2 * 30.0f);
@@ -1165,7 +1167,7 @@ void A3::initLightSources() {
 }
 
 //----------------------------------------------------------------------------------------
-void A3::uploadCommonSceneUniforms() {
+void A5::uploadCommonSceneUniforms() {
   m_shader.enable();
   {
     //-- Set Perpsective matrix uniform for the scene:
@@ -1203,7 +1205,7 @@ void A3::uploadCommonSceneUniforms() {
   m_shader.disable();
 }
 
-void A3::startGame() {
+void A5::startGame() {
   if (!gameStart) {
     gameStart = true;
     alSourcePlay(backgroundSource);
@@ -1215,7 +1217,7 @@ void A3::startGame() {
   }
 }
 
-void A3::endGame() {
+void A5::endGame() {
   initTimeQueue("Assets/sound/timeslot.txt", "Assets/sound/timeslotmove.txt");
   alSourceStop(backgroundSource);
   gameStart = false;
@@ -1224,7 +1226,7 @@ void A3::endGame() {
   far = false;
 }
 
-void A3::updateParticles() {
+void A5::updateParticles() {
   particleSys.particlesCount = 0;
   for (int i = 0; i < particleSys.maxParticles; i++) {
     Particle &p = particleSys.particlesContainer[i];
@@ -1284,7 +1286,7 @@ void A3::updateParticles() {
 /*
  * Called once per frame, before guiLogic().
  */
-void A3::appLogic() {
+void A5::appLogic() {
   // Place per frame, application logic here ...
   updateParticles();
 
@@ -1300,7 +1302,7 @@ void A3::appLogic() {
 /*
  * Called once per frame, after appLogic(), but before the draw() method.
  */
-void A3::guiLogic() {
+void A5::guiLogic() {
   if (!show_gui) {
     return;
   }
@@ -1351,7 +1353,7 @@ void A3::guiLogic() {
   if (ImGui::BeginMenu("Premium Options")) {
     ImGui::Checkbox("Toon Shader (T)", &toonrender);
     ImGui::Checkbox("Shadow (S)", &shadowMaprender);
-    ImGui::Checkbox("Particle System (P)", &particlerender);
+    ImGui::Checkbox("Particle System (A)", &particlerender);
 
     ImGui::Text("L-System Model:");
     ImGui::SameLine();
@@ -1570,13 +1572,13 @@ updateShaderUniforms(const ShaderProgram &shader, const GeometryNode &node,
   shader.disable();
 }
 
-void A3::updateSphereAnimation() {
+void A5::updateSphereAnimation() {
   if (curr_mode == 0) {
     outerSphere->rotate('x', 0.15);
   }
 }
 
-void A3::updateStarAnimation() {
+void A5::updateStarAnimation() {
   // shipRNode->rotate('x', -15);
   // shipRNode->rotate('x', -50);
   if (mid && curr_loc != 1) {
@@ -1622,7 +1624,7 @@ void A3::updateStarAnimation() {
   }
 }
 
-void A3::updateShipAnimation(float L_speed, float R_speed) {
+void A5::updateShipAnimation(float L_speed, float R_speed) {
   if (Ldir == 1) {
     shipLNode->translate(vec3(0.0f, L_speed, 0.0f));
     LCurrZ += L_speed;
@@ -1652,13 +1654,13 @@ void A3::updateShipAnimation(float L_speed, float R_speed) {
   }
 }
 
-void A3::updateCurrShipLoc(vec3 speed) {
+void A5::updateCurrShipLoc(vec3 speed) {
   for (auto &v : curr_Lship_loc) {
     v += speed;
   }
 }
 
-void A3::moveLboatAnimation(vec3 L_speed, int mode) {
+void A5::moveLboatAnimation(vec3 L_speed, int mode) {
   // mode 0, left first
   if (mode == 0) {
     if (moveLeft) {
@@ -1676,6 +1678,7 @@ void A3::moveLboatAnimation(vec3 L_speed, int mode) {
       curr_L_loc += L_speed;
       if (curr_L_loc.x >= origin) {
         moveRight = false;
+        Lmode[0] = 0;
       }
     }
   } else if (mode == 1) {
@@ -1695,6 +1698,7 @@ void A3::moveLboatAnimation(vec3 L_speed, int mode) {
       curr_L_loc -= L_speed;
       if (curr_L_loc.x <= origin) {
         moveLeft = false;
+        Lmode[1] = 0;
       }
     }
   } else if (mode == 2) {
@@ -1714,12 +1718,13 @@ void A3::moveLboatAnimation(vec3 L_speed, int mode) {
       curr_L_loc -= L_speed;
       if (curr_L_loc.y <= origin) {
         movedown = false;
+        Lmode[2] = 0;
       }
     }
   }
 }
 
-bool A3::checkCollision() {
+bool A5::checkCollision() {
   for (auto locV : curr_Lship_loc) {
     if (abs(locV.x - curr_bullet_loc.x) <= 2.5 &&
         abs(locV.z - curr_bullet_loc.z) <= 2.5 &&
@@ -1730,7 +1735,7 @@ bool A3::checkCollision() {
   return false;
 }
 
-void A3::hitAnimation(vec3 speed, int pos) {
+void A5::hitAnimation(vec3 speed, int pos) {
   if (bullet) {
     bullet->translate(speed);
     curr_bullet_loc = vec3(bullet->trans * vec4(0, 0, 0, 1));
@@ -1749,7 +1754,7 @@ void A3::hitAnimation(vec3 speed, int pos) {
   }
 }
 
-void A3::hitBulletAnimation() {
+void A5::hitBulletAnimation() {
   vec3 speed;
   if (curr_loc == 0) {
     speed = vec3(-0.33, 0, 0);
@@ -1788,7 +1793,7 @@ void A3::hitBulletAnimation() {
   hitAnimation(speed, 0);
 }
 
-void A3::updateTimeAnimation() {
+void A5::updateTimeAnimation() {
   currTimeInterval = timeQueue.front();
   currTimeMoveInterval = timeMoveQueue.front();
   currTime = timeSinceEpochMillisec() - startTime;
@@ -1824,7 +1829,7 @@ void A3::updateTimeAnimation() {
 /*
  * Called once per frame, after guiLogic().
  */
-void A3::draw() {
+void A5::draw() {
   if (ZBuffer) {
     glEnable(GL_DEPTH_TEST);
   }
@@ -1839,25 +1844,25 @@ void A3::draw() {
     }
   }
 
-  // if (gameStart) {
-  //   updateTimeAnimation();
-  //   updateSphereAnimation();
-  // }
-  // updateShipAnimation(0.01, 0.015);
-  // updateStarAnimation();
-  // if (Lmode == 0)
-  //   moveLboatAnimation(vec3(0.45, 0, 0), 0);
-  // else if (Lmode == 1)
-  //   moveLboatAnimation(vec3(0.45, 0, 0), 1);
-  // else if (Lmode == 2) {
-  //   if (curr_loc == 0)
-  //     moveLboatAnimation(vec3(0, 0.34, 0.34), 2);
-  //   else
-  //     moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
-  // }
+  if (gameStart) {
+    updateTimeAnimation();
+    updateSphereAnimation();
+  }
+  updateShipAnimation(0.01, 0.015);
+  updateStarAnimation();
+  if (Lmode[0])
+    moveLboatAnimation(vec3(0.45, 0, 0), 0);
+  if (Lmode[1])
+    moveLboatAnimation(vec3(0.45, 0, 0), 1);
+  if (Lmode[2]) {
+    if (curr_loc == 0)
+      moveLboatAnimation(vec3(0, 0.34, 0.34), 2);
+    else
+      moveLboatAnimation(vec3(0, 0.3, 0.3), 2);
+  }
 
-  // if (bulletout)
-  //   hitBulletAnimation();
+  if (bulletout)
+    hitBulletAnimation();
 
   mat4 modeltrans = mat4(1.0f);
   mat4 modeltransS = mat4(1.0f);
@@ -1874,7 +1879,7 @@ void A3::draw() {
 
     renderShadowScene(*m_rootNode, modeltrans, modeltransS);
     m_shader_shadow.disable();
-    glViewport(0, 0, 1024, 768);
+    glViewport(0, 0, m_framebufferWidth, m_framebufferHeight);
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -1917,7 +1922,7 @@ void A3::draw() {
   }
 }
 
-void A3::renderShadow() {
+void A5::renderShadow() {
   glm::mat4 l_perspective = ortho(-60.0f, 60.0f, -60.0f, 60.0f, l_near, l_far);
   glm::mat4 lightView =
       glm::lookAt(m_light.position, glm::vec3(0.0f, 0.0f, 0.0f),
@@ -1933,7 +1938,7 @@ void A3::renderShadow() {
 
 unsigned int quadVAO = 0;
 unsigned int quadVBO;
-void A3::renderQuadScene(const SceneNode &root, mat4 modeltrans,
+void A5::renderQuadScene(const SceneNode &root, mat4 modeltrans,
                          mat4 modelScale) {
   m_shader_debug.enable();
   glActiveTexture(GL_TEXTURE0);
@@ -1964,7 +1969,7 @@ void A3::renderQuadScene(const SceneNode &root, mat4 modeltrans,
   glBindVertexArray(0);
 }
 
-void A3::renderShadowScene(const SceneNode &root, mat4 modeltrans,
+void A5::renderShadowScene(const SceneNode &root, mat4 modeltrans,
                            mat4 modelScale) {
 
   glBindVertexArray(m_vao_meshData);
@@ -2006,7 +2011,7 @@ void A3::renderShadowScene(const SceneNode &root, mat4 modeltrans,
 }
 
 // //----------------------------------------------------------------------------------------
-void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
+void A5::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
                           mat4 modelScale) {
 
   // Bind the VAO once here, and reuse for all GeometryNode rendering below.
@@ -2083,7 +2088,7 @@ void A3::renderSceneGraph(const SceneNode &root, mat4 modeltrans,
   CHECK_GL_ERRORS;
 }
 
-void A3::renderParticles() {
+void A5::renderParticles() {
   m_shader_particle.enable();
   glEnable(GL_DEPTH_TEST);
 
@@ -2127,7 +2132,7 @@ void A3::renderParticles() {
   CHECK_GL_ERRORS;
 }
 
-void A3::renderCubeMap() {
+void A5::renderCubeMap() {
   m_shader_cubemap.enable();
   glEnable(GL_DEPTH_TEST);
   glDepthFunc(GL_LEQUAL);
@@ -2149,7 +2154,7 @@ void A3::renderCubeMap() {
 
 //----------------------------------------------------------------------------------------
 // Draw the trackball circle.
-void A3::renderArcCircle() {
+void A5::renderArcCircle() {
   glBindVertexArray(m_vao_arcCircle);
 
   m_shader_arcCircle.enable();
@@ -2173,13 +2178,13 @@ void A3::renderArcCircle() {
 /*
  * Called once, after program is signaled to terminate.
  */
-void A3::cleanup() {}
+void A5::cleanup() {}
 
 //----------------------------------------------------------------------------------------
 /*
  * Event handler.  Handles cursor entering the window area events.
  */
-bool A3::cursorEnterWindowEvent(int entered) {
+bool A5::cursorEnterWindowEvent(int entered) {
   bool eventHandled(false);
 
   // Fill in with event handling code...
@@ -2187,7 +2192,7 @@ bool A3::cursorEnterWindowEvent(int entered) {
   return eventHandled;
 }
 
-void A3::rotateTest(SceneNode &root) {
+void A5::rotateTest(SceneNode &root) {
   for (SceneNode *node : root.children) {
     if (node->m_name == "neckJoint") {
       // printf("reachhere\n");
@@ -2198,7 +2203,7 @@ void A3::rotateTest(SceneNode &root) {
   }
 }
 
-void A3::movePuppetXYZ(float x_amount, float y_amount, vector<int> idx) {
+void A5::movePuppetXYZ(float x_amount, float y_amount, vector<int> idx) {
   mat4 lastM = prev_transMatrix;
   for (int i = 0; i < idx.size(); i++) {
     int direction = idx[i];
@@ -2211,7 +2216,7 @@ void A3::movePuppetXYZ(float x_amount, float y_amount, vector<int> idx) {
   }
 }
 
-void A3::rotatePuppetXYZ(float curr_x, float curr_y) {
+void A5::rotatePuppetXYZ(float curr_x, float curr_y) {
   float diff_x = curr_x - initX;
   float diff_y = curr_y - initY;
   float center_x = m_framebufferWidth / 2;
@@ -2275,7 +2280,7 @@ void A3::rotatePuppetXYZ(float curr_x, float curr_y) {
   }
 }
 
-void A3::rotateJoints(float curr_x, float curr_y, bool rotateZ, bool posDirX,
+void A5::rotateJoints(float curr_x, float curr_y, bool rotateZ, bool posDirX,
                       bool posDirY) {
   float diffy = -1 * (curr_y - prevY);
   float diffx = -1 * (curr_x - prevX);
@@ -2298,7 +2303,7 @@ void A3::rotateJoints(float curr_x, float curr_y, bool rotateZ, bool posDirX,
   }
 }
 
-void A3::rotateHead(float xpos, float ypos) {
+void A5::rotateHead(float xpos, float ypos) {
   float diffy = -1 * (ypos - prevY);
   if (headJoint) {
     bool updateY = headJoint->updateAngle(diffy * 0.1, 1);
@@ -2311,7 +2316,7 @@ void A3::rotateHead(float xpos, float ypos) {
 /*
  * Event handler.  Handles mouse cursor movement events.
  */
-bool A3::mouseMoveEvent(double xPos, double yPos) {
+bool A5::mouseMoveEvent(double xPos, double yPos) {
   bool eventHandled(false);
   double xpos, ypos;
   glfwGetCursorPos(m_window, &xpos, &ypos);
@@ -2371,7 +2376,7 @@ bool A3::mouseMoveEvent(double xPos, double yPos) {
 /*
  * Event handler.  Handles mouse button events.
  */
-bool A3::mouseButtonInputEvent(int button, int actions, int mods) {
+bool A5::mouseButtonInputEvent(int button, int actions, int mods) {
   bool eventHandled(false);
 
   // Fill in with event handling code...
@@ -2405,7 +2410,7 @@ bool A3::mouseButtonInputEvent(int button, int actions, int mods) {
 /*
  * Event handler.  Handles mouse scroll wheel events.
  */
-bool A3::mouseScrollEvent(double xOffSet, double yOffSet) {
+bool A5::mouseScrollEvent(double xOffSet, double yOffSet) {
   bool eventHandled(false);
 
   // Fill in with event handling code...
@@ -2417,13 +2422,13 @@ bool A3::mouseScrollEvent(double xOffSet, double yOffSet) {
 /*
  * Event handler.  Handles window resize events.
  */
-bool A3::windowResizeEvent(int width, int height) {
+bool A5::windowResizeEvent(int width, int height) {
   bool eventHandled(false);
   initPerspectiveMatrix();
   return eventHandled;
 }
 
-void A3::rotateHeadAuto() {
+void A5::rotateHeadAuto() {
   if (click && angle < 90 && glfwGetTime() > 0.1f) {
     headJoint->rotate('y', 1);
     angle += 1;
@@ -2438,7 +2443,7 @@ void A3::rotateHeadAuto() {
 /*
  * Event handler.  Handles key input events.
  */
-bool A3::keyInputEvent(int key, int action, int mods) {
+bool A5::keyInputEvent(int key, int action, int mods) {
   bool eventHandled(false);
 
   if (action == GLFW_PRESS) {
@@ -2520,12 +2525,12 @@ bool A3::keyInputEvent(int key, int action, int mods) {
     if (key == GLFW_KEY_LEFT) {
       alSourcePlay(moveSource);
       moveLeft = true;
-      Lmode = 0;
+      Lmode[0] = 1;
     }
     if (key == GLFW_KEY_RIGHT) {
       alSourcePlay(moveSource);
       moveRight = true;
-      Lmode = 1;
+      Lmode[1] = 1;
     }
     if (key == GLFW_KEY_W) {
       initBullet(angleList[curr_loc], false);
@@ -2534,7 +2539,7 @@ bool A3::keyInputEvent(int key, int action, int mods) {
     if (key == GLFW_KEY_UP) {
       alSourcePlay(moveSource);
       moveup = true;
-      Lmode = 2;
+      Lmode[2] = 1;
     }
     if (key == GLFW_KEY_SPACE) {
       if (gameStart && curr_mode == 0) {

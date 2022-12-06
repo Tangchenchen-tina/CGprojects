@@ -84,4 +84,5 @@ bool JointNode::updateAngle(float angle, int idx){
 			return false;
 		}
 	}
+	return false;
 }
