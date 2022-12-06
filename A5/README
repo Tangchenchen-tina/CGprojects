@@ -1,7 +1,11 @@
-Compilation:
-- In A5 directory, run 'premake4 gmake'
-- In A5 directory, run 'make'
-- In A5 directory, run './A5 Assets/project.lua'
+Compilation:\
+As this project need to use OpenAL for sound, I run it on gl36.student.cs machine in lab.
+- In top-level directory, run 'premake4 gmake'
+- In top-level directory, run 'make'
+- cd A5
+- In /A5 directory, run 'premake4 gmake'
+- In /A5 directory, run 'make'
+- In /A5 directory, run './A5 Assets/project.lua'
 
 Manual:
 - Play instruction:
@@ -51,4 +55,15 @@ In both Travel Mode and Game Mode, user could drag right button of mouse to move
       -- (SPACE) Start Game: will start the game in game mode.
       -- (SPACE) End Game: stop game.
 
-      
+
+Objectives:
+- Modeling Characters
+- Modeling Scene
+- Texture Mapping
+- Sound Effect
+- Cel/toon Shader
+- L-System
+- Particle System
+- Animation
+- Collision Detection
+- Shadow Map
